@@ -1,24 +1,59 @@
-SRCS = main.c manage_env.c
-CFLAGS = -Wall -Werror -Wextra
 NAME = minishell
-INC = minishell.h
-OBJS = ${SRCS:%.c=%.o}
 
-all: ${NAME}
+#COMPILE
 
-${NAME} : ${OBJS} ${INC}
-	gcc ${CFLAGS} ${OBJS} -lreadline -o minishell
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=address
 
-%.c : %.o
-	@gcc ${CFLAGS} -c -I minishell.h
+#LIBFT
 
-extend_flag:
-	$(eval CFLAGS+=-g)
+LIBFT = libft/libft.a
 
-clean:
-	@rm -f ${OBJS}
+#DIRECTORY
 
-fclean: clean
-	rm -f ${NAME}
+DIR_BUILD = build/
+INC = -I libft
 
-re: fclean all
+SRCS = main.c manage_env.c utils.c \
+
+OBJS = $(addprefix $(DIR_BUILD), $(SRCS:.c=.o))
+
+all : $(LIBFT) $(DIR_BUILD) $(NAME)
+
+$(DIR_BUILD):
+	mkdir -p $@
+
+$(NAME) : $(OBJS)
+	$(CC) $(CFLAGS) $^ -o $@ -L libft -lft -lreadline
+
+$(LIBFT):
+	make -C libft/
+
+
+$(OBJS): $(DIR_BUILD)%.o: %.c
+	$(CC) -c $(CFLAGS) $(INC) $< -o $@
+
+
+
+lclean:
+	make -C libft clean
+
+lfclean:
+	make -C libft fclean
+
+lre:
+	make -C libft re
+
+mclean:
+	rm -rf $(DIR_BUILD)
+
+mfclean: mclean
+	rm -rf $(NAME)
+
+clean: lclean mclean
+
+fclean: lfclean mfclean
+
+re: lre mfclean all
+
+.PHONY: all clean fclean re
