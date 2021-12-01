@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 10:18:55 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/01 18:28:01 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/12/01 20:17:05 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ typedef struct s_datas
 */
 
 t_datas	*manage_env(t_datas *datas);
-char	**ft_unset(char **env, int index);
-char	**ft_export(char **env, int len_env, char *var);
+int		ft_unset(char **env, char *var);
+int		ft_export(char ***env, int *len_env, char *var);
 char	**envp_to_alloc_tab(char **envp, int *len_env);
 int	get_envindex(char **env, char *var);
 

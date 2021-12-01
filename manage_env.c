@@ -6,7 +6,7 @@
 /*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 17:39:30 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/01 18:29:48 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/12/01 20:18:50 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,14 @@ int	get_envindex(char **env, char *var)
 	return (-1);
 }
 
-char	**ft_unset(char **env, int index)
+int	ft_unset(char **env, char *var)
 {
+	int		index;
 	char	*tmp;
+
+	index = get_envindex(env, var);
 	if (index < 0)
-		return (env);
+		return (0);
 	free(env[index]);
 	env[index] = NULL;
 	index++;
@@ -99,21 +102,32 @@ char	**ft_unset(char **env, int index)
 		env[index] = tmp;
 		index++;
 	}
-	return (env);
+	return (1);
 }
 
-char	**ft_export(char **env, int len_env, char *var)
+int	ft_export(char ***env, int *len_env, char *var)
 {
-	int	i;
+	int		i;
+	char	**new;
+	char	**tmp;
 
+	tmp = *env;
 	i = 0;
-	(void)var;
-	while (env[i])
+	while (tmp[i])
 	{
 		i++;
 	}
-	printf("i %i, len env %i\n", i, len_env);
-	return (env);
+	if (i < *len_env)
+		tmp[i] = ft_strdup(var);
+	else
+	{
+		new = ft_add_in_tab(tmp, var);
+		free(tmp);
+		tmp = new;
+		*env = tmp;
+		*len_env += 1;
+	}
+	return (1);
 
 }
 
@@ -127,8 +141,7 @@ char	**envp_to_alloc_tab(char **envp, int *len_env)
 	i = 0;
 	while (i < *len_env)
 	{
-			new[i] = ft_calloc(ft_strlen(envp[i]) + 1, sizeof(char));
-			ft_strcpy(new[i], envp[i]);
+			new[i] = ft_strdup(envp[i]);
 			i++;
 	}
 	return (new);

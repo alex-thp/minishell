@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:26:48 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/01 18:31:09 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/12/01 20:17:14 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,11 @@ void	interpret_command(char *command)
 {
 	printf("la commande : %s\n", command);
 }
- //clear history : rl_clear_history();
  //print l'env : printf("%s\n", *(env->g_env));
 
 int		main(int ac, char **av, char **envp)
 {
-	char	*command;
+//	char	*command;
 	t_datas	*datas;
 
 	(void)ac;
@@ -29,8 +28,10 @@ int		main(int ac, char **av, char **envp)
 	using_history();
 	datas = (t_datas *)malloc(sizeof(t_datas));
 	datas->env = envp_to_alloc_tab(envp, &datas->len_env);
-	datas->env = ft_unset(datas->env, 5);
-	datas->env = ft_export(datas->env, datas->len_env, "test");
+	ft_puttab(datas->env);
+	ft_unset(datas->env, "");
+	ft_export(&datas->env, &datas->len_env, "test");
+	ft_puttab(datas->env);
 	//datas = manage_env(datas);
 	/* Builtin ENV
 	while(tmp->next)
@@ -39,12 +40,14 @@ int		main(int ac, char **av, char **envp)
 		tmp = tmp->next;
 	}
 	*/
-	while (1)
-	{
-		command = readline("Minishell $> ");
-		add_history(command);
-		interpret_command(command);
-	}
+//	while (1)
+//	{
+//		command = readline("Minishell $> ");
+//		add_history(command);
+//		interpret_command(command);
+//	}
+	rl_clear_history();
+	ft_freetab(datas->env);
 	free(datas);
-	free(command);
+//	free(command);
 }
