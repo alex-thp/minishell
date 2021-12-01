@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   manage_env.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/01 17:39:30 by adylewsk          #+#    #+#             */
+/*   Updated: 2021/12/01 18:29:48 by adylewsk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int     get_size_name(char  *env)
@@ -72,7 +84,7 @@ int	get_envindex(char **env, char *var)
 	return (-1);
 }
 
-char	**unset(char **env, int index)
+char	**ft_unset(char **env, int index)
 {
 	char	*tmp;
 	if (index < 0)
@@ -90,16 +102,30 @@ char	**unset(char **env, int index)
 	return (env);
 }
 
-char	**envp_to_alloc_tab(char **envp)
+char	**ft_export(char **env, int len_env, char *var)
+{
+	int	i;
+
+	i = 0;
+	(void)var;
+	while (env[i])
+	{
+		i++;
+	}
+	printf("i %i, len env %i\n", i, len_env);
+	return (env);
+
+}
+
+char	**envp_to_alloc_tab(char **envp, int *len_env)
 {
 	char	**new;
-	int		len_envp;
 	int		i;
 
-	len_envp = ft_tablen(envp);
-	new = ft_calloc(len_envp + 1, sizeof(char *));
+	*len_env = ft_tablen(envp);
+	new = ft_calloc(*len_env + 1, sizeof(char *));
 	i = 0;
-	while (i < len_envp)
+	while (i < *len_env)
 	{
 			new[i] = ft_calloc(ft_strlen(envp[i]) + 1, sizeof(char));
 			ft_strcpy(new[i], envp[i]);
