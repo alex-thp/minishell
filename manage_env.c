@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   manage_env.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/01 17:39:30 by adylewsk          #+#    #+#             */
+/*   Updated: 2021/12/01 20:18:50 by adylewsk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int     get_size_name(char  *env)
@@ -56,72 +68,155 @@ char	*get_value(char *env)
 	return (value);
 }
 
-t_env	*create_new(char *name, char *value)
+int	get_envindex(char **env, char *var)
 {
-	t_env	*new;
+	int	i;
+	int	len_var;
 
-	new = malloc(sizeof(t_env));
-	new->name = name;
-	new->value = value;
-	new->previous = NULL;
-	new->next = NULL;
+	i = 0;
+	len_var = ft_strlen(var);
+	while (env[i])
+	{
+		if (!ft_memcmp(env[i], var, len_var) && (env[i][len_var] == '='))
+				return (i);
+		i++;
+	}
+	return (-1);
+}
+
+int	ft_unset(char **env, char *var)
+{
+	int		index;
+	char	*tmp;
+
+	index = get_envindex(env, var);
+	if (index < 0)
+		return (0);
+	free(env[index]);
+	env[index] = NULL;
+	index++;
+	while (env[index])
+	{
+		tmp = env[index - 1];
+		env[index - 1] = env[index];
+		env[index] = tmp;
+		index++;
+	}
+	return (1);
+}
+
+int	ft_export(char ***env, int *len_env, char *var)
+{
+	int		i;
+	char	**new;
+	char	**tmp;
+
+	tmp = *env;
+	i = 0;
+	while (tmp[i])
+	{
+		i++;
+	}
+	if (i < *len_env)
+		tmp[i] = ft_strdup(var);
+	else
+	{
+		new = ft_add_in_tab(tmp, var);
+		free(tmp);
+		tmp = new;
+		*env = tmp;
+		*len_env += 1;
+	}
+	return (1);
+
+}
+
+char	**envp_to_alloc_tab(char **envp, int *len_env)
+{
+	char	**new;
+	int		i;
+
+	*len_env = ft_tablen(envp);
+	new = ft_calloc(*len_env + 1, sizeof(char *));
+	i = 0;
+	while (i < *len_env)
+	{
+			new[i] = ft_strdup(envp[i]);
+			i++;
+	}
 	return (new);
 }
 
-void	push_last(t_ptr_env *list, t_env *new)
-{
-	if (!new)
-		return;
-	new->next = NULL;
-	new->previous = list->last;
-	if (list->last)
-		list->last->next = new;
-	else
-		list->first = new;
-	list->last = new;
-}
-
-void	init_list(t_ptr_env *list)
-{
-	list->first = NULL;
-	list->last = NULL;
-}
-
-t_datas	*manage_env(t_datas *datas)
-{
-	char		**copy;
-	t_env		*new;
-	
-	t_env		*tmp;
-	init_list(&datas->env);
-	copy = datas->base_env;
-	while(*copy)
-	{
-		new = create_new(get_name(*copy), get_value(*copy));
-		push_last(&datas->env, new);
-		copy++;
-	}
-	tmp = datas->env.first;
-	while (tmp)
-	{
-		//printf("name : %s=%s\n", tmp->name, tmp->value);
-		tmp = tmp->next;
-	}
 
 
-	// list = (t_env *)malloc(sizeof(t_env));
-	// copy = datas->base_env;
-	// tmp = NULL;
-    // while (*copy)
-    // {
-	// 	if ()
-	// 	//printf("list->previous [%p], list->next [%p]\n", list->previous, list->next);
-    //     copy++;
-    // }
-	// while (list->previous != NULL)
-	// {
-	// 	list = list->previous;
-	// 	//printf("%p\n", list->previous);
-	// }
-	return (datas);
-}
+
+
+//t_env	*create_new(char *name, char *value)
+//{
+//	t_env	*new;
+//
+//	new = malloc(sizeof(t_env));
+//	new->name = name;
+//	new->value = value;
+//	new->previous = NULL;
+//	new->next = NULL;
+//	return (new);
+//}
+//
+//void	push_last(t_ptr_env *list, t_env *new)
+//{
+//	if (!new)
+//		return;
+//	new->next = NULL;
+//	new->previous = list->last;
+//	if (list->last)
+//		list->last->next = new;
+//	else
+//		list->first = new;
+//	list->last = new;
+//}
+//
+//void	init_list(t_ptr_env *list)
+//{
+//	list->first = NULL;
+//	list->last = NULL;
+//}
+//
+//t_datas	*manage_env(t_datas *datas)
+//{
+//	char		**copy;
+//	t_env		*new;
+//	
+//	t_env		*tmp;
+//	init_list(&datas->env);
+//	copy = datas->base_env;
+//	while(*copy)
+//	{
+//		new = create_new(get_name(*copy), get_value(*copy));
+//		push_last(&datas->env, new);
+//		copy++;
+//	}
+//	tmp = datas->env.first;
+//	while (tmp)
+//	{
+//		//printf("name : %s=%s\n", tmp->name, tmp->value);
+//		tmp = tmp->next;
+//	}
+//
+//
+//	// list = (t_env *)malloc(sizeof(t_env));
+//	// copy = datas->base_env;
+//	// tmp = NULL;
+//    // while (*copy)
+//    // {
+//	// 	if ()
+//	// 	//printf("list->previous [%p], list->next [%p]\n", list->previous, list->next);
+//    //     copy++;
+//    // }
+//	// while (list->previous != NULL)
+//	// {
+//	// 	list = list->previous;
+//	// 	//printf("%p\n", list->previous);
+//	// }
+//	return (datas);
+//}
