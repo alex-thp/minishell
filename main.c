@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:26:48 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/11/30 13:36:04 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/12/01 16:18:50 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,6 @@ int		main(int ac, char **av, char **envp)
 	using_history();
 	datas = (t_datas *)malloc(sizeof(t_datas));
 	datas->env = envp_to_alloc_tab(envp);
-	ft_puttab(datas->env);
-	unset(datas->env, get_envindex(datas->env, "PATH"));
-	ft_puttab(datas->env);
-	unset(datas->env, get_envindex(datas->env, "LESS"));
-	ft_puttab(datas->env);
 	//datas = manage_env(datas);
 	/* Builtin ENV
 	while(tmp->next)
