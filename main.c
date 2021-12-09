@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:26:48 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/08 17:31:21 by ade-temm         ###   ########.fr       */
+/*   Updated: 2021/12/09 09:50:18 by ade-temm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ t_command	*create_cmd(char *command)
 
 }
 
-t_node	*create_node(char *command)
+t_node	*create_node_command(char *command)
 {
 	t_node	*node;
 
@@ -161,18 +161,40 @@ t_node	*create_node(char *command)
 	return (node);
 }
 
+t_node	*create_node_pipe(void)
+{
+	t_node *node;
+
+	node = (t_node *)malloc(sizeof(t_node));
+	node->redir = NULL;
+	node->cmd = create_cmd("pipe");
+	node->left = NULL;
+	node->right = NULL;
+	return (node);
+}
+
 t_node	*create_tree(char **command)
 {
 	int		i;
 	t_node	*head;
+	t_node	*tmp;
 
 	i = 0;
 	while(command[i])
 		i++;
+	tmp = create_node_pipe();
+	head = tmp;
+	i--;
 	while (i > 0)
 	{
+		tmp->right = create_node_command(command[i]);
+		if (i != 1)
+			tmp->left = create_node_pipe();
+		else{
+			tmp->left = create_node_command(command[i - 1]);
+		}
+		tmp = tmp->left;
 		i--;
-		head = create_node(command[i]);
 	}
 	return (head);
 }
@@ -185,11 +207,11 @@ void	interpret_command(char *command, t_datas *datas)
 	if (parsed_command == NULL)
 		return ;
 	datas->head = create_tree(parsed_command);
-	// while (*parsed_command)
-	// {
-	// 	printf("%s\n", *parsed_command);
-	// 	parsed_command++;
-	// }
+	while(datas->head->left)
+	{
+		printf("[ici : %s] [left : %s] [right : %s]\n", datas->head->cmd->name, datas->head->left->cmd->name, datas->head->right->cmd->name);
+		datas->head = datas->head->left;
+	}
 	//printf("la commande : %s\n", command);
 }
  //print l'env : printf("%s\n", *(env->g_env));
