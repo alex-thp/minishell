@@ -64,16 +64,40 @@ typedef struct s_redirection
 * manage_env.c
 */
 
-t_datas	*manage_env(t_datas *datas);
-int		ft_unset(char **env, char *var);
-int		ft_export(char ***env, int *len_env, char *var);
-char	**envp_to_alloc_tab(char **envp, int *len_env);
-int	get_envindex(char **env, char *var);
+t_datas			*manage_env(t_datas *datas);
+int				ft_unset(char **env, char *var);
+int				ft_export(char ***env, int *len_env, char *var);
+char			**envp_to_alloc_tab(char **envp, int *len_env);
+int				get_envindex(char **env, char *var);
 
 /*
 * utils.c
 */
 
-char	**ft_split(char const *s, char c);
+char			**ft_split(char const *s, char c);
+
+/*
+* create_tree.c
+*/
+
+t_redirection	*create_redir(char *command);
+t_command		*create_cmd(char *command);
+t_node			*create_node_command(char *command);
+t_node			*create_node_pipe(void);
+t_node			*create_tree(char **command);
+
+/*
+* utils_tree.c
+*/
+
+char			*get_value2(char *str, int i);
+int				is_special(char c, char *str);
+
+/*
+* lexer.c
+*/
+
+int				check_pipe_error(char *command);
+char			**lexer(char *command);
 
 #endif
