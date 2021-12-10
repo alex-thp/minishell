@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:26:48 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/09 09:50:18 by ade-temm         ###   ########.fr       */
+/*   Updated: 2021/12/10 15:59:10 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,8 @@ int		check_pipe_error(char *command) //return 1 = error || return 0 = ok
 
 char	**lexer(char *command)
 {
-	int		i;
-	int		j;
 	char	**result;
 
-	i = 0;
-	j = 0;
 	if (check_pipe_error(command) == 1)
 	{
 		printf("error with pipe\n");

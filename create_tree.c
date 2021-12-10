@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:26:48 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/09 09:50:18 by ade-temm         ###   ########.fr       */
+/*   Updated: 2021/12/10 15:58:15 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 t_redirection	*create_redir(char *command)
 {
 	int				i;
-	int				j;
 	int				fd;
 	t_redirection	*redir;
 	char			*to_open;
@@ -29,7 +28,6 @@ t_redirection	*create_redir(char *command)
 	{
 		if (command[i] == '<' || command[i] == '>' )
 		{
-			j = 0;
 			if (command[i] == '<')
 			{
 				if (redir->stdin_file)
