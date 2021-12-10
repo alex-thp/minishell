@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 10:18:55 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/08 16:55:08 by ade-temm         ###   ########.fr       */
+/*   Updated: 2021/12/10 16:17:44 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,15 @@ typedef struct s_datas
 * struct ARBRE
 */
 
-typedef struct	s_node
+typedef struct s_node
 {
-	struct s_command 		*cmd;
-	struct s_redirection 	*redir;
-	struct s_node 			*left;
-	struct s_node 			*right;
+	struct s_command		*cmd;
+	struct s_redirection	*redir;
+	struct s_node			*left;
+	struct s_node			*right;
 }				t_node;
 
-typedef struct	s_command
+typedef struct s_command
 {
 	char	*name;
 	char	**args;

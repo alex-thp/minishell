@@ -6,12 +6,11 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:26:48 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/09 09:50:18 by ade-temm         ###   ########.fr       */
+/*   Updated: 2021/12/10 16:29:04 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 void	interpret_command(char *command, t_datas *datas)
 {
@@ -20,11 +19,11 @@ void	interpret_command(char *command, t_datas *datas)
 	parsed_command = lexer(command);
 	if (parsed_command == NULL)
 		return ;
-	if (parsed_command[1])	
+	if (parsed_command[1])
 		datas->head = create_tree(parsed_command);
 	else
 		datas->head = create_node_command(&command[0]);
-	while(datas->head)
+	while (datas->head)
 	{
 		printf("[ici : %s]\n", datas->head->cmd->name);
 		if (datas->head->left)
@@ -33,7 +32,7 @@ void	interpret_command(char *command, t_datas *datas)
 	}
 }
 
-int		main(int ac, char **av, char **envp)
+int	main(int ac, char **av, char **envp)
 {
 	char	*command;
 	int		quit;
@@ -49,7 +48,7 @@ int		main(int ac, char **av, char **envp)
 	while (!quit)
 	{
 		command = readline("Minishell $> ");
-		quit = (command && command[0] == 'q' && !command[1]) || !command;
+		quit = ((command && command[0] == 'q' && !command[1]) || !command);
 		if (!quit)
 		{
 			add_history(command);

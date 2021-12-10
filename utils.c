@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/10 16:19:12 by adylewsk          #+#    #+#             */
+/*   Updated: 2021/12/10 16:22:58 by adylewsk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-static int		ft_count_word(char const *str, char c)
+static int	ft_count_word(char const *str, char c)
 {
 	int		i;
 	int		count;
@@ -18,7 +30,7 @@ static int		ft_count_word(char const *str, char c)
 	return (count);
 }
 
-static char		*ft_copy_word(char const *s, char c)
+static char	*ft_copy_word(char const *s, char c)
 {
 	char	*result;
 	int		i;
@@ -26,7 +38,8 @@ static char		*ft_copy_word(char const *s, char c)
 	i = 0;
 	while (s[i] != c && s[i] != '\0')
 		i++;
-	if (!(result = ft_calloc(i + 1, sizeof(char))))
+	result = ft_calloc(i + 1, sizeof(char));
+	if (!result)
 		return (NULL);
 	i = 0;
 	while (s[i] != c && s[i])
@@ -38,7 +51,7 @@ static char		*ft_copy_word(char const *s, char c)
 	return (result);
 }
 
-static void		ft_free(int count, char **strs)
+static void	ft_free(int count, char **strs)
 {
 	while (count > -1)
 	{
@@ -48,14 +61,15 @@ static void		ft_free(int count, char **strs)
 	free(strs);
 }
 
-char			**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	int		i;
 	int		j;
 	char	**strs;
 
 	i = ft_count_word(s, c);
-	if (!(strs = malloc(sizeof(char*) * (i + 1))))
+	strs = malloc(sizeof(char *) * (i + 1));
+	if (!strs)
 		return (0);
 	strs[i] = NULL;
 	j = 0;

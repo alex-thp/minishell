@@ -6,7 +6,7 @@
 /*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:14:03 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/03 17:32:12 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/12/10 16:06:56 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,4 @@ int	ft_export(char ***env, int *len_env, char *var)
 		*len_env += 1;
 	}
 	return (1);
-
 }
-

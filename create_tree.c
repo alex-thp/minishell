@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:26:48 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/10 15:58:15 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/12/10 16:26:17 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_redirection	*create_redir(char *command)
 	return (redir);
 }
 
-t_command		*create_cmd(char *command)
+t_command	*create_cmd(char *command)
 {
 	t_command	*cmd;
 	char		**args;
@@ -60,10 +60,9 @@ t_command		*create_cmd(char *command)
 		cmd->args = args;
 	}
 	return (cmd);
-
 }
 
-t_node			*create_node_command(char *command)
+t_node	*create_node_command(char *command)
 {
 	t_node	*node;
 
@@ -75,9 +74,9 @@ t_node			*create_node_command(char *command)
 	return (node);
 }
 
-t_node			*create_node_pipe(void)
+t_node	*create_node_pipe(void)
 {
-	t_node *node;
+	t_node	*node;
 
 	node = (t_node *)malloc(sizeof(t_node));
 	node->redir = NULL;
@@ -87,14 +86,14 @@ t_node			*create_node_pipe(void)
 	return (node);
 }
 
-t_node			*create_tree(char **command)
+t_node	*create_tree(char **command)
 {
 	int		i;
 	t_node	*head;
 	t_node	*tmp;
 
 	i = 0;
-	while(command[i])
+	while (command[i])
 		i++;
 	tmp = create_node_pipe();
 	head = tmp;
@@ -104,9 +103,8 @@ t_node			*create_tree(char **command)
 		tmp->right = create_node_command(command[i]);
 		if (i != 1)
 			tmp->left = create_node_pipe();
-		else{
+		else
 			tmp->left = create_node_command(command[i - 1]);
-		}
 		tmp = tmp->left;
 		i--;
 	}
