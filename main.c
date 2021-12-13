@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:26:48 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/10 16:29:04 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/12/13 15:53:02 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	interpret_command(char *command, t_datas *datas)
 	char	**parsed_command;
 
 	parsed_command = lexer(command);
-	if (parsed_command == NULL)
+	if (*parsed_command == NULL)
 		return ;
 	if (parsed_command[1])
 		datas->head = create_tree(parsed_command);

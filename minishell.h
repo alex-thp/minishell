@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 10:18:55 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/10 16:17:44 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/12/13 15:52:18 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,6 @@ int				ft_unset(char **env, char *var);
 int				ft_export(char ***env, int *len_env, char *var);
 char			**envp_to_alloc_tab(char **envp, int *len_env);
 int				get_envindex(char **env, char *var);
-
-/*
-* utils.c
-*/
-
-char			**ft_split(char const *s, char c);
 
 /*
 * create_tree.c
