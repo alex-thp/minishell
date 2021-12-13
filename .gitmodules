@@ -1,6 +1,3 @@
 [submodule "my_libft"]
 	path = my_libft
 	url = git@github.com:Haysk/my_libft.git
-[submodule "libft"]
-	path = libft
-	url = https://github.com/Haysk/my_libft.git
