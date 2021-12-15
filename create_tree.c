@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:26:48 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/14 15:59:06 by ade-temm         ###   ########.fr       */
+/*   Updated: 2021/12/15 16:16:18 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,8 @@ t_redirection	*create_redir(char *command)
 	char			*to_open;
 
 	redir = (t_redirection *)malloc(sizeof(t_redirection));
-	redir->stdin = -2;
-	redir->stdout = -2;
-	redir->stdin_file = NULL;
+	redir->fd_in = -2;
+	redir->fd_out = -2;
 	i = 0;
 	while (command[i] != 0)
 	{
@@ -30,16 +29,18 @@ t_redirection	*create_redir(char *command)
 		{
 			if (command[i] == '<')
 			{
-				if (redir->stdin_file)
-					free(redir->stdin_file);
-				redir->stdin_file = get_value2(command, i);
+				if (redir->fd_in)
+					close(redir->fd_in);
+				to_open = get_value2(command, i);
+				fd = open(to_open, O_RDONLY);
+				redir->fd_in = fd;
 			}
 			else if (command[i] == '>')
 			{
 				to_open = get_value2(command, i);
 				fd = open(to_open, O_CREAT | O_RDWR | O_TRUNC, 00664);
 				free(to_open);
-				redir->stdout = fd;
+				redir->fd_out = fd;
 			}
 		}
 		i++;

@@ -6,41 +6,56 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:26:48 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/15 12:52:35 by ade-temm         ###   ########.fr       */
+/*   Updated: 2021/12/15 18:55:19 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	execute_tree(t_node *head, t_datas *datas)
+void	child(int *pip, t_node *head, t_datas *datas)
 {
-	int		fd[2];
-	int		pid;
+	printf("%i\n", head->right->redir->fd_in);
+	dup2(pip[1], STDOUT_FILENO);
+	close(pip[0]);
+	if (head->left)
+	execute_tree(head->left, datas);
+
+}
+
+void	parent(int *pip, t_node *head, t_datas *datas)
+{
 	int		status;
 
-	pipe(fd);
+	if (head->redir->fd_in >= 0)
+		dup2(head->redir->fd_in, STDIN_FILENO);
+	if (head->redir->fd_out >= 0)
+		dup2(head->redir->fd_out, STDOUT_FILENO);
+	dup2(pip[0], STDIN_FILENO);
+	close(pip[1]);
+	waitpid(-1, &status, 0);
+	execve(check_exe(head->cmd->name, datas->env), head->cmd->args, datas->env);
+}
+
+void	execute_tree(t_node *head, t_datas *datas)
+{
+	int		pip[2];
+	int		pid;
+
+	pipe(pip);
 	if (!(head->cmd->name)) //PIPE
 	{
 		pid = fork();
 		if (pid == 0)
-		{
-			dup2(fd[1], 1);
-			close(fd[0]);
-			if (head->left)
-				execute_tree(head->left, datas);
-		}
-		else{
-			dup2(fd[0], 0);
-			close(fd[1]);
-			waitpid(-1, &status, 0);
-			execve(check_exe(head->right->cmd->name, datas->env), head->right->cmd->args, datas->env);
-		}
+			child(pip, head, datas);
+		else
+			parent(pip, head->right, datas);
 	}
 	else{ //On est arrive a la commande en bas a gauche
-		execve(check_exe(head->cmd->name, datas->env), head->cmd->args, datas->env);
+		parent(pip, head, datas);
+//		execve(check_exe(head->cmd->name, datas->env), head->cmd->args, datas->env);
 	}
-	close(fd[0]);
-	close(fd[1]);
+	close(pip[0]);
+	close(pip[1]);
 }
 
 void	interpret_command(char *command, t_datas *datas)

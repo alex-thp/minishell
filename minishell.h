@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 10:18:55 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/15 12:35:23 by ade-temm         ###   ########.fr       */
+/*   Updated: 2021/12/15 14:49:21 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,8 @@ typedef struct s_command
 
 typedef struct s_redirection
 {
-	char	*stdin_file;
-	int		stdin;
-	int		stdout;
-	int		fd[2];
+	int		fd_in;
+	int		fd_out;
 }				t_redirection;
 
 /*
@@ -104,5 +102,11 @@ char	**env_to_paths(char **envp);
 char	*relative_path(char *file, char **envp);
 char	*absolute_path(char *file, char **envp);
 char	*check_exe(char *file, char **envp);
+
+/*
+* main.c
+*/
+
+void	execute_tree(t_node *head, t_datas *datas);
 
 #endif
