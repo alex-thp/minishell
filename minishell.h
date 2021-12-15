@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 10:18:55 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/13 15:52:18 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/12/15 12:35:23 by ade-temm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_redirection
 	char	*stdin_file;
 	int		stdin;
 	int		stdout;
+	int		fd[2];
 }				t_redirection;
 
 /*
@@ -93,5 +94,15 @@ int				is_special(char c, char *str);
 
 int				check_pipe_error(char *command);
 char			**lexer(char *command);
+
+/*
+* files.c
+*/
+
+char	*file_to_path(char *file, char *path);
+char	**env_to_paths(char **envp);
+char	*relative_path(char *file, char **envp);
+char	*absolute_path(char *file, char **envp);
+char	*check_exe(char *file, char **envp);
 
 #endif

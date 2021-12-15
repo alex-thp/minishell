@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:26:48 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/10 16:26:17 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/12/14 15:59:06 by ade-temm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ t_node	*create_node_pipe(void)
 	t_node	*node;
 
 	node = (t_node *)malloc(sizeof(t_node));
-	node->redir = NULL;
-	node->cmd = create_cmd("pipe");
+	node->redir = create_redir("");
+	node->cmd = create_cmd("");
 	node->left = NULL;
 	node->right = NULL;
 	return (node);
