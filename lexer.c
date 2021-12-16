@@ -6,36 +6,40 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:26:48 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/10 16:05:24 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/12/16 14:28:26 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int	is_whitespace(char c)
+{
+	if (c == ' ' || c == '\t' || c == '\n'
+		|| c == '\r' || c == '\v' || c == '\f')
+		return (1);
+	return (0);
+}
+
 int	check_pipe_error(char *command) //return 1 = error || return 0 = ok
 {
 	int	i;
 	int	j;
-	int	k;
 
 	i = 0;
-	while (command[i] == 32)
-		i++;
-	if (command[i] == '|')
+	if (!command || !*command)
 		return (1);
 	while (command[i])
 	{
 		j = 0;
-		k = 1;
-		while (command[i + k] && command[i + k] != '|')
+		while (command[i] && is_whitespace(command[i]))
+			i++;
+		while (command[i] && command[i] != '|')
 		{
-			if (command[i + k] != 32)
-				j++;
-			k++;
+			i++;
+			j++;
 		}
-		if (j == 0 && command[i + k])
+		if (j == 0)
 			return (1);
-		i += k;
 	}
 	return (0);
 }
