@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:26:48 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/16 14:28:26 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/12/16 14:55:52 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	check_pipe_error(char *command) //return 1 = error || return 0 = ok
 		}
 		if (j == 0)
 			return (1);
+		i++;
 	}
 	return (0);
 }
