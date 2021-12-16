@@ -6,7 +6,7 @@
 /*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:14:03 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/10 16:06:56 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/12/16 17:25:44 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,20 +81,17 @@ void	ft_echo(char **strs)
 	option = 0;
 	if(strs)
 	{
-		if (strs[i])
+		while (strs[i] && check_option_n(strs[i]) == 1)
 		{
-			while (strs[i] && check_option_n(strs[i]) == 1)
-			{
-				option = 1;
-				i++;
-			}
-			while (strs[i])
-			{
-				printf("%s", strs[i]);
-				i++;
-			}
-			if (option == 0)
-				printf("\n");
+			option = 1;
+			i++;
 		}
+		while (strs[i])
+		{
+			printf("%s", strs[i]);
+			i++;
+		}
+		if (option == 0)
+			printf("\n");
 	}
 }
