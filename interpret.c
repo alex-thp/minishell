@@ -6,7 +6,7 @@
 /*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:28:17 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/16 18:11:31 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/12/16 18:31:48 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	parent(int *pip, t_node *head, t_datas *datas)
 	waitpid(-1, &status, 0);
 	cmd = check_exe(head->cmd->name, datas->env);
 	execve(cmd, head->cmd->args, datas->env);
-	ft_putstr_fd("toto\n", 2);
 	free(cmd);
 	exit(0);
 }
