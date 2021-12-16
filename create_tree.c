@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:26:48 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/15 16:16:18 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/12/16 18:00:20 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_redirection	*create_redir(char *command)
 					close(redir->fd_in);
 				to_open = get_value2(command, i);
 				fd = open(to_open, O_RDONLY);
+				free(to_open);
 				redir->fd_in = fd;
 			}
 			else if (command[i] == '>')
