@@ -6,7 +6,7 @@
 /*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:28:17 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/16 17:37:16 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/12/16 18:11:31 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	child(int *pip, t_node *head, t_datas *datas)
 void	parent(int *pip, t_node *head, t_datas *datas)
 {
 	int		status;
+	char	*cmd;
 
 	if (head->redir->fd_out >= 0)
 		dup2(head->redir->fd_out, STDOUT_FILENO);
@@ -33,7 +34,11 @@ void	parent(int *pip, t_node *head, t_datas *datas)
 		dup2(pip[0], STDIN_FILENO);
 	close(pip[1]);
 	waitpid(-1, &status, 0);
-	execve(check_exe(head->cmd->name, datas->env), head->cmd->args, datas->env);
+	cmd = check_exe(head->cmd->name, datas->env);
+	execve(cmd, head->cmd->args, datas->env);
+	ft_putstr_fd("toto\n", 2);
+	free(cmd);
+	exit(0);
 }
 
 void	execute_tree(t_node *head, t_datas *datas)
@@ -78,5 +83,6 @@ void	interpret_command(char *command, t_datas *datas)
 	else{
 		waitpid(0, &pid, 0);
 	}
+	ft_freetab(parsed_command);
 }
 

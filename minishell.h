@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 10:18:55 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/15 14:49:21 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/12/16 17:43:03 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 # include "libft/libft.h"
 
 /*
-* struct ENV
-*/
+ * struct ENV
+ */
 
 typedef struct s_datas
 {
@@ -36,8 +36,8 @@ typedef struct s_datas
 }				t_datas;
 
 /*
-* struct ARBRE
-*/
+ * struct ARBRE
+ */
 
 typedef struct s_node
 {
@@ -60,8 +60,8 @@ typedef struct s_redirection
 }				t_redirection;
 
 /*
-* manage_env.c
-*/
+ * manage_env.c
+ */
 
 t_datas			*manage_env(t_datas *datas);
 int				ft_unset(char **env, char *var);
@@ -70,8 +70,8 @@ char			**envp_to_alloc_tab(char **envp, int *len_env);
 int				get_envindex(char **env, char *var);
 
 /*
-* create_tree.c
-*/
+ * create_tree.c
+ */
 
 t_redirection	*create_redir(char *command);
 t_command		*create_cmd(char *command);
@@ -80,22 +80,22 @@ t_node			*create_node_pipe(void);
 t_node			*create_tree(char **command);
 
 /*
-* utils_tree.c
-*/
+ * utils_tree.c
+ */
 
 char			*get_value2(char *str, int i);
 int				is_special(char c, char *str);
 
 /*
-* lexer.c
-*/
+ * lexer.c
+ */
 
 int				check_pipe_error(char *command);
 char			**lexer(char *command);
 
 /*
-* files.c
-*/
+ * files.c
+ */
 
 char	*file_to_path(char *file, char *path);
 char	**env_to_paths(char **envp);
@@ -104,16 +104,28 @@ char	*absolute_path(char *file, char **envp);
 char	*check_exe(char *file, char **envp);
 
 /*
-* main.c
-*/
+ * main.c
+ */
 
 void	execute_tree(t_node *head, t_datas *datas);
 
 /*
-* builtins.c
-*/
+ * builtins.c
+ */
 
 void	ft_echo(char **strs);
 void	ft_pwd(void);
+
+/*
+ * interpret.c
+ */
+
+void	interpret_command(char *command, t_datas *datas);
+
+/*
+ * exit.c
+ */
+
+void	free_tree(t_node *head);
 
 #endif
