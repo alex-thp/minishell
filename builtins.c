@@ -83,7 +83,7 @@ void	ft_echo(char **strs)
 	{
 		if (strs[i])
 		{
-			while (check_option_n(strs[i]) == 1)
+			while (strs[i] && check_option_n(strs[i]) == 1)
 			{
 				option = 1;
 				i++;
