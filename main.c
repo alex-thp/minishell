@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:26:48 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/15 18:55:19 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/12/16 13:50:10 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	child(int *pip, t_node *head, t_datas *datas)
 {
-	printf("%i\n", head->right->redir->fd_in);
 	dup2(pip[1], STDOUT_FILENO);
 	close(pip[0]);
 	if (head->left)
@@ -26,11 +25,12 @@ void	parent(int *pip, t_node *head, t_datas *datas)
 {
 	int		status;
 
-	if (head->redir->fd_in >= 0)
-		dup2(head->redir->fd_in, STDIN_FILENO);
 	if (head->redir->fd_out >= 0)
 		dup2(head->redir->fd_out, STDOUT_FILENO);
-	dup2(pip[0], STDIN_FILENO);
+	if (head->redir->fd_in >= 0)
+		dup2(head->redir->fd_in, STDIN_FILENO);
+	else
+		dup2(pip[0], STDIN_FILENO);
 	close(pip[1]);
 	waitpid(-1, &status, 0);
 	execve(check_exe(head->cmd->name, datas->env), head->cmd->args, datas->env);
