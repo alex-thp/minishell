@@ -109,4 +109,10 @@ char	*check_exe(char *file, char **envp);
 
 void	execute_tree(t_node *head, t_datas *datas);
 
+/*
+* builtins.c
+*/
+
+void	ft_echo(char **strs);
+
 #endif

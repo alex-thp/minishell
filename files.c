@@ -81,11 +81,6 @@ char	*absolute_path(char *file, char **envp)
 
 char	*check_exe(char *file, char **envp)
 {
-	int		i;
-	char	*path;
-
-	i = 0;
-	path = NULL;
 	if (*file == '/')
 		return (ft_strdup(file));
 	else if (ft_strchr(file, '/'))

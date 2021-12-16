@@ -40,7 +40,8 @@ int	check_pipe_error(char *command) //return 1 = error || return 0 = ok
 		}
 		if (j == 0)
 			return (1);
-		i++;
+		if (command[i])
+			i++;
 	}
 	return (0);
 }

@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	ft_unset(char **env, char *var)
+int		ft_unset(char **env, char *var)
 {
 	int		index;
 	char	*tmp;
@@ -33,7 +33,7 @@ int	ft_unset(char **env, char *var)
 	return (1);
 }
 
-int	ft_export(char ***env, int *len_env, char *var)
+int		ft_export(char ***env, int *len_env, char *var)
 {
 	int		i;
 	char	**new;
@@ -56,4 +56,45 @@ int	ft_export(char ***env, int *len_env, char *var)
 		*len_env += 1;
 	}
 	return (1);
+}
+
+int		check_option_n(char *str)
+{
+	int		i;
+
+	i = 0;
+	if (str[i] == '-')
+	{
+		i++;
+		while (str[i] == 'n')
+			i++;
+	}
+	return (((size_t)i == ft_strlen(str)) ? 1 : 0);
+}
+
+void	ft_echo(char **strs)
+{
+	int		i;
+	int		option;
+
+	i = 0;
+	option = 0;
+	if(strs)
+	{
+		if (strs[i])
+		{
+			while (check_option_n(strs[i]) == 1)
+			{
+				option = 1;
+				i++;
+			}
+			while (strs[i])
+			{
+				printf("%s", strs[i]);
+				i++;
+			}
+			if (option == 0)
+				printf("\n");
+		}
+	}
 }
