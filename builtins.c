@@ -6,7 +6,7 @@
 /*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:14:03 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/16 18:56:35 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/12/16 20:16:59 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	check_option_n(char *str)
 		while (str[i] == 'n')
 			i++;
 	}
-	if ((size_t)i == ft_strlen)
+	if ((size_t)i == ft_strlen(str))
 		return (1);
 	return (0);
 }
