@@ -76,6 +76,8 @@ char	*absolute_path(char *file, char **envp)
 	}
 	if (paths)
 		ft_freetab(paths);
+	if (path)
+		free(path);
 	return (NULL);
 }
 
