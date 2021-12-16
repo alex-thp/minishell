@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:26:48 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/16 17:45:04 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/12/16 18:51:48 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	main(int ac, char **av, char **envp)
 		}
 		free(command);
 	}
-	//rl_clear_history();
 	ft_freetab(datas->env);
 	free(datas);
 }
+/*	rl_clear_history(); */

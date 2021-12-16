@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 10:18:55 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/16 17:43:03 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/12/16 18:34:23 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,35 +97,35 @@ char			**lexer(char *command);
  * files.c
  */
 
-char	*file_to_path(char *file, char *path);
-char	**env_to_paths(char **envp);
-char	*relative_path(char *file, char **envp);
-char	*absolute_path(char *file, char **envp);
-char	*check_exe(char *file, char **envp);
+char			*file_to_path(char *file, char *path);
+char			**env_to_paths(char **envp);
+char			*relative_path(char *file, char **envp);
+char			*absolute_path(char *file, char **envp);
+char			*check_exe(char *file, char **envp);
 
 /*
  * main.c
  */
 
-void	execute_tree(t_node *head, t_datas *datas);
+void			execute_tree(t_node *head, t_datas *datas);
 
 /*
  * builtins.c
  */
 
-void	ft_echo(char **strs);
-void	ft_pwd(void);
+void			ft_echo(char **strs);
+void			ft_pwd(void);
 
 /*
  * interpret.c
  */
 
-void	interpret_command(char *command, t_datas *datas);
+void			interpret_command(char *command, t_datas *datas);
 
 /*
  * exit.c
  */
 
-void	free_tree(t_node *head);
+void			free_tree(t_node *head);
 
 #endif

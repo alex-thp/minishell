@@ -6,13 +6,13 @@
 /*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:14:03 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/16 17:27:16 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/12/16 18:56:35 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		ft_unset(char **env, char *var)
+int	ft_unset(char **env, char *var)
 {
 	int		index;
 	char	*tmp;
@@ -33,7 +33,7 @@ int		ft_unset(char **env, char *var)
 	return (1);
 }
 
-int		ft_export(char ***env, int *len_env, char *var)
+int	ft_export(char ***env, int *len_env, char *var)
 {
 	int		i;
 	char	**new;
@@ -58,9 +58,9 @@ int		ft_export(char ***env, int *len_env, char *var)
 	return (1);
 }
 
-int		check_option_n(char *str)
+int	check_option_n(char *str)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	if (str[i] == '-')
@@ -69,17 +69,19 @@ int		check_option_n(char *str)
 		while (str[i] == 'n')
 			i++;
 	}
-	return (((size_t)i == ft_strlen(str)) ? 1 : 0);
+	if ((size_t)i == ft_strlen)
+		return (1);
+	return (0);
 }
 
 void	ft_echo(char **strs)
 {
-	int		i;
-	int		option;
+	int	i;
+	int	option;
 
 	i = 0;
 	option = 0;
-	if(strs)
+	if (strs)
 	{
 		while (strs[i] && check_option_n(strs[i]) == 1)
 		{

@@ -6,7 +6,7 @@
 /*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 17:39:30 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/10 16:18:30 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/12/16 18:45:17 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ int	get_envindex(char **env, char *var)
 	len_var = ft_strlen(var);
 	while (env[i])
 	{
-		if (!ft_memcmp(env[i], var, len_var) && (env[i][len_var] == '='))
+		if (!ft_memcmp(env[i], var, len_var)
+			&& (env[i][len_var] == '='))
 			return (i);
 		i++;
 	}
@@ -99,73 +100,3 @@ char	**envp_to_alloc_tab(char **envp, int *len_env)
 	}
 	return (new);
 }
-
-//t_env	*create_new(char *name, char *value)
-//{
-//	t_env	*new;
-//
-//	new = malloc(sizeof(t_env));
-//	new->name = name;
-//	new->value = value;
-//	new->previous = NULL;
-//	new->next = NULL;
-//	return (new);
-//}
-//
-//void	push_last(t_ptr_env *list, t_env *new)
-//{
-//	if (!new)
-//		return;
-//	new->next = NULL;
-//	new->previous = list->last;
-//	if (list->last)
-//		list->last->next = new;
-//	else
-//		list->first = new;
-//	list->last = new;
-//}
-//
-//void	init_list(t_ptr_env *list)
-//{
-//	list->first = NULL;
-//	list->last = NULL;
-//}
-//
-//t_datas	*manage_env(t_datas *datas)
-//{
-//	char		**copy;
-//	t_env		*new;
-//	
-//	t_env		*tmp;
-//	init_list(&datas->env);
-//	copy = datas->base_env;
-//	while(*copy)
-//	{
-//		new = create_new(get_name(*copy), get_value(*copy));
-//		push_last(&datas->env, new);
-//		copy++;
-//	}
-//	tmp = datas->env.first;
-//	while (tmp)
-//	{
-//		//printf("name : %s=%s\n", tmp->name, tmp->value);
-//		tmp = tmp->next;
-//	}
-//
-//
-//	// list = (t_env *)malloc(sizeof(t_env));
-//	// copy = datas->base_env;
-//	// tmp = NULL;
-//    // while (*copy)
-//    // {
-//	// 	if ()
-//	// 	//printf("list->previous [%p], list->next [%p]\n", list->previous, list->next);
-//    //     copy++;
-//    // }
-//	// while (list->previous != NULL)
-//	// {
-//	// 	list = list->previous;
-//	// 	//printf("%p\n", list->previous);
-//	// }
-//	return (datas);
-//}
