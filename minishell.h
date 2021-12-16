@@ -114,5 +114,6 @@ void	execute_tree(t_node *head, t_datas *datas);
 */
 
 void	ft_echo(char **strs);
+void	ft_pwd(void);
 
 #endif

@@ -95,3 +95,13 @@ void	ft_echo(char **strs)
 			printf("\n");
 	}
 }
+
+void	ft_pwd(void)
+{
+	char	*buff;
+
+	buff = getcwd(NULL, 0);
+	printf("%s\n", buff);
+	if (buff)
+		free(buff);
+}
