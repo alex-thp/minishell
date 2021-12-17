@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 10:18:55 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/16 18:34:23 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/12/17 21:45:30 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void			ft_pwd(void);
  * interpret.c
  */
 
-void			interpret_command(char *command, t_datas *datas);
+int			interpret_command(char *command, t_datas *datas);
 
 /*
  * exit.c

@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:26:48 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/16 18:51:48 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/12/17 21:28:23 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ int	main(int ac, char **av, char **envp)
 	{
 		command = readline("Minishell $> ");
 		quit = ((command && command[0] == 'q' && !command[1]) || !command);
-		if (!quit)
+		if (!quit && command && *command)
 		{
 			add_history(command);
-			interpret_command(command, datas);
-			free_tree(datas->head);
+			if (interpret_command(command, datas))
+				free_tree(datas->head);
 		}
 		free(command);
 	}
