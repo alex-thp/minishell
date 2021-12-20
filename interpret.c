@@ -6,7 +6,7 @@
 /*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:28:17 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/17 22:12:27 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/12/20 18:31:29 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void	execute_tree(t_node *head, t_datas *datas)
 		if (pid == 0)
 			first(head, datas);
 	}
-	//waitpid(pid, NULL, 0);
 	close(pip[0]);
 	close(pip[1]);
 	exit(0);
@@ -92,7 +91,7 @@ int	interpret_command(char *command, t_datas *datas)
 	pid = fork();
 	if (pid == 0)
 		execute_tree(datas->head, datas);
-	waitpid(pid, NULL, 0); // attendre la fin de tout les processus
+//	waitpid(pid, NULL, 0); // attendre la fin de tout les processus
 	ft_freetab(parsed_command);
 	return (1);
 }
