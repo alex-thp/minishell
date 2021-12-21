@@ -67,6 +67,11 @@ void	execute_tree(t_node *head, t_datas *datas)
 
 	pipe(pip);
 	pid = 0;
+	// if (!head->left && *(struct s_node*)head == *(datas->head)) //pas de fork si une seule commande
+	// {
+	// 	parent(pip, head, datas);
+	// 	return ;
+	// }
 	if (!head->cmd->name)
 	{
 		pid = fork();
@@ -82,10 +87,15 @@ void	execute_tree(t_node *head, t_datas *datas)
 	}
 	else
 	{
+		if (is_execve(head->cmd->name) == -1)
+		{
 		pid = fork();
 		if (pid == 0)
 			first(head, datas);
 		waitpid(pid, NULL, 0);
+		}
+		else
+			exec_builtin(head, datas);
 	}
 	dup2(STDOUT_FILENO, pip[1]);
 	dup2(STDIN_FILENO, pip[0]);

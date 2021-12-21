@@ -128,4 +128,10 @@ int			interpret_command(char *command, t_datas *datas);
 
 void			free_tree(t_node *head);
 
+/*
+ * is_execve.c
+ */
+
+int is_execve(char *name);
+int exec_builtin(t_node *head, t_datas *datas);
 #endif
