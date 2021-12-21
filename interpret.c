@@ -6,7 +6,7 @@
 /*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:28:17 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/20 19:28:59 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/12/21 18:12:33 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,18 @@
 
 void	child(int *pip, t_node *head, t_datas *datas)
 {
-	dup2(pip[1], STDOUT_FILENO);
+	int	pid;
+
+	pid = 0;
 	close(pip[0]);
-	execute_tree(head->left, datas);
-	exit(0);
+	pid = fork();
+	if (pid == 0)
+	{
+		dup2(pip[1], STDOUT_FILENO);
+		execute_tree(head->left, datas);
+		exit(0);
+	}
+	waitpid(pid, NULL, 0);
 }
 
 void	parent(int *pip, t_node *head, t_datas *datas)
@@ -58,6 +66,7 @@ void	execute_tree(t_node *head, t_datas *datas)
 	int		pid;
 
 	pipe(pip);
+	pid = 0;
 	if (!head->cmd->name)
 	{
 		pid = fork();
@@ -68,7 +77,7 @@ void	execute_tree(t_node *head, t_datas *datas)
 		else
 		{
 			child(pip, head, datas);
-//			waitpid(-1, NULL, 0);
+			//waitpid(pid, NULL, 0);
 		}
 	}
 	else
@@ -76,17 +85,18 @@ void	execute_tree(t_node *head, t_datas *datas)
 		pid = fork();
 		if (pid == 0)
 			first(head, datas);
-		waitpid(-1, NULL, 0);
+		waitpid(pid, NULL, 0);
 	}
+	dup2(STDOUT_FILENO, pip[1]);
+	dup2(STDIN_FILENO, pip[0]);
 	close(pip[0]);
 	close(pip[1]);
-	waitpid(-1, NULL, 0);
+//	waitpid(-1, NULL, 0);
 }
 
 int	interpret_command(char *command, t_datas *datas)
 {
 	char	**parsed_command;
-	int		pid;
 
 	parsed_command = lexer(command);
 	if (parsed_command == NULL)
@@ -95,14 +105,8 @@ int	interpret_command(char *command, t_datas *datas)
 		datas->head = create_tree(parsed_command);
 	else
 		datas->head = create_node_command(&command[0]);
-	pid = fork();
-	if (pid == 0)
-	{
-		execute_tree(datas->head, datas);
+	execute_tree(datas->head, datas);
 //		waitpid(-1, NULL, 0);
-	}
-	waitpid(-1, NULL, 0);
-//	waitpid(pid, NULL, 0); // attendre la fin de tout les processus
 	ft_freetab(parsed_command);
 	return (1);
 }
