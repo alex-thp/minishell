@@ -6,7 +6,7 @@
 /*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:28:17 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/22 18:43:42 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/12/22 19:21:34 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,24 +31,24 @@ void	parent(int *pip, t_node *head, t_datas *datas)
 void	child(int *pip, t_node *head, t_datas *datas)
 {
 	char	*cmd;
+	int		result;
 
 	cmd= NULL;
 	waitpid(-1, NULL, 0);
-//	ft_putstr_fd(head->line, 2);
-	head->redir = create_redir(head->line);
-	head->cmd = create_cmd(head->line);
-	if (head->redir->fd_out >= 0)
-		dup2(head->redir->fd_out, STDOUT_FILENO);
-	if (head->redir->fd_in >= 0)
-		dup2(head->redir->fd_in, STDIN_FILENO);
+	result = 0;
+	head = init_node(head);
 	dup2(pip[0], STDIN_FILENO);
 	close(pip[1]);
-//	waitpid(-1, NULL, 0);
 	cmd = check_exe(head->cmd->name, datas->env);
 	if (is_execve(head->cmd->name) == -1)
 		execve(cmd, head->cmd->args, datas->env);
-	else if (exec_builtin(head, datas) == 0)
-		printf("%s: command not found\n", head->cmd->name);
+	else
+		result = exec_builtin(head, datas);
+	if (!result)
+	{
+		ft_putstr_fd( head->cmd->name, 2);
+		ft_putstr_fd(": command not found\n", 2);
+	}
 	free(cmd);
 	exit(0);
 }
@@ -56,21 +56,22 @@ void	child(int *pip, t_node *head, t_datas *datas)
 void	first(t_node *head, t_datas *datas)
 {
 	char	*cmd;
+	int		result;
 
 	cmd= NULL;
 	waitpid(-1, NULL, 0);
-//	ft_putstr_fd(head->line, 2);
-	head->redir = create_redir(head->line);
-	head->cmd = create_cmd(head->line);
-	if (head->redir->fd_out >= 0)
-		dup2(head->redir->fd_out, STDOUT_FILENO);
-	if (head->redir->fd_in >= 0)
-		dup2(head->redir->fd_in, STDIN_FILENO);
+	result = 0;
+	head = init_node(head);
 	cmd = check_exe(head->cmd->name, datas->env);
 	if (is_execve(head->cmd->name) == -1)
 		execve(cmd, head->cmd->args, datas->env);
-	else if (exec_builtin(head, datas) == 0)
-		printf("%s: command not found\n", head->cmd->name);
+	else
+		result = exec_builtin(head, datas);
+	if (!result)
+	{
+		ft_putstr_fd( head->cmd->name, 2);
+		ft_putstr_fd(": command not found\n", 2);
+	}
 	free(cmd);
 	exit(0);
 }

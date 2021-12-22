@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:26:48 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/21 18:36:37 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/12/22 19:18:06 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,20 @@ t_command	*create_cmd(char *command)
 		cmd->args = args;
 	}
 	return (cmd);
+}
+
+t_node	*init_node(t_node *node)
+{
+	if (!node->redir)
+		node->redir = create_redir(node->line);
+	if (!node->cmd)
+		node->cmd = create_cmd(node->line);
+	if (node->redir->fd_out >= 0)
+		dup2(node->redir->fd_out, STDOUT_FILENO);
+	if (node->redir->fd_in >= 0)
+		dup2(node->redir->fd_in, STDIN_FILENO);
+	return (node);
+
 }
 
 t_node	*create_node(char *command)

@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 10:18:55 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/22 16:19:26 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/12/22 19:20:25 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ t_redirection	*create_redir(char *command);
 t_command		*create_cmd(char *command);
 t_node			*create_node(char *command);
 t_node			*create_tree(char **command);
+t_node			*init_node(t_node *node);
 
 /*
  * utils_tree.c
