@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 10:18:55 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/21 18:15:10 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/12/22 16:19:26 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_datas
 
 typedef struct s_node
 {
+	char					*line;
 	struct s_command		*cmd;
 	struct s_redirection	*redir;
 	struct s_node			*left;
@@ -75,8 +76,7 @@ int				get_envindex(char **env, char *var);
 
 t_redirection	*create_redir(char *command);
 t_command		*create_cmd(char *command);
-t_node			*create_node_command(char *command);
-t_node			*create_node_pipe(void);
+t_node			*create_node(char *command);
 t_node			*create_tree(char **command);
 
 /*
@@ -120,7 +120,13 @@ void			ft_pwd(void);
  * interpret.c
  */
 
-int			interpret_command(char *command, t_datas *datas);
+int				interpret_command(char *command, t_datas *datas);
+
+/*
+ * signal.c
+ */
+
+int				catch_sig();
 
 /*
  * exit.c

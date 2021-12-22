@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:26:48 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/21 18:15:08 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/12/21 18:36:37 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,25 +74,14 @@ t_command	*create_cmd(char *command)
 	return (cmd);
 }
 
-t_node	*create_node_command(char *command)
+t_node	*create_node(char *command)
 {
 	t_node	*node;
 
 	node = (t_node *)malloc(sizeof(t_node));
-	node->redir = create_redir(command);
-	node->cmd = create_cmd(command);
-	node->left = NULL;
-	node->right = NULL;
-	return (node);
-}
-
-t_node	*create_node_pipe(void)
-{
-	t_node	*node;
-
-	node = (t_node *)malloc(sizeof(t_node));
-	node->redir = create_redir("");
-	node->cmd = create_cmd("");
+	node->line = command;
+	node->redir = NULL;
+	node->cmd = NULL;
 	node->left = NULL;
 	node->right = NULL;
 	return (node);
@@ -105,18 +94,20 @@ t_node	*create_tree(char **command)
 	t_node	*tmp;
 
 	i = 0;
+//	if (!*command)
+//		return (NULL);
 	while (command[i])
 		i++;
-	tmp = create_node_pipe();
+	tmp = create_node(NULL);
 	head = tmp;
 	i--;
 	while (i > 0)
 	{
-		tmp->right = create_node_command(command[i]);
+		tmp->right = create_node(command[i]);
 		if (i != 1)
-			tmp->left = create_node_pipe();
+			tmp->left = create_node(NULL);
 		else
-			tmp->left = create_node_command(command[i - 1]);
+			tmp->left = create_node(command[i - 1]);
 		tmp = tmp->left;
 		i--;
 	}

@@ -1,39 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/16 17:00:12 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/21 18:30:38 by adylewsk         ###   ########.fr       */
+/*   Created: 2021/12/22 15:53:46 by adylewsk          #+#    #+#             */
+/*   Updated: 2021/12/22 17:57:58 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_node(t_node *node)
+void	ft_sigint(int signal)
 {
-	if (node)
-	{
-		if (node->cmd)
-		{
-			if (node->cmd->args)
-				ft_freetab(node->cmd->args);
-			free(node->cmd);
-		}
-		if (node->redir)
-			free(node->redir);
-		free(node);
-	}
+	(void)signal;
+	ft_putstr_fd("\n", 2);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+	catch_sig();
 }
 
-void	free_tree(t_node *head)
+void	ft_sigquit(int signal)
 {
-	if (head && head->left)
-	{
-		free_node(head->right);
-		free_tree(head->left);
-	}
-	free_node(head);
+	(void)signal;
+	catch_sig();
+}
+
+int	catch_sig()
+{
+	struct sigaction	sint;
+	struct sigaction	squit;
+
+	sint.sa_handler = ft_sigint;
+	squit.sa_handler = ft_sigquit;
+	sigaction(SIGINT, &sint, NULL);
+	sigaction(SIGQUIT, &squit, NULL);
+	return (0);
 }
