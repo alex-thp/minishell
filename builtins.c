@@ -79,9 +79,9 @@ void	ft_echo(char **strs)
 	int	i;
 	int	option;
 
-	i = 0;
+	i = 1;
 	option = 0;
-	if (strs)
+	if (strs && strs[i])
 	{
 		while (strs[i] && check_option_n(strs[i]) == 1)
 		{
