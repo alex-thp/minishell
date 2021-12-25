@@ -6,7 +6,7 @@
 /*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:14:03 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/16 20:16:59 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/12/23 18:47:40 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,4 +106,20 @@ void	ft_pwd(void)
 	printf("%s\n", buff);
 	if (buff)
 		free(buff);
+}
+
+void	ft_env(char **env)
+{
+	int		i;
+	char	*index;
+
+	i = 0;
+	while (env[i])
+	{
+		index = NULL;
+		index = ft_strchr(env[i], '=');
+		if (index)
+			printf("%s\n", env[i]);
+		i++;
+	}
 }
