@@ -46,7 +46,7 @@ void	child(int *pip, t_node *head, t_datas *datas)
 		result = exec_builtin(head, datas);
 	if (!result)
 	{
-		ft_putstr_fd( head->cmd->name, 2);
+		ft_putstr_fd(head->cmd->name, 2);
 		ft_putstr_fd(": command not found\n", 2);
 	}
 	free(cmd);

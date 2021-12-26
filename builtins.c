@@ -107,3 +107,17 @@ void	ft_pwd(void)
 	if (buff)
 		free(buff);
 }
+
+int		ft_cd(char **args)
+{
+	int		result;
+
+	if (args)
+	{
+		result = chdir(args[1]);
+		return (result);
+	}
+	else
+		result = chdir("HOME"); //Ajouter ici la valeur de la variable HOME
+	return (result);
+}
