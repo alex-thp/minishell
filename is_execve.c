@@ -33,7 +33,7 @@ void exec_this_one(int i, t_node *head, t_datas *datas)
     // tab[3] = "unset";
     // tab[4] = "export";
     if (i == 0)
-        ft_cd(head->cmd->args);
+        ft_cd(head->cmd->args, datas);
     else if (i == 1)
         ft_pwd();
     else if (i == 2)

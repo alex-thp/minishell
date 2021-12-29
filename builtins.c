@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:14:03 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/16 20:16:59 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/12/29 18:22:29 by ade-temm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,16 +108,27 @@ void	ft_pwd(void)
 		free(buff);
 }
 
-int		ft_cd(char **args)
+int		ft_cd(char **args, t_datas *datas)
 {
 	int		result;
+	char	*buff;
 
-	if (args)
+	result = 0;
+	if(args)
 	{
-		result = chdir(args[1]);
-		return (result);
+		buff = getcwd(NULL, 0);
+		buff = ft_strjoin("OLDPWD=", buff);
+		modify_env("OLDPWD", buff, datas);
+		if (args[1])
+			result = chdir(args[1]);
+		else
+			result = chdir(get_value(search_for_home(datas))); //Ici la valeur de la variable HOME
+		buff = getcwd(NULL, 0);
+		buff = ft_strjoin("PWD=", buff);
+		printf("PWD = |%s|", buff);
+		modify_env("PWD", buff, datas);
+		if (buff)
+			free(buff);
 	}
-	else
-		result = chdir("HOME"); //Ajouter ici la valeur de la variable HOME
 	return (result);
 }

@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 10:18:55 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/22 19:20:25 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/12/29 18:15:54 by ade-temm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <signal.h>
 # include "libft/libft.h"
 
 /*
@@ -69,6 +70,7 @@ int				ft_unset(char **env, char *var);
 int				ft_export(char ***env, int *len_env, char *var);
 char			**envp_to_alloc_tab(char **envp, int *len_env);
 int				get_envindex(char **env, char *var);
+char			*get_value(char *env);
 
 /*
  * create_tree.c
@@ -116,7 +118,7 @@ void			execute_tree(t_node *head, t_datas *datas);
 
 void			ft_echo(char **strs);
 void			ft_pwd(void);
-int				ft_cd(char **args);
+int				ft_cd(char **args, t_datas *datas);
 
 /*
  * interpret.c
@@ -142,4 +144,12 @@ void			free_tree(t_node *head);
 
 int is_execve(char *name);
 int exec_builtin(t_node *head, t_datas *datas);
+
+/*
+ * utils.c
+ */
+
+char	*search_for_home(t_datas *datas);
+void	modify_env(char *to_replace, char *to_insert, t_datas *datas);
+
 #endif
