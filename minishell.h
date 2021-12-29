@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 10:18:55 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/29 18:15:54 by ade-temm         ###   ########.fr       */
+/*   Updated: 2021/12/29 18:28:14 by ade-temm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ typedef struct s_redirection
  */
 
 t_datas			*manage_env(t_datas *datas);
-int				ft_unset(char **env, char *var);
-int				ft_export(char ***env, int *len_env, char *var);
 char			**envp_to_alloc_tab(char **envp, int *len_env);
 int				get_envindex(char **env, char *var);
 char			*get_value(char *env);
@@ -119,6 +117,9 @@ void			execute_tree(t_node *head, t_datas *datas);
 void			ft_echo(char **strs);
 void			ft_pwd(void);
 int				ft_cd(char **args, t_datas *datas);
+int				ft_export(char ***env, int *len_env, char *var);
+int				ft_unset(char **env, char *var);
+void			ft_env(char **env);
 
 /*
  * interpret.c

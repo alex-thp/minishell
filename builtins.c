@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:14:03 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/29 18:22:29 by ade-temm         ###   ########.fr       */
+/*   Updated: 2021/12/29 18:27:59 by ade-temm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,4 +131,19 @@ int		ft_cd(char **args, t_datas *datas)
 			free(buff);
 	}
 	return (result);
+}
+void	ft_env(char **env)
+{
+	int		i;
+	char	*index;
+
+	i = 0;
+	while (env[i])
+	{
+		index = NULL;
+		index = ft_strchr(env[i], '=');
+		if (index)
+			printf("%s\n", env[i]);
+		i++;
+	}
 }
