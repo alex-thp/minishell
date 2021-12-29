@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:14:03 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/29 18:35:29 by ade-temm         ###   ########.fr       */
+/*   Updated: 2021/12/29 18:54:34 by ade-temm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,24 +111,22 @@ void	ft_pwd(void)
 int		ft_cd(char **args, t_datas *datas)
 {
 	int		result;
-//	char	*buff;
+	char	*buff;
 
 	result = 0;
 	if(args)
 	{
-//		buff = getcwd(NULL, 0);
-//		buff = ft_strjoin("OLDPWD=", buff);
-//		modify_env("OLDPWD", buff, datas);
+		buff = getcwd(NULL, 0);
+		buff = ft_strjoin("OLDPWD=", buff);
+		modify_env("OLDPWD", buff, datas);
 		if (args[1])
 			result = chdir(args[1]);
 		else
 			result = chdir(get_value(search_for_home(datas))); //Ici la valeur de la variable HOME
-//		buff = getcwd(NULL, 0);
-//		buff = ft_strjoin("PWD=", buff);
+		buff = getcwd(NULL, 0);
+		buff = ft_strjoin("PWD=", buff);
 //		printf("PWD = |%s|", buff);
-//		modify_env("PWD", buff, datas);
-//		if (buff)
-//			free(buff);
+		modify_env("PWD", buff, datas);
 	}
 	return (result);
 }
