@@ -152,5 +152,6 @@ int exec_builtin(t_node *head, t_datas *datas);
 
 char	*search_for_home(t_datas *datas);
 void	modify_env(char *to_replace, char *to_insert, t_datas *datas);
+char	*interpret_dollar(char *str, t_datas *datas);
 
 #endif
