@@ -28,7 +28,7 @@ char	*interpret_dollar(char *str, t_datas *datas)//envoyer la variable sans le d
 
 	i = 0;
 	j = 0;
-	while(datas->env[i] && strncmp(datas->env[i], str, ft_strlen(str) != 0)) //REMPLACER AVEC NOTRE STRNCMP
+	while(datas->env[i] && strncmp(datas->env[i], str, ft_strlen(str)) != 0) //REMPLACER AVEC NOTRE STRNCMP
 		i++;
 	while(datas->env[i][j] && datas->env[i][j] != '=')
 		j++;
