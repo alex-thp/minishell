@@ -33,5 +33,5 @@ char	*interpret_dollar(char *str, t_datas *datas)//envoyer la variable sans le d
 	while(datas->env[i][j] && datas->env[i][j] != '=')
 		j++;
 	j++;
-	return (datas->env[i][j]);
+	return (&datas->env[i][j]);
 }

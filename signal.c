@@ -17,7 +17,7 @@ void	ft_sigint(int signal)
 	(void)signal;
 	ft_putstr_fd("\n", 2);
 	rl_on_new_line();
-	//rl_replace_line("", 0);
+	rl_replace_line("", 0);
 	rl_redisplay();
 	catch_sig();
 }
