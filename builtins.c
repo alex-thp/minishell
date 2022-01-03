@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:14:03 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/03 17:25:57 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/03 17:54:14 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,64 +106,4 @@ void	ft_pwd(void)
 	printf("%s\n", buff);
 	if (buff)
 		free(buff);
-}
-
-int		ft_cd(char **args, t_datas *datas)
-{
-	int		result;
-	char	*buff;
-	char	*tmp;
-
-	result = 0;
-	if(args)
-	{
-		if (!ft_check_dir(args))
-			return (0);
-		buff = getcwd(NULL, 0);
-		tmp = ft_strjoin("OLDPWD=", buff);
-		modify_env("OLDPWD=", tmp, datas);
-		free(buff);
-		if (args[1])
-			result = chdir(args[1]);
-		else
-			result = go_home(datas);
-		buff = getcwd(NULL, 0);
-		tmp = ft_strjoin("PWD=", buff);
-//		printf("PWD = |%s|", buff);
-		modify_env("PWD=", tmp, datas);
-		free(buff); // AFFICHER UNE ERREUR SI LE DIR N'EXISTE PAS
-	}
-	return (result);
-}
-
-void	ft_env(char **env)
-{
-	int		i;
-	char	*index;
-
-	i = 0;
-	while (env[i])
-	{
-		index = NULL;
-		index = ft_strchr(env[i], '=');
-		if (index)
-			printf("%s\n", env[i]);
-		i++;
-	}
-}
-
-void	ft_exit(t_datas *datas, t_node *head)
-{
-	ft_putstr("exit\n");
-	if (head->cmd->args[1])
-	{
-		ft_putstr_fd("minishell: exit: ", 2);
-		ft_putstr_fd(datas->head->cmd->args[1], 2);
-		ft_putstr_fd(": no argument required\n", 2);
-	}
-	free_tree(datas->head);
-	ft_freetab(datas->env);
-	free(datas->command);
-	free(datas);
-	exit(0);
 }

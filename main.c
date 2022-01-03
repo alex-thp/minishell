@@ -6,35 +6,17 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:26:48 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/03 15:07:21 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/03 18:06:57 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	try_signal(int signal)
-{
-	printf("receve signal : %i", signal);
-}
-
-int	main(int ac, char **av, char **envp)
+int	start(char **envp)
 {
 	int		quit;
 	t_datas	*datas;
-//
-	(void)ac;
-	(void)av;
-	(void)envp;
-//	struct sigaction s;
-//
-//	s.sa_handler = try_signal;
-//	printf("signal test");
-//	while (1)
-//	{
-//	sigaction(SIGQUIT, &s, NULL);
-//		printf("Wait..\n");
-//		sleep(1);
-//	}
+
 	quit = 0;
 	using_history();
 	datas = (t_datas *)malloc(sizeof(t_datas));
@@ -55,5 +37,19 @@ int	main(int ac, char **av, char **envp)
 	}
 	ft_freetab(datas->env);
 	free(datas);
+	printf("exit\n");
+	return (1);
+}
+
+int	main(int ac, char **av, char **envp)
+{
+
+	(void)av;
+	if (ac != 1)
+	{
+		ft_putstr_fd("Minishell: too many arguments\n", 2);
+		return (0);
+	}
+	return (start(envp));
 }
 /*	rl_clear_history(); */

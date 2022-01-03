@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:53:46 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/29 17:50:56 by ade-temm         ###   ########.fr       */
+/*   Updated: 2022/01/03 17:52:43 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_sigquit(int signal)
 	catch_sig();
 }
 
-int	catch_sig()
+int	catch_sig(void)
 {
 	struct sigaction	sint;
 	struct sigaction	squit;

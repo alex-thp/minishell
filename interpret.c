@@ -6,7 +6,7 @@
 /*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:28:17 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/03 14:51:35 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/03 17:50:13 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	child(int *pip, t_node *head, t_datas *datas)
 	char	*cmd;
 	int		result;
 
-	cmd= NULL;
+	cmd = NULL;
 	waitpid(-1, NULL, 0);
 	result = 0;
 	head = init_node(head);
@@ -58,7 +58,7 @@ void	first(t_node *head, t_datas *datas)
 	char	*cmd;
 	int		result;
 
-	cmd= NULL;
+	cmd = NULL;
 	waitpid(-1, NULL, 0);
 	result = 0;
 	head = init_node(head);
@@ -69,7 +69,7 @@ void	first(t_node *head, t_datas *datas)
 		result = exec_builtin(head, datas);
 	if (!result)
 	{
-		ft_putstr_fd( head->cmd->name, 2);
+		ft_putstr_fd(head->cmd->name, 2);
 		ft_putstr_fd(": command not found\n", 2);
 	}
 	free(cmd);
@@ -102,7 +102,6 @@ void	execute_tree(t_node *head, t_datas *datas)
 	dup2(STDIN_FILENO, pip[0]);
 	close(pip[0]);
 	close(pip[1]);
-//	waitpid(-1, NULL, 0);
 }
 
 int	interpret_command(t_datas *datas)

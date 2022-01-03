@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:26:48 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/22 19:18:06 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/03 17:51:00 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ t_node	*init_node(t_node *node)
 	if (node->redir->fd_in >= 0)
 		dup2(node->redir->fd_in, STDIN_FILENO);
 	return (node);
-
 }
 
 t_node	*create_node(char *command)
@@ -108,8 +107,6 @@ t_node	*create_tree(char **command)
 	t_node	*tmp;
 
 	i = 0;
-//	if (!*command)
-//		return (NULL);
 	while (command[i])
 		i++;
 	tmp = create_node(NULL);
