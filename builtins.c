@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:14:03 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/03 16:28:32 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/03 17:25:57 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,8 @@ int		ft_cd(char **args, t_datas *datas)
 	result = 0;
 	if(args)
 	{
+		if (!ft_check_dir(args))
+			return (0);
 		buff = getcwd(NULL, 0);
 		tmp = ft_strjoin("OLDPWD=", buff);
 		modify_env("OLDPWD=", tmp, datas);

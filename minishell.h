@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 10:18:55 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/03 16:14:06 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/03 17:31:22 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
+# include <dirent.h>
 # include "libft/libft.h"
 
 /*
@@ -156,5 +157,6 @@ char	*search_for_home(t_datas *datas);
 void	modify_env(char *to_replace, char *to_insert, t_datas *datas);
 char	*interpret_dollar(char *str, t_datas *datas);
 int		go_home(t_datas *datas);
+int		ft_check_dir(char **args);
 
 #endif
