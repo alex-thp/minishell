@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:14:03 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/03 16:18:19 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/03 16:28:32 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ int		ft_cd(char **args, t_datas *datas)
 		tmp = ft_strjoin("PWD=", buff);
 //		printf("PWD = |%s|", buff);
 		modify_env("PWD=", tmp, datas);
-		free(buff);
+		free(buff); // AFFICHER UNE ERREUR SI LE DIR N'EXISTE PAS
 	}
 	return (result);
 }
