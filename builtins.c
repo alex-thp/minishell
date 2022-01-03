@@ -145,3 +145,12 @@ void	ft_env(char **env)
 		i++;
 	}
 }
+
+void	ft_exit(t_datas *datas, char *command)
+{
+	free_tree(datas->head);
+	ft_freetab(datas->env);
+	free(datas);
+	free(command);
+	exit(0);
+}

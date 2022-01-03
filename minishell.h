@@ -120,6 +120,7 @@ int				ft_cd(char **args, t_datas *datas);
 int				ft_export(char ***env, int *len_env, char *var);
 int				ft_unset(char **env, char *var);
 void			ft_env(char **env);
+void			ft_exit(t_datas *datas, char *command);
 
 /*
  * interpret.c
@@ -144,7 +145,7 @@ void			free_tree(t_node *head);
  */
 
 int is_execve(char *name);
-int exec_builtin(t_node *head, t_datas *datas);
+int exec_builtin(t_node *head, t_datas *datas, char *command);
 
 /*
  * utils.c

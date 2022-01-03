@@ -7,7 +7,7 @@
 int is_execve(char *name)
 {
     int     i;
-    char    *tab[6];
+    char    *tab[7];
 
     tab[0] = "cd";
     tab[1] = "pwd";
@@ -15,17 +15,18 @@ int is_execve(char *name)
     tab[3] = "unset";
     tab[4] = "export";
 	tab[5] = "env";
+	tab[6] = "exit";
     i = 0;
-    while (i < 6)
+    while (tab[i])
     {
-        if (strcmp(tab[i], name) == 0) //mettre la notre, pas dans libft actuellement
+        if (ft_strncmp(tab[i], name, ft_strlen(tab[i])) == 0)
             return(i);
         i++;
     }
     return (-1);
 }
 
-void exec_this_one(int i, t_node *head, t_datas *datas)
+void exec_this_one(int i, t_node *head, t_datas *datas, char *command)
 {
     if (i == 0)
         ft_cd(head->cmd->args, datas);
@@ -39,13 +40,14 @@ void exec_this_one(int i, t_node *head, t_datas *datas)
         ft_export(&datas->env, &datas->len_env, head->cmd->args[1]);
     else if (i == 5)
         ft_env(datas->env);
-
+    else if (i == 6)
+        ft_exit(datas, command);
 }
 
-int exec_builtin(t_node *head, t_datas *datas) //renvoie 1 si le lance, 0 si non
+int exec_builtin(t_node *head, t_datas *datas, char *command) //renvoie 1 si le lance, 0 si non
 {
     int     i;
-    char    *tab[6];
+    char    *tab[7];
 
     tab[0] = "cd";
     tab[1] = "pwd";
@@ -53,12 +55,14 @@ int exec_builtin(t_node *head, t_datas *datas) //renvoie 1 si le lance, 0 si non
     tab[3] = "unset";
     tab[4] = "export";
 	tab[5] = "env";
+	tab[6] = "exit";
+
     i = 0;
     while(tab[i])
     {
-        if (strcmp(head->cmd->name, tab[i]) == 0)
+        if (ft_strncmp(head->cmd->name, tab[i], ft_strlen(tab[i])) == 0)
         {
-            exec_this_one(i, head, datas);
+            exec_this_one(i, head, datas, command);
             return(1);
         }
         i++;
