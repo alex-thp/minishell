@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:14:03 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/29 18:54:34 by ade-temm         ###   ########.fr       */
+/*   Updated: 2022/01/03 16:18:19 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	ft_echo(char **strs)
 		}
 		while (strs[i])
 		{
-			printf("%s", strs[i]);
+			printf("%s ", strs[i]);
 			i++;
 		}
 		if (option == 0)
@@ -112,24 +112,28 @@ int		ft_cd(char **args, t_datas *datas)
 {
 	int		result;
 	char	*buff;
+	char	*tmp;
 
 	result = 0;
 	if(args)
 	{
 		buff = getcwd(NULL, 0);
-		buff = ft_strjoin("OLDPWD=", buff);
-		modify_env("OLDPWD", buff, datas);
+		tmp = ft_strjoin("OLDPWD=", buff);
+		modify_env("OLDPWD=", tmp, datas);
+		free(buff);
 		if (args[1])
 			result = chdir(args[1]);
 		else
-			result = chdir(get_value(search_for_home(datas))); //Ici la valeur de la variable HOME
+			result = go_home(datas);
 		buff = getcwd(NULL, 0);
-		buff = ft_strjoin("PWD=", buff);
+		tmp = ft_strjoin("PWD=", buff);
 //		printf("PWD = |%s|", buff);
-		modify_env("PWD", buff, datas);
+		modify_env("PWD=", tmp, datas);
+		free(buff);
 	}
 	return (result);
 }
+
 void	ft_env(char **env)
 {
 	int		i;
@@ -146,11 +150,18 @@ void	ft_env(char **env)
 	}
 }
 
-void	ft_exit(t_datas *datas, char *command)
+void	ft_exit(t_datas *datas, t_node *head)
 {
+	ft_putstr("exit\n");
+	if (head->cmd->args[1])
+	{
+		ft_putstr_fd("minishell: exit: ", 2);
+		ft_putstr_fd(datas->head->cmd->args[1], 2);
+		ft_putstr_fd(": no argument required\n", 2);
+	}
 	free_tree(datas->head);
 	ft_freetab(datas->env);
+	free(datas->command);
 	free(datas);
-	free(command);
 	exit(0);
 }

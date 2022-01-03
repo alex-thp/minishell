@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 10:18:55 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/29 18:28:14 by ade-temm         ###   ########.fr       */
+/*   Updated: 2022/01/03 16:14:06 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 
 typedef struct s_datas
 {
+	char			*command;
 	char			**env;
 	int				len_env;
 	struct s_node	*head;
@@ -120,13 +121,13 @@ int				ft_cd(char **args, t_datas *datas);
 int				ft_export(char ***env, int *len_env, char *var);
 int				ft_unset(char **env, char *var);
 void			ft_env(char **env);
-void			ft_exit(t_datas *datas, char *command);
+void			ft_exit(t_datas *datas, t_node *head);
 
 /*
  * interpret.c
  */
 
-int				interpret_command(char *command, t_datas *datas);
+int				interpret_command(t_datas *datas);
 
 /*
  * signal.c
@@ -145,7 +146,7 @@ void			free_tree(t_node *head);
  */
 
 int is_execve(char *name);
-int exec_builtin(t_node *head, t_datas *datas, char *command);
+int exec_builtin(t_node *head, t_datas *datas);
 
 /*
  * utils.c
@@ -154,5 +155,6 @@ int exec_builtin(t_node *head, t_datas *datas, char *command);
 char	*search_for_home(t_datas *datas);
 void	modify_env(char *to_replace, char *to_insert, t_datas *datas);
 char	*interpret_dollar(char *str, t_datas *datas);
+int		go_home(t_datas *datas);
 
 #endif

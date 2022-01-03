@@ -6,7 +6,7 @@
 /*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:28:17 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/22 19:21:34 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/03 14:51:35 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,13 +105,13 @@ void	execute_tree(t_node *head, t_datas *datas)
 //	waitpid(-1, NULL, 0);
 }
 
-int	interpret_command(char *command, t_datas *datas)
+int	interpret_command(t_datas *datas)
 {
 	char	**parsed_command;
 	int		pid;
 
 	pid = 0;
-	parsed_command = lexer(command);
+	parsed_command = lexer(datas->command);
 	if (parsed_command == NULL)
 		return (0);
 	if (parsed_command[1])
@@ -122,7 +122,7 @@ int	interpret_command(char *command, t_datas *datas)
 	}
 	else
 	{
-		datas->head = create_node(command);
+		datas->head = create_node(datas->command);
 		datas->head->redir = create_redir(datas->head->line);
 		datas->head->cmd = create_cmd(datas->head->line);
 		if (is_execve(datas->head->cmd->name) == -1)

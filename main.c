@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:26:48 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/22 19:01:26 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/03 15:07:21 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	try_signal(int signal)
 
 int	main(int ac, char **av, char **envp)
 {
-	char	*command;
 	int		quit;
 	t_datas	*datas;
 //
@@ -36,23 +35,23 @@ int	main(int ac, char **av, char **envp)
 //		printf("Wait..\n");
 //		sleep(1);
 //	}
-	command = NULL;
 	quit = 0;
 	using_history();
 	datas = (t_datas *)malloc(sizeof(t_datas));
+	datas->command = NULL;
 	datas->env = envp_to_alloc_tab(envp, &datas->len_env);
 	catch_sig();
 	while (!quit)
 	{
-		command = readline("Minishell $> ");
-		quit = ((command && ft_strncmp(command, "exit", 5) == FALSE) || !command);
-		if (!quit && command && *command)
+		datas->command = readline("Minishell $> ");
+		quit = (!datas->command);
+		if (!quit && datas->command && *datas->command)
 		{
-			add_history(command);
-			if (interpret_command(command, datas))
+			add_history(datas->command);
+			if (interpret_command(datas))
 				free_tree(datas->head);
 		}
-		free(command);
+		free(datas->command);
 	}
 	ft_freetab(datas->env);
 	free(datas);

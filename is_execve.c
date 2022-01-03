@@ -17,16 +17,16 @@ int is_execve(char *name)
 	tab[5] = "env";
 	tab[6] = "exit";
     i = 0;
-    while (tab[i])
+    while (i < 7)
     {
-        if (ft_strncmp(tab[i], name, ft_strlen(tab[i])) == 0)
+        if (ft_strncmp(tab[i], name, ft_strlen(tab[i]) + 1) == 0)
             return(i);
         i++;
     }
     return (-1);
 }
 
-void exec_this_one(int i, t_node *head, t_datas *datas, char *command)
+void exec_this_one(int i, t_node *head, t_datas *datas)
 {
     if (i == 0)
         ft_cd(head->cmd->args, datas);
@@ -41,10 +41,10 @@ void exec_this_one(int i, t_node *head, t_datas *datas, char *command)
     else if (i == 5)
         ft_env(datas->env);
     else if (i == 6)
-        ft_exit(datas, command);
+        ft_exit(datas, head);
 }
 
-int exec_builtin(t_node *head, t_datas *datas, char *command) //renvoie 1 si le lance, 0 si non
+int exec_builtin(t_node *head, t_datas *datas) //renvoie 1 si le lance, 0 si non
 {
     int     i;
     char    *tab[7];
@@ -58,11 +58,11 @@ int exec_builtin(t_node *head, t_datas *datas, char *command) //renvoie 1 si le 
 	tab[6] = "exit";
 
     i = 0;
-    while(tab[i])
+    while(i < 7)
     {
-        if (ft_strncmp(head->cmd->name, tab[i], ft_strlen(tab[i])) == 0)
+        if (ft_strncmp(head->cmd->name, tab[i], ft_strlen(tab[i]) + 1) == 0)
         {
-            exec_this_one(i, head, datas, command);
+            exec_this_one(i, head, datas);
             return(1);
         }
         i++;
