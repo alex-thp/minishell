@@ -144,26 +144,22 @@ char	**ft_custom_split(char *str)
 	i = ft_init_split(str);
 	j = 0;
 	index = 0;
-	result = (char**)malloc(sizeof(char*) * i + 1);
+	result = ft_calloc(i + 1, sizeof(char*));
 	while(j < i)
 	{
 		result[j] = get_word(str, &index);
 		index++;
 		j++;
 	}
-	result[j] = NULL;
+//	result[j] = NULL;
 	return (result);
 }
 
 char	**parse_command(char *str)
 {
-	char	**i;
+	char	**tab;
 
-	i = ft_custom_split(str);
-	while(i)
-	{
-		printf("là = %s\n", *i);
-		i++;
-	}
-	return (i);
+	tab = ft_custom_split(str);
+	ft_puttab(tab);
+	return (tab);
 }
