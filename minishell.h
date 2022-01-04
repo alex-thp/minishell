@@ -164,4 +164,10 @@ char			*interpret_dollar(char *str, t_datas *datas);
 int				go_home(t_datas *datas);
 int				ft_check_dir(char **args);
 
+/*
+ * parsing.c
+ */
+
+char	**parse_command(char *str);
+
 #endif

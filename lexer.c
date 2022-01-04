@@ -55,6 +55,7 @@ char	**lexer(char *command)
 		printf("error with pipe\n");
 		return (NULL);
 	}
-	result = ft_split(command, '|');
+	result = parse_command(command);
+	//result = ft_split(command, '|');
 	return (result);
 }
