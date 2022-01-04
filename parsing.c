@@ -145,9 +145,10 @@ char	**ft_custom_split(char *str)
 	j = 0;
 	index = 0;
 	result = (char**)malloc(sizeof(char*) * i + 1);
-	while(j <= i)
+	while(j < i)
 	{
 		result[j] = get_word(str, &index);
+		index++;
 		j++;
 	}
 	result[j] = NULL;
@@ -159,5 +160,10 @@ char	**parse_command(char *str)
 	char	**i;
 
 	i = ft_custom_split(str);
+	while(i)
+	{
+		printf("là = %s\n", *i);
+		i++;
+	}
 	return (i);
 }
