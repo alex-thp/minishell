@@ -6,11 +6,18 @@
 /*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 17:53:22 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/03 17:54:02 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/04 20:50:06 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	redir_builtins(t_node *head)
+{
+	if (head->redir->fd_out == -2)
+		return (STDOUT_FILENO);
+	return (head->redir->fd_out);
+}
 
 int	ft_cd(char **args, t_datas *datas)
 {
@@ -39,18 +46,23 @@ int	ft_cd(char **args, t_datas *datas)
 	return (result);
 }
 
-void	ft_env(char **env)
+void	ft_env(char **env, t_node *head)
 {
 	int		i;
 	char	*index;
+	int		out;
 
 	i = 0;
+	out = redir_builtins(head);
 	while (env[i])
 	{
 		index = NULL;
 		index = ft_strchr(env[i], '=');
 		if (index)
-			printf("%s\n", env[i]);
+		{
+			ft_putstr_fd(env[i], out);
+			ft_putstr_fd("\n", out);
+		}
 		i++;
 	}
 }

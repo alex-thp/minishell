@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 10:18:55 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/03 17:55:24 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/04 20:51:23 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,8 @@ void			execute_tree(t_node *head, t_datas *datas);
  * builtins.c
  */
 
-void			ft_echo(char **strs);
-void			ft_pwd(void);
+void			ft_echo(char **strs, t_node *head);
+void			ft_pwd(t_node *head);
 int				ft_export(char ***env, int *len_env, char *var);
 int				ft_unset(char **env, char *var);
 
@@ -126,8 +126,9 @@ int				ft_unset(char **env, char *var);
  */
 
 int				ft_cd(char **args, t_datas *datas);
-void			ft_env(char **env);
+void			ft_env(char **env, t_node *head);
 void			ft_exit(t_datas *datas, t_node *head);
+int				redir_builtins(t_node *head);
 
 /*
  * interpret.c
