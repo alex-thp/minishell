@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:14:03 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/03 17:54:14 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/04 20:48:40 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,15 @@ int	check_option_n(char *str)
 	return (0);
 }
 
-void	ft_echo(char **strs)
+void	ft_echo(char **strs, t_node *head)
 {
 	int	i;
 	int	option;
+	int	out;
 
 	i = 1;
 	option = 0;
+	out = redir_builtins(head);
 	if (strs && strs[i])
 	{
 		while (strs[i] && check_option_n(strs[i]) == 1)
@@ -90,20 +92,28 @@ void	ft_echo(char **strs)
 		}
 		while (strs[i])
 		{
-			printf("%s ", strs[i]);
+			ft_putstr_fd(strs[i], out);
 			i++;
 		}
 		if (option == 0)
-			printf("\n");
+			ft_putstr_fd("\n", out);
 	}
 }
 
-void	ft_pwd(void)
+void	ft_pwd(t_node *head)
 {
 	char	*buff;
+	int		out;
 
+	out = redir_builtins(head);
 	buff = getcwd(NULL, 0);
+	if (head->redir->fd_out == -2)
 	printf("%s\n", buff);
+	else
+	{
+		ft_putstr_fd(buff, out);
+		ft_putstr_fd("\n", out);
+	}
 	if (buff)
 		free(buff);
 }

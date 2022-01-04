@@ -6,7 +6,7 @@
 /*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 17:40:59 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/03 17:43:41 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/04 20:52:09 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,15 @@ void	exec_this_one(int i, t_node *head, t_datas *datas)
 	if (i == 0)
 		ft_cd(head->cmd->args, datas);
 	else if (i == 1)
-		ft_pwd();
+		ft_pwd(head);
 	else if (i == 2)
-		ft_echo(head->cmd->args);
+		ft_echo(head->cmd->args, head);
 	else if (i == 3)
 		ft_unset(datas->env, head->cmd->args[1]);
 	else if (i == 4)
 		ft_export(&datas->env, &datas->len_env, head->cmd->args[1]);
 	else if (i == 5)
-		ft_env(datas->env);
+		ft_env(datas->env, head);
 	else if (i == 6)
 		ft_exit(datas, head);
 }
