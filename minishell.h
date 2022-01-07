@@ -171,4 +171,8 @@ int				ft_check_dir(char **args);
 
 char	**parse_command(char *str);
 
+/*
+ * dollars.c
+ */
+
 #endif
