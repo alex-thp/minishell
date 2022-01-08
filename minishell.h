@@ -94,7 +94,7 @@ int				is_special(char c, char *str);
  */
 
 int				check_pipe_error(char *command);
-char			**lexer(char *command);
+char			**lexer(char *command, t_datas *datas);
 
 /*
  * files.c
@@ -169,10 +169,12 @@ int				ft_check_dir(char **args);
  * parsing.c
  */
 
-char	**parse_command(char *str);
+char	**parse_command(char *str, t_datas *datas);
 
 /*
  * dollars.c
  */
+
+char	*dollar_interpretation(char *str, t_datas *datas);
 
 #endif

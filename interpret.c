@@ -110,18 +110,19 @@ int	interpret_command(t_datas *datas)
 	int		pid;
 
 	pid = 0;
-	parsed_command = lexer(datas->command);
+	parsed_command = lexer(datas->command, datas);
 	if (parsed_command == NULL)
 		return (0);
 	if (parsed_command[1])
 	{
+		//ft_puttab(parsed_command);
 		datas->head = create_tree(parsed_command);
 		execute_tree(datas->head, datas);
 		waitpid(-1, NULL, 0);
 	}
 	else
 	{
-		datas->head = create_node(datas->command);
+		datas->head = create_node(parsed_command[0]);
 		datas->head->redir = create_redir(datas->head->line);
 		datas->head->cmd = create_cmd(datas->head->line);
 		if (is_execve(datas->head->cmd->name) == -1)

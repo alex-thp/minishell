@@ -84,8 +84,13 @@ char	*interpret_dollar(char *str, t_datas *datas)
 
 	i = 0;
 	j = 0;
-	while (datas->env[i] && ft_strncmp(datas->env[i], str, ft_strlen(str)) != 0)
+	while (str[j] && str[j] != ' ')
+		j++;
+	while (datas->env[i] && ft_strncmp(datas->env[i], str, j) != 0)
 		i++;
+	j = 0;
+	if (datas->env[i] == NULL)
+		return (NULL);
 	while (datas->env[i][j] && datas->env[i][j] != '=')
 		j++;
 	j++;

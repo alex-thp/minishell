@@ -59,7 +59,7 @@ int		ft_init_split(char *str)
 	return (count);
 }
 
-char	**ft_custom_split(char *str)
+char	**ft_custom_split(char *str, t_datas *datas)
 {
 	char	**result;
 	int		i;
@@ -73,6 +73,7 @@ char	**ft_custom_split(char *str)
 	while(j < i)
 	{
 		result[j] = get_word(str, &index);
+		result[j] = dollar_interpretation(result[j], datas);
 		index++;
 		j++;
 	}
@@ -80,11 +81,11 @@ char	**ft_custom_split(char *str)
 	return (result);
 }
 
-char	**parse_command(char *str)
+char	**parse_command(char *str, t_datas *datas)
 {
 	char	**tab;
 
-	tab = ft_custom_split(str);
-	ft_puttab(tab);
+	tab = ft_custom_split(str, datas);
+	//ft_puttab(tab);
 	return (tab);
 }

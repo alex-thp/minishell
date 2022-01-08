@@ -46,7 +46,7 @@ int	check_pipe_error(char *command)
 	return (0);
 }
 
-char	**lexer(char *command)
+char	**lexer(char *command, t_datas *datas)
 {
 	char	**result;
 
@@ -55,7 +55,8 @@ char	**lexer(char *command)
 		printf("error with pipe\n");
 		return (NULL);
 	}
-	result = parse_command(command);
+	result = parse_command(command, datas);
+	//ft_puttab(result);
 	//result = ft_split(command, '|');
 	return (result);
 }
