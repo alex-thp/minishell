@@ -93,6 +93,8 @@ void	ft_echo(char **strs, t_node *head)
 		while (strs[i])
 		{
 			ft_putstr_fd(strs[i], out);
+			if (strs[i + 1])
+				ft_putstr_fd(" ", out);
 			i++;
 		}
 		if (option == 0)
