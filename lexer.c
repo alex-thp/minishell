@@ -56,7 +56,5 @@ char	**lexer(char *command, t_datas *datas)
 		return (NULL);
 	}
 	result = parse_command(command, datas);
-	//ft_puttab(result);
-	//result = ft_split(command, '|');
 	return (result);
 }

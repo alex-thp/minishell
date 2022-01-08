@@ -1,10 +1,7 @@
 #include "minishell.h"
 
-int		is_finished(char *str)
+int		is_finished(char *str, int i)
 {
-	int		i;
-
-	i = 1; //on passe le premier '
 	while (str[i] && str[i] != '\'')
 		i++;
 	if (str[i] == 0)
@@ -34,13 +31,13 @@ char	*add_variable_to_str(char *result, int i, t_datas *datas)
 		i++;
 	}
 	i += j;
-	while(result[j] && result[j] != ' ')
+	while(result[j] && result[j] != ' ' && result[j] != '"')
 		j++;
 	while (result[j])
 	{
 		str[i] = result[j];
-		j++;
 		i++;
+		j++;
 	}
 	str[i] = 0;
 	free(result);
@@ -63,8 +60,8 @@ char	*dollar_interpretation(char *str, t_datas *datas)
 		}
 		if (result[i] == '\'')
 		{
-			if (is_finished(&result[i]) != -1)
-				i = is_finished(&result[i]);
+			if (is_finished(result, i) != -1)
+				i = is_finished(result, i);
 			else
 				return (result);
 			i++;

@@ -115,7 +115,6 @@ int	interpret_command(t_datas *datas)
 		return (0);
 	if (parsed_command[1])
 	{
-		//ft_puttab(parsed_command);
 		datas->head = create_tree(parsed_command);
 		execute_tree(datas->head, datas);
 		waitpid(-1, NULL, 0);

@@ -59,6 +59,29 @@ int		ft_init_split(char *str)
 	return (count);
 }
 
+char	*erase_quotes(char *str)
+{
+	int		i;
+	int		j;
+	char	*result;
+
+	result = malloc(sizeof(char) * ft_strlen(str) + 1);
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (str[i] != '"' && str[i] != '\'')
+		{
+			result[j] = str[i];
+			j++;
+		}
+		i++;
+	}
+	result[j] = 0;
+	free(str);
+	return (result);
+}
+
 char	**ft_custom_split(char *str, t_datas *datas)
 {
 	char	**result;
@@ -74,6 +97,7 @@ char	**ft_custom_split(char *str, t_datas *datas)
 	{
 		result[j] = get_word(str, &index);
 		result[j] = dollar_interpretation(result[j], datas);
+		result[j] = erase_quotes(result[j]);
 		index++;
 		j++;
 	}
@@ -86,6 +110,6 @@ char	**parse_command(char *str, t_datas *datas)
 	char	**tab;
 
 	tab = ft_custom_split(str, datas);
-	//ft_puttab(tab);
+	ft_puttab(tab);
 	return (tab);
 }
