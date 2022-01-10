@@ -6,7 +6,7 @@
 /*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:28:17 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/10 16:55:53 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/10 19:50:04 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,12 +111,22 @@ void	execute_tree(t_node *head, t_datas *datas)
 	close(pip[1]);
 }
 
+void	ft_sigreset(int signal)
+{
+	(void)signal;
+	ft_putstr_fd("\n", 2);
+	return;
+}
+
 int	interpret_command(t_datas *datas)
 {
 	char	**parsed_command;
 	int		pid;
+	struct	sigaction reset;
 
 	pid = 0;
+	reset.sa_handler = ft_sigreset;
+	sigaction(SIGINT, &reset, NULL);
 	parsed_command = lexer(datas->command);
 	if (parsed_command == NULL)
 		return (0);
