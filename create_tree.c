@@ -6,11 +6,42 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:26:48 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/10 21:54:27 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/10 23:14:55 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	here_doc(char *stop)
+{
+	char	*doc;
+	int		len_stop;
+	int		fd;
+
+	doc = NULL;
+	len_stop = ft_strlen(stop);
+	if (!len_stop)
+		return (0);
+	fd = open("/tmp/here_doc_minishell", O_CREAT | O_RDWR | O_TRUNC, 00664);
+	while (1)
+	{
+		doc = readline("> ");
+		if (ft_memcmp(doc, stop, len_stop + 1))
+		{
+			ft_putstr_fd(doc, fd);
+			ft_putstr_fd("\n", fd);
+			free(doc);
+		}
+		else
+		{
+			free(doc);
+			close(fd);
+			fd = open("/tmp/here_doc_minishell", O_RDONLY);
+			return (fd);
+		}
+	}
+	return (-2);
+}
 
 t_redirection	*create_redir(char *command)
 {
@@ -27,10 +58,20 @@ t_redirection	*create_redir(char *command)
 	{
 		if (command[i] == '<')
 		{
-			if (redir->fd_in)
-				close(redir->fd_in);
-			to_open = get_value2(command, i);
-			fd = open(to_open, O_RDONLY);
+			if (command[i + 1] == '<')
+			{
+				command[i] = ' ';
+				i++;
+				to_open = get_value2(command, i);
+				fd = here_doc(to_open);
+			}
+			else
+			{
+				if (redir->fd_in)
+					close(redir->fd_in);
+				to_open = get_value2(command, i);
+				fd = open(to_open, O_RDONLY);
+			}
 			free(to_open); 
 			redir->fd_in = fd;
 		}
