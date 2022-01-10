@@ -6,7 +6,7 @@
 /*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 17:39:30 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/23 18:46:27 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/10 22:29:53 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ char	*get_name(char *env)
 
 	i = get_size_name(env);
 	j = 0;
-	name = malloc(sizeof(char) * i);
-	name[i - 1] = 0;
+	name = ft_calloc(i, sizeof(char));
 	while (j < i)
 	{
 		name[j] = env[j];
@@ -52,7 +51,7 @@ char	*get_value(char *env)
 
 	j = 0;
 	i = 0;
-	while (env[i] != '=')
+	while (env[i] && env[i] != '=')
 		i++;
 	i++;
 	while (env[i + j])
@@ -99,4 +98,21 @@ char	**envp_to_alloc_tab(char **envp, int *len_env)
 		i++;
 	}
 	return (new);
+}
+
+int	change_env_value(char **env, char *var)
+{
+	char	*name;
+	int		index;
+
+	name = get_name(var);
+	index = get_envindex(env, name);
+	free(name);
+	if (index != -1)
+	{
+		free(env[index]);
+		env[index] = ft_strdup(var);
+		return (1);
+	}
+	return (0);
 }

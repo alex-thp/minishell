@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:14:03 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/04 20:48:40 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/10 22:23:33 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	ft_export(char ***env, int *len_env, char *var)
 
 	tmp = *env;
 	i = 0;
+	if (change_env_value(*env, var))
+		return (1);
 	while (tmp[i])
 	{
 		i++;
