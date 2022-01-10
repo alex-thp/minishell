@@ -6,7 +6,7 @@
 /*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:28:17 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/10 19:50:04 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/10 19:57:50 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ int	interpret_command(t_datas *datas)
 	pid = 0;
 	reset.sa_handler = ft_sigreset;
 	sigaction(SIGINT, &reset, NULL);
-	parsed_command = lexer(datas->command);
+	parsed_command = lexer(datas->command, datas);
 	if (parsed_command == NULL)
 		return (0);
 	if (parsed_command[1])
