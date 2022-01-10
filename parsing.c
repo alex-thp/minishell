@@ -59,23 +59,58 @@ int		ft_init_split(char *str)
 	return (count);
 }
 
+int	ft_closed_cote(char *str)
+{
+	int		i;
+	char	cote;
+
+	i = 1;
+	cote = *str;
+	if (*str != '"' && *str != '\'')
+		return(0);
+	if (!str || !*str)
+		return (0);
+	while (str[i])
+	{
+		if (str[i] == cote)
+			return (i);
+		i++;
+	}
+	return (0);
+}
+
 char	*erase_quotes(char *str)
 {
 	int		i;
 	int		j;
+	int		closed_cote;
 	char	*result;
 
 	result = malloc(sizeof(char) * ft_strlen(str) + 1);
 	i = 0;
 	j = 0;
+	closed_cote = 0;
 	while (str[i])
 	{
-		if (str[i] != '"' && str[i] != '\'')
+		closed_cote = ft_closed_cote(str + i);
+		if (closed_cote)
+		{
+			i++;
+			while (closed_cote > 1)
+			{
+				result[j] = str[i];
+				i++;
+				j++;
+				closed_cote--;
+			}
+			i++;
+		}
+		else
 		{
 			result[j] = str[i];
 			j++;
+			i++;
 		}
-		i++;
 	}
 	result[j] = 0;
 	free(str);
