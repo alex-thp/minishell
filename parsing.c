@@ -59,10 +59,10 @@ int		ft_init_split(char *str)
 	return (count);
 }
 
-int	ft_closed_cote(char *str)
+int	ft_closed_quote(char *str)
 {
 	int		i;
-	char	cote;
+	char	quote;
 
 	i = 1;
 	cote = *str;
@@ -72,7 +72,7 @@ int	ft_closed_cote(char *str)
 		return (0);
 	while (str[i])
 	{
-		if (str[i] == cote)
+		if (str[i] == quote)
 			return (i);
 		i++;
 	}
@@ -83,25 +83,25 @@ char	*erase_quotes(char *str)
 {
 	int		i;
 	int		j;
-	int		closed_cote;
+	int		closed_quote;
 	char	*result;
 
 	result = malloc(sizeof(char) * ft_strlen(str) + 1);
 	i = 0;
 	j = 0;
-	closed_cote = 0;
+	closed_quote = 0;
 	while (str[i])
 	{
-		closed_cote = ft_closed_cote(str + i);
-		if (closed_cote)
+		closed_quote = ft_closed_quote(str + i);
+		if (closed_quote)
 		{
 			i++;
-			while (closed_cote > 1)
+			while (closed_quote > 1)
 			{
 				result[j] = str[i];
 				i++;
 				j++;
-				closed_cote--;
+				closed_quote--;
 			}
 			i++;
 		}
