@@ -25,6 +25,8 @@ int	is_execve(char *name)
 	tab[5] = "env";
 	tab[6] = "exit";
 	i = 0;
+	if (!name)
+		return (-1);
 	while (i < 7)
 	{
 		if (ft_strncmp(tab[i], name, ft_strlen(tab[i]) + 1) == 0)

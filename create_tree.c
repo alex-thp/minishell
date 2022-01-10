@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:26:48 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/03 17:51:00 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/10 16:55:21 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,34 +25,31 @@ t_redirection	*create_redir(char *command)
 	i = 0;
 	while (command[i] != 0)
 	{
-		if (command[i] == '<' || command[i] == '>' )
+		if (command[i] == '<')
 		{
-			if (command[i] == '<')
+			if (redir->fd_in)
+				close(redir->fd_in);
+			to_open = get_value2(command, i);
+			fd = open(to_open, O_RDONLY);
+			free(to_open); 
+			redir->fd_in = fd;
+		}
+		else if (command[i] == '>')
+		{
+			if (command[i + 1] == '>')
 			{
-				if (redir->fd_in)
-					close(redir->fd_in);
+				command[i] = ' ';
+				i++;
 				to_open = get_value2(command, i);
-				fd = open(to_open, O_RDONLY);
-				free(to_open);
-				redir->fd_in = fd;
+				fd = open(to_open, O_CREAT | O_RDWR | O_APPEND, 00664);
 			}
-			else if (command[i] == '>')
+			else
 			{
-				if (command[i + 1] == '>')
-				{
-					command[i] = ' ';
-					i++;
-					to_open = get_value2(command, i);
-					fd = open(to_open, O_CREAT | O_RDWR | O_APPEND, 00664);
-				}
-				else
-				{
-					to_open = get_value2(command, i);
-					fd = open(to_open, O_CREAT | O_RDWR | O_TRUNC, 00664);
-				}
-				free(to_open);
-				redir->fd_out = fd;
+				to_open = get_value2(command, i);
+				fd = open(to_open, O_CREAT | O_RDWR | O_TRUNC, 00664);
 			}
+			free(to_open);
+			redir->fd_out = fd;
 		}
 		i++;
 	}
