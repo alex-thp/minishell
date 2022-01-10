@@ -6,7 +6,7 @@
 /*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:28:17 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/10 19:57:50 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/10 21:40:36 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,13 +109,6 @@ void	execute_tree(t_node *head, t_datas *datas)
 	}
 	close(pip[0]);
 	close(pip[1]);
-}
-
-void	ft_sigreset(int signal)
-{
-	(void)signal;
-	ft_putstr_fd("\n", 2);
-	return;
 }
 
 int	interpret_command(t_datas *datas)

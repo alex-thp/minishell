@@ -6,11 +6,18 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:53:46 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/03 17:52:43 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/10 21:52:27 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_sigreset(int signal)
+{
+	(void)signal;
+	ft_putstr_fd("\n", 2);
+	return;
+}
 
 void	ft_sigint(int signal)
 {

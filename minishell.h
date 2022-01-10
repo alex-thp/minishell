@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 10:18:55 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/04 20:51:23 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/10 22:24:15 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ t_datas			*manage_env(t_datas *datas);
 char			**envp_to_alloc_tab(char **envp, int *len_env);
 int				get_envindex(char **env, char *var);
 char			*get_value(char *env);
+int				change_env_value(char **env, char *var);
 
 /*
  * create_tree.c
@@ -140,6 +141,7 @@ int				interpret_command(t_datas *datas);
  * signal.c
  */
 
+void			ft_sigreset(int signal);
 int				catch_sig(void);
 
 /*

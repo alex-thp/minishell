@@ -65,7 +65,7 @@ int	ft_closed_quote(char *str)
 	char	quote;
 
 	i = 1;
-	cote = *str;
+	quote = *str;
 	if (*str != '"' && *str != '\'')
 		return(0);
 	if (!str || !*str)
