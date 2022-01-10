@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:26:48 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/03 18:06:57 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/10 19:47:14 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int	start(char **envp)
 	datas = (t_datas *)malloc(sizeof(t_datas));
 	datas->command = NULL;
 	datas->env = envp_to_alloc_tab(envp, &datas->len_env);
-	catch_sig();
 	while (!quit)
 	{
+		catch_sig();
 		datas->command = readline("Minishell $> ");
 		quit = (!datas->command);
 		if (!quit && datas->command && *datas->command)
