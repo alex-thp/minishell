@@ -6,7 +6,7 @@
 /*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:28:17 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/04 20:32:28 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/10 16:55:53 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	child(int *pip, t_node *head, t_datas *datas)
 	dup2(pip[0], STDIN_FILENO);
 	head = init_node(head);
 	close(pip[1]);
-	if (head->cmd->name)
+	if (head->cmd->name && head->redir->fd_in != -1)
 	{
 		cmd = check_exe(head->cmd->name, datas->env);
 		if (is_execve(head->cmd->name) == -1)
@@ -67,7 +67,7 @@ void	first(t_node *head, t_datas *datas)
 	result = 0;
 	waitpid(-1, NULL, 0);
 	head = init_node(head);
-	if (head->cmd->name)
+	if (head->cmd->name && head->redir->fd_in != -1)
 	{
 		cmd = check_exe(head->cmd->name, datas->env);
 		if (is_execve(head->cmd->name) == -1)
