@@ -6,7 +6,7 @@
 /*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:28:17 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/04 20:32:28 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/10 19:50:04 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,24 +31,29 @@ void	parent(int *pip, t_node *head, t_datas *datas)
 void	child(int *pip, t_node *head, t_datas *datas)
 {
 	char	*cmd;
-	int		result;
+	int result;
 
 	cmd = NULL;
-	waitpid(-1, NULL, 0);
 	result = 0;
-	head = init_node(head);
+	waitpid(-1, NULL, 0);
 	dup2(pip[0], STDIN_FILENO);
+	head = init_node(head);
 	close(pip[1]);
-	cmd = check_exe(head->cmd->name, datas->env);
-	if (is_execve(head->cmd->name) == -1)
-		execve(cmd, head->cmd->args, datas->env);
-	else
-		result = exec_builtin(head, datas);
-	if (!result)
+	if (head->cmd->name && head->redir->fd_in != -1)
 	{
-		ft_putstr_fd(head->cmd->name, 2);
-		ft_putstr_fd(": command not found\n", 2);
+		cmd = check_exe(head->cmd->name, datas->env);
+		if (is_execve(head->cmd->name) == -1)
+			execve(cmd, head->cmd->args, datas->env);
+		else
+			result = exec_builtin(head, datas);
+		if (!result)
+		{
+			ft_putstr_fd(head->cmd->name, 2);
+			ft_putstr_fd(": command not found\n", 2);
+		}
 	}
+	else
+		ft_putstr_fd("parse error\n", 2);
 	free(cmd);
 	exit(0);
 }
@@ -59,19 +64,24 @@ void	first(t_node *head, t_datas *datas)
 	int		result;
 
 	cmd = NULL;
-	waitpid(-1, NULL, 0);
 	result = 0;
+	waitpid(-1, NULL, 0);
 	head = init_node(head);
-	cmd = check_exe(head->cmd->name, datas->env);
-	if (is_execve(head->cmd->name) == -1)
-		execve(cmd, head->cmd->args, datas->env);
-	else
-		result = exec_builtin(head, datas);
-	if (!result)
+	if (head->cmd->name && head->redir->fd_in != -1)
 	{
-		ft_putstr_fd(head->cmd->name, 2);
-		ft_putstr_fd(": command not found\n", 2);
+		cmd = check_exe(head->cmd->name, datas->env);
+		if (is_execve(head->cmd->name) == -1)
+			execve(cmd, head->cmd->args, datas->env);
+		else
+			result = exec_builtin(head, datas);
+		if (!result)
+		{
+			ft_putstr_fd(head->cmd->name, 2);
+			ft_putstr_fd(": command not found\n", 2);
+		}
 	}
+	else
+		ft_putstr_fd("parse error\n", 2);
 	free(cmd);
 	exit(0);
 }
@@ -88,8 +98,7 @@ void	execute_tree(t_node *head, t_datas *datas)
 		pid = fork();
 		if (pid == 0)
 			child(pip, head->right, datas);
-		else
-			parent(pip, head, datas);
+		parent(pip, head, datas);
 	}
 	else
 	{
@@ -98,19 +107,31 @@ void	execute_tree(t_node *head, t_datas *datas)
 			first(head, datas);
 		waitpid(pid, NULL, 0);
 	}
-	dup2(STDOUT_FILENO, pip[1]);
-	dup2(STDIN_FILENO, pip[0]);
 	close(pip[0]);
 	close(pip[1]);
+}
+
+void	ft_sigreset(int signal)
+{
+	(void)signal;
+	ft_putstr_fd("\n", 2);
+	return;
 }
 
 int	interpret_command(t_datas *datas)
 {
 	char	**parsed_command;
 	int		pid;
+	struct	sigaction reset;
 
 	pid = 0;
+<<<<<<< HEAD
 	parsed_command = lexer(datas->command, datas);
+=======
+	reset.sa_handler = ft_sigreset;
+	sigaction(SIGINT, &reset, NULL);
+	parsed_command = lexer(datas->command);
+>>>>>>> d9e6a3ddb7bf21a4bfa5f6cd205b6d97b85adb78
 	if (parsed_command == NULL)
 		return (0);
 	if (parsed_command[1])
