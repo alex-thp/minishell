@@ -1,5 +1,17 @@
 #include "minishell.h"
 
+int		ft_look2(char *str, int i, char type)
+{
+	int		j;
+
+	j = 1; //se positionner après type
+	while (str[i + j] && str[i + j] != type)
+		j++;
+	if (str[i + j] != 0)
+		return (j);
+	return (-1);
+}
+
 int		ft_look(char *str, int i, char type)
 {
 	i++; //se positionner après type
@@ -22,12 +34,12 @@ char	*get_word(char *str, int *j, char separ)
 	{
 		if (str[*j + i] == '\'' || str[*j + i] == '"')
 		{
-			if (ft_look(str, *j + i, str[*j + i]) != -1)
-				i = ft_look(str, *j + i, str[*j + i]);
+			if (ft_look2(str, *j + i, str[*j + i]) != -1)
+				i += ft_look2(str, *j + i, str[*j + i]);
 		}
 		i++;
 	}
-	result = malloc(sizeof(char) * i + 1);
+	result = malloc(sizeof(char) * (i + 1));
 	result[i] = 0;
 	i += *j;
 	while(*j < i)
@@ -125,6 +137,8 @@ char	**ft_custom_split(char *str, t_datas *datas, char separ)
 	int		j;
 	int		index;
 
+	while (*str == ' ')
+		str++;
 	i = ft_init_split(str, separ);
 	j = 0;
 	index = 0;
@@ -138,6 +152,7 @@ char	**ft_custom_split(char *str, t_datas *datas, char separ)
 		j++;
 	}
 	result[j] = NULL;
+	ft_puttab(result);
 	return (result);
 }
 
@@ -146,6 +161,5 @@ char	**parse_command(char *str, t_datas *datas)
 	char	**tab;
 
 	tab = ft_custom_split(str, datas, '|');
-	ft_puttab(tab);
 	return (tab);
 }
