@@ -145,6 +145,7 @@ char		*get_the_word(char *command, int *index)
 	size = get_word_length(command, *index);
 	printf("|get_the_word size : [%d]|\n", size);
 	result = malloc(sizeof(char) * (size + 1));
+	result[size] = 0;
 	tmp = *index + size;
 	printf("|combien j'écris : [%d]|\n", tmp - *index);
 	while (*index < tmp)
@@ -153,7 +154,6 @@ char		*get_the_word(char *command, int *index)
 		*index += 1;
 		i++;
 	}
-	result[i] = 0;
 	return (result);
 }
 
