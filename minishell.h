@@ -172,6 +172,7 @@ int				ft_check_dir(char **args);
  */
 
 char	**parse_command(char *str, t_datas *datas);
+int		ft_look(char *str, int i, char type);
 
 /*
  * dollars.c
