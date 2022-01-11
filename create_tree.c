@@ -143,9 +143,7 @@ char		*get_the_word(char *command, int *index)
 
 	i = 0;
 	size = get_word_length(command, *index);
-	printf("|get_the_word size : [%d]|\n", size);
 	result = malloc(sizeof(char) * (size + 1));
-	result[size] = 0;
 	size += *index;
 	while (*index < size)
 	{
@@ -153,6 +151,7 @@ char		*get_the_word(char *command, int *index)
 		*index += 1;
 		i++;
 	}
+	result[i] = 0;
 	return (result);
 }
 
@@ -160,19 +159,21 @@ char		**ft_split_spaces(char *command)
 {
 	char	**result;
 	int		i;
+	int		j;
 	int		index;
 
 	index = 0;
 	i = get_nb_words(command);
 	result = malloc(sizeof(char*) * (i + 1));
 	result[i] = NULL;
-	printf("nombre de mots : %d\n", i);
-	while (i > 0)
+	j = 0;
+	while (j < i)
 	{
-		result[i] = get_the_word(command, &index);
+		result[j] = get_the_word(command, &index);
 		index++;
-		i--;
+		j++;
 	}
+	ft_puttab(result);
 	return (result);
 }
 
