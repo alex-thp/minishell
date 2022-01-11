@@ -2,7 +2,6 @@
 
 int		is_finished(char *str, int i)
 {
-	i++;
 	while (str[i] && str[i] != '\'')
 		i++;
 	if (str[i] == 0)
