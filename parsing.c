@@ -137,7 +137,7 @@ char	**ft_custom_split(char *str, t_datas *datas, char separ)
 		index++;
 		j++;
 	}
-//	result[j] = NULL;
+	result[j] = NULL;
 	return (result);
 }
 
