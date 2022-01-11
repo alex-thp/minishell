@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 10:18:55 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/10 22:42:40 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/11 18:32:53 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,10 @@ int				change_env_value(char **env, char *var);
  */
 
 t_redirection	*create_redir(char *command);
-t_command		*create_cmd(char *command);
+t_command		*create_cmd(char *command, t_datas *datas);
 t_node			*create_node(char *command);
 t_node			*create_tree(char **command);
-t_node			*init_node(t_node *node);
+t_node			*init_node(t_node *node, t_datas *datas);
 
 /*
  * utils_tree.c
@@ -171,13 +171,14 @@ int				ft_check_dir(char **args);
  * parsing.c
  */
 
-char	**parse_command(char *str, t_datas *datas);
-int		ft_look(char *str, int i, char type);
+char			**ft_custom_split(char *str, t_datas *datas, char separ);
+char			**parse_command(char *str, t_datas *datas);
+int				ft_look(char *str, int i, char type);
 
 /*
  * dollars.c
  */
 
-char	*dollar_interpretation(char *str, t_datas *datas);
+char			*dollar_interpretation(char *str, t_datas *datas);
 
 #endif

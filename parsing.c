@@ -10,7 +10,7 @@ int		ft_look(char *str, int i, char type)
 	return (-1);
 }
 
-char	*get_word(char *str, int *j)
+char	*get_word(char *str, int *j, char separ)
 {
 	char	*result;
 	int		i;
@@ -18,7 +18,7 @@ char	*get_word(char *str, int *j)
 
 	i = 0;
 	k = 0;
-	while (str[*j + i] && str[*j + i] != '|')
+	while (str[*j + i] && str[*j + i] != separ)
 	{
 		if (str[*j + i] == '\'' || str[*j + i] == '"')
 		{
@@ -38,7 +38,8 @@ char	*get_word(char *str, int *j)
 	}
 	return (result);
 }
-int		ft_init_split(char *str)
+
+int		ft_init_split(char *str, char separ)
 {
 	int		i;
 	int		count;
@@ -52,7 +53,7 @@ int		ft_init_split(char *str)
 			if (ft_look(str, i, str[i]) != -1)
 				i = ft_look(str, i, str[i]);
 		}
-		else if (str[i] == '|')
+		else if (str[i] == separ)
 			count++;
 		i++;
 	}
@@ -117,22 +118,22 @@ char	*erase_quotes(char *str)
 	return (result);
 }
 
-char	**ft_custom_split(char *str, t_datas *datas)
+char	**ft_custom_split(char *str, t_datas *datas, char separ)
 {
 	char	**result;
 	int		i;
 	int		j;
 	int		index;
 
-	i = ft_init_split(str);
+	i = ft_init_split(str, separ);
 	j = 0;
 	index = 0;
 	result = ft_calloc(i + 1, sizeof(char*));
 	while(j < i)
 	{
-		result[j] = get_word(str, &index);
+		result[j] = get_word(str, &index, separ);
 		result[j] = dollar_interpretation(result[j], datas);
-		result[j] = erase_quotes(result[j]);
+//		result[j] = erase_quotes(result[j]);
 		index++;
 		j++;
 	}
@@ -144,6 +145,7 @@ char	**parse_command(char *str, t_datas *datas)
 {
 	char	**tab;
 
-	tab = ft_custom_split(str, datas);
+	tab = ft_custom_split(str, datas, '|');
+	ft_puttab(tab);
 	return (tab);
 }
