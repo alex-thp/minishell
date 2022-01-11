@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:26:48 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/11 18:33:47 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/11 20:16:27 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,13 +97,13 @@ t_redirection	*create_redir(char *command)
 	return (redir);
 }
 
-t_command	*create_cmd(char *command, t_datas *datas)
+t_command	*create_cmd(char *command)
 {
 	t_command	*cmd;
 	char		**args;
 
 	cmd = (t_command *)malloc(sizeof(t_command));
-	args = ft_custom_split(command, datas, ' ');
+	args = ft_split(command, ' ');
 	if (args)
 	{
 		cmd->name = args[0];
@@ -112,12 +112,12 @@ t_command	*create_cmd(char *command, t_datas *datas)
 	return (cmd);
 }
 
-t_node	*init_node(t_node *node, t_datas *datas)
+t_node	*init_node(t_node *node)
 {
 	if (!node->redir)
 		node->redir = create_redir(node->line);
 	if (!node->cmd)
-		node->cmd = create_cmd(node->line, datas);
+		node->cmd = create_cmd(node->line);
 	if (node->redir->fd_out >= 0)
 		dup2(node->redir->fd_out, STDOUT_FILENO);
 	if (node->redir->fd_in >= 0)
