@@ -142,7 +142,11 @@ char		*get_the_word(char *command, int *index)
 	int		i;
 
 	i = 0;
+	while (command[*index] == ' ')
+		*index += 1;
 	size = get_word_length(command, *index);
+	if (!(command[*index]))
+		return (NULL);
 	result = malloc(sizeof(char) * (size + 1));
 	size += *index;
 	while (*index < size)
