@@ -97,13 +97,93 @@ t_redirection	*create_redir(char *command)
 	return (redir);
 }
 
+int			get_nb_words(char *command)
+{
+	int		i;
+	int		count;
+
+	i = 0;
+	count = 1;
+	while (command[i])
+	{
+		if (command[i] == '\'' || command[i] == '"')
+		{
+			if (ft_look(command, i, command[i]) != -1)
+				i = ft_look(command, i, command[i]);
+		}
+		if (command[i] == ' ')
+			count++;
+		i++;
+	}
+	return (count);
+}
+
+int			get_word_length(char *command, int i)
+{
+	int		size;
+
+	size = 0;
+	while(command[i + size] && command[i + size] != ' ')
+	{
+		if (command[i + size] == '\'' || command[i + size] == '"')
+		{
+			if (ft_look2(command, i + size, command[i + size]) != -1)
+				size += ft_look2(command, i + size, command[i + size]);
+		}
+		size++;
+	}
+	return (size);
+}
+
+char		*get_the_word(char *command, int *index)
+{
+	char	*result;
+	int		size;
+	int		tmp;
+	int		i;
+
+	size = get_word_length(command, *index);
+	printf("|get_the_word size : [%d]|\n", size);
+	result = malloc(sizeof(char) * (size + 1));
+	tmp = *index + size;
+	printf("|combien j'écris : [%d]|\n", tmp - *index);
+	while (*index < tmp)
+	{
+		result[i] = command[*index];
+		*index += 1;
+		i++;
+	}
+	result[i] = 0;
+	return (result);
+}
+
+char		**ft_split_spaces(char *command)
+{
+	char	**result;
+	int		i;
+	int		index;
+
+	index = 0;
+	i = get_nb_words(command);
+	result = malloc(sizeof(char*) * (i + 1));
+	result[i] = NULL;
+	printf("nombre de mots : %d\n", i);
+	while (i > 0)
+	{
+		result[i] = get_the_word(command, &index);
+		index++;
+		i--;
+	}
+	return (result);
+}
+
 t_command	*create_cmd(char *command)
 {
 	t_command	*cmd;
 	char		**args;
 
 	cmd = (t_command *)malloc(sizeof(t_command));
-	args = ft_split(command, ' ');
+	args = ft_split_spaces(command);
 	if (args)
 	{
 		cmd->name = args[0];
