@@ -162,6 +162,8 @@ char		**ft_split_spaces(char *command)
 	int		j;
 	int		index;
 
+	while (*command == ' ')
+		command++;
 	index = 0;
 	i = get_nb_words(command);
 	result = malloc(sizeof(char*) * (i + 1));
@@ -173,7 +175,6 @@ char		**ft_split_spaces(char *command)
 		index++;
 		j++;
 	}
-	ft_puttab(result);
 	return (result);
 }
 
