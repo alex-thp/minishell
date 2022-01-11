@@ -6,7 +6,7 @@
 /*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:28:17 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/10 21:40:36 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/11 18:30:51 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	child(int *pip, t_node *head, t_datas *datas)
 	result = 0;
 	waitpid(-1, NULL, 0);
 	dup2(pip[0], STDIN_FILENO);
-	head = init_node(head);
+	head = init_node(head, datas);
 	close(pip[1]);
 	if (head->cmd->name && head->redir->fd_in != -1)
 	{
@@ -66,7 +66,7 @@ void	first(t_node *head, t_datas *datas)
 	cmd = NULL;
 	result = 0;
 	waitpid(-1, NULL, 0);
-	head = init_node(head);
+	head = init_node(head, datas);
 	if (head->cmd->name && head->redir->fd_in != -1)
 	{
 		cmd = check_exe(head->cmd->name, datas->env);
@@ -133,7 +133,7 @@ int	interpret_command(t_datas *datas)
 	{
 		datas->head = create_node(parsed_command[0]);
 		datas->head->redir = create_redir(datas->head->line);
-		datas->head->cmd = create_cmd(datas->head->line);
+		datas->head->cmd = create_cmd(datas->head->line, datas);
 		if (is_execve(datas->head->cmd->name) == -1)
 		{
 			pid = fork();
