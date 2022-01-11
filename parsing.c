@@ -66,10 +66,10 @@ int	ft_closed_quote(char *str)
 
 	i = 1;
 	quote = *str;
-	if (*str != '"' && *str != '\'')
-		return(0);
 	if (!str || !*str)
 		return (0);
+	if (*str != '"' && *str != '\'')
+		return(0);
 	while (str[i])
 	{
 		if (str[i] == quote)

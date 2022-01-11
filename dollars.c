@@ -60,6 +60,7 @@ char	*dollar_interpretation(char *str, t_datas *datas)
 		}
 		if (result[i] == '\'')
 		{
+			i++;
 			if (is_finished(result, i) != -1)
 				i = is_finished(result, i);
 			else
