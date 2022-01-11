@@ -78,11 +78,11 @@ int	ft_closed_quote(char *str)
 	char	quote;
 
 	i = 1;
-	quote = *str;
 	if (!str || !*str)
 		return (0);
 	if (*str != '"' && *str != '\'')
 		return(0);
+	quote = *str;
 	while (str[i])
 	{
 		if (str[i] == quote)
