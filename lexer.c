@@ -35,11 +35,11 @@ int	check_pipe_error(char *command)
 			i++;
 		while (command[i] && command[i] != '|')
 		{
-					if (command[i] == '\'' || command[i] =='"')
-		{
-			if (ft_look(command, i, command[i]) != -1)
-				i = ft_look(command, i, command[i]);
-		}
+			if (command[i] == '\'' || command[i] =='"')
+			{
+				if (ft_look(command, i, command[i]) != -1)
+					i = ft_look(command, i, command[i]);
+			}
 			i++;
 			j++;
 		}
