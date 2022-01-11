@@ -150,7 +150,6 @@ char	**ft_custom_split(char *str, t_datas *datas)
 		j++;
 	}
 	result[j] = NULL;
-	ft_puttab(result);
 	return (result);
 }
 

@@ -111,7 +111,7 @@ int			get_nb_words(char *command)
 			if (ft_look(command, i, command[i]) != -1)
 				i = ft_look(command, i, command[i]);
 		}
-		if (command[i] == ' ')
+		if (command[i] == ' ' && command[i + 1] != ' ')
 			count++;
 		i++;
 	}
