@@ -139,16 +139,15 @@ char		*get_the_word(char *command, int *index)
 {
 	char	*result;
 	int		size;
-	int		tmp;
 	int		i;
 
+	i = 0;
 	size = get_word_length(command, *index);
 	printf("|get_the_word size : [%d]|\n", size);
 	result = malloc(sizeof(char) * (size + 1));
 	result[size] = 0;
-	tmp = *index + size;
-	printf("|combien j'écris : [%d]|\n", tmp - *index);
-	while (*index < tmp)
+	size += *index;
+	while (*index < size)
 	{
 		result[i] = command[*index];
 		*index += 1;
