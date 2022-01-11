@@ -66,10 +66,10 @@ int	ft_closed_quote(char *str)
 
 	i = 1;
 	quote = *str;
-	if (*str != '"' && *str != '\'')
-		return(0);
 	if (!str || !*str)
 		return (0);
+	if (*str != '"' && *str != '\'')
+		return(0);
 	while (str[i])
 	{
 		if (str[i] == quote)
@@ -136,7 +136,7 @@ char	**ft_custom_split(char *str, t_datas *datas)
 		index++;
 		j++;
 	}
-//	result[j] = NULL;
+	result[j] = NULL;
 	return (result);
 }
 
@@ -145,6 +145,5 @@ char	**parse_command(char *str, t_datas *datas)
 	char	**tab;
 
 	tab = ft_custom_split(str, datas);
-	ft_puttab(tab);
 	return (tab);
 }
