@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:26:48 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/10 19:47:14 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/12 17:24:43 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int	start(char **envp)
 
 int	main(int ac, char **av, char **envp)
 {
-
 	(void)av;
 	if (ac != 1)
 	{

@@ -6,11 +6,22 @@
 /*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 17:00:12 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/21 18:30:38 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/12 21:06:26 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	free_input_list(t_input_list *list)
+{
+	if (list->next)
+	{
+		free_input_list(list->next);
+	}
+	if (list->filename)
+		free(list->filename);
+	free(list);
+}
 
 void	free_node(t_node *node)
 {
@@ -23,7 +34,11 @@ void	free_node(t_node *node)
 			free(node->cmd);
 		}
 		if (node->redir)
+		{
+			if (node->redir->input_list)
+				free_input_list(node->redir->input_list);
 			free(node->redir);
+		}
 		free(node);
 	}
 }

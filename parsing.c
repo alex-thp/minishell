@@ -30,6 +30,8 @@ char	*get_word(char *str, int *j)
 
 	i = 0;
 	k = 0;
+	while (str[*j] && str[*j] == ' ')
+		*j += 1;
 	while (str[*j + i] && str[*j + i] != '|')
 	{
 		if (str[*j + i] == '\'' || str[*j + i] == '"')

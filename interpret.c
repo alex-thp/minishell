@@ -6,7 +6,7 @@
 /*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:28:17 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/11 20:16:58 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/12 21:01:39 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ int	interpret_command(t_datas *datas)
 	struct	sigaction reset;
 
 	pid = 0;
+	datas->here_doc_limit = 15;
 	reset.sa_handler = ft_sigreset;
 	sigaction(SIGINT, &reset, NULL);
 	parsed_command = lexer(datas->command, datas);
@@ -126,13 +127,14 @@ int	interpret_command(t_datas *datas)
 	if (parsed_command[1])
 	{
 		datas->head = create_tree(parsed_command);
+		datas->head = get_redir_tree(datas->head, datas);
 		execute_tree(datas->head, datas);
 		waitpid(-1, NULL, 0);
 	}
 	else
 	{
 		datas->head = create_node(parsed_command[0]);
-		datas->head->redir = create_redir(datas->head->line);
+		datas->head->redir = init_redir(parsed_command[0], datas);
 		datas->head->cmd = create_cmd(datas->head->line);
 		if (is_execve(datas->head->cmd->name) == -1)
 		{
