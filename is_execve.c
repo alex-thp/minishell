@@ -36,22 +36,23 @@ int	is_execve(char *name)
 	return (-1);
 }
 
-void	exec_this_one(int i, t_node *head, t_datas *datas)
+int	exec_this_one(int i, t_node *head, t_datas *datas)
 {
 	if (i == 0)
-		ft_cd(head->cmd->args, datas);
+		return (ft_cd(head->cmd->args, datas));
 	else if (i == 1)
-		ft_pwd(head);
+		return (ft_pwd(head));
 	else if (i == 2)
-		ft_echo(head->cmd->args, head);
+		return (ft_echo(head->cmd->args, head));
 	else if (i == 3)
-		ft_unset(datas->env, head->cmd->args[1]);
+		return (ft_unset(datas->env, head->cmd->args[1]));
 	else if (i == 4)
-		ft_export(&datas->env, &datas->len_env, head->cmd->args[1]);
+		return (ft_export(&datas->env, &datas->len_env, head->cmd->args[1]));
 	else if (i == 5)
-		ft_env(datas->env, head);
+		return (ft_env(datas->env, head));
 	else if (i == 6)
-		ft_exit(datas, head);
+		return (ft_exit(datas, head));
+	return (-1);
 }
 
 int	exec_builtin(t_node *head, t_datas *datas)
@@ -70,11 +71,8 @@ int	exec_builtin(t_node *head, t_datas *datas)
 	while (i < 7)
 	{
 		if (ft_strncmp(head->cmd->name, tab[i], ft_strlen(tab[i]) + 1) == 0)
-		{
-			exec_this_one(i, head, datas);
-			return (1);
-		}
+			return (exec_this_one(i, head, datas));
 		i++;
 	}
-	return (0);
+	return (-1);
 }

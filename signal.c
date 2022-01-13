@@ -26,23 +26,25 @@ void	ft_sigint(int signal)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
-	catch_sig();
+	//catch_sig();
 }
 
 void	ft_sigquit(int signal)
 {
 	(void)signal;
-	catch_sig();
+	//catch_sig();
 }
 
 int	catch_sig(void)
 {
-	struct sigaction	sint;
-	struct sigaction	squit;
+	// struct sigaction	sint;
+	// struct sigaction	squit;
 
-	sint.sa_handler = ft_sigint;
-	squit.sa_handler = ft_sigquit;
-	sigaction(SIGINT, &sint, NULL);
-	sigaction(SIGQUIT, &squit, NULL);
+	// sint.sa_handler = ft_sigint;
+	// squit.sa_handler = ft_sigquit;
+	// sigaction(SIGINT, &sint, NULL);
+	// sigaction(SIGQUIT, &squit, NULL);
+	signal(SIGINT, &ft_sigint);
+	signal(SIGQUIT, &ft_sigquit);
 	return (0);
 }

@@ -27,6 +27,12 @@
 # include "libft/libft.h"
 
 /*
+**	Ici notre variable globale qui nous permet de stocker la valeur du retour de la derniere commande
+*/
+
+extern int _variable;
+
+/*
  * struct ENV
  */
 
@@ -117,8 +123,8 @@ void			execute_tree(t_node *head, t_datas *datas);
  * builtins.c
  */
 
-void			ft_echo(char **strs, t_node *head);
-void			ft_pwd(t_node *head);
+int				ft_echo(char **strs, t_node *head);
+int				ft_pwd(t_node *head);
 int				ft_export(char ***env, int *len_env, char *var);
 int				ft_unset(char **env, char *var);
 
@@ -127,8 +133,8 @@ int				ft_unset(char **env, char *var);
  */
 
 int				ft_cd(char **args, t_datas *datas);
-void			ft_env(char **env, t_node *head);
-void			ft_exit(t_datas *datas, t_node *head);
+int				ft_env(char **env, t_node *head);
+int				ft_exit(t_datas *datas, t_node *head);
 int				redir_builtins(t_node *head);
 
 /*

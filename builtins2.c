@@ -46,7 +46,7 @@ int	ft_cd(char **args, t_datas *datas)
 	return (result);
 }
 
-void	ft_env(char **env, t_node *head)
+int	ft_env(char **env, t_node *head)
 {
 	int		i;
 	char	*index;
@@ -65,9 +65,10 @@ void	ft_env(char **env, t_node *head)
 		}
 		i++;
 	}
+	return (0);
 }
 
-void	ft_exit(t_datas *datas, t_node *head)
+int	ft_exit(t_datas *datas, t_node *head)
 {
 	ft_putstr("exit\n");
 	if (head->cmd->args[1])
@@ -81,4 +82,5 @@ void	ft_exit(t_datas *datas, t_node *head)
 	free(datas->command);
 	free(datas);
 	exit(0);
+	return (0);
 }
