@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:26:48 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/10 16:24:32 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/13 22:53:59 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,10 @@ char	*get_value2(char *str, int i)
 		j++;
 	}
 	result[j] = 0;
+	if (!ft_strlen(result))
+	{
+		free(result);
+		return (NULL);
+	}
 	return (result);
 }

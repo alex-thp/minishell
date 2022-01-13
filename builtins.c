@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:14:03 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/10 22:23:33 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/13 20:13:11 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	ft_pwd(t_node *head)
 	out = redir_builtins(head);
 	buff = getcwd(NULL, 0);
 	if (head->redir->fd_out == -2)
-	printf("%s\n", buff);
+		printf("%s\n", buff);
 	else
 	{
 		ft_putstr_fd(buff, out);

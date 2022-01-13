@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 10:18:55 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/12 19:51:27 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/13 22:21:47 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,20 @@ typedef struct s_command
 	char	**args;
 }				t_command;
 
-typedef struct s_input_list
+typedef struct s_in_list
 {
 	int					fd;
 	char				*filename;
-	struct s_input_list	*next;
-}				t_input_list;
+	struct s_in_list	*next;
+}				t_in_list;
 
 typedef struct s_redirection
 {
-	t_input_list	*input_list;
-	int				fd_in;
-	int				fd_out;
+	t_in_list	*in_list;
+	char		*file_out;
+	int			append;
+	int			fd_in;
+	int			fd_out;
 }				t_redirection;
 
 /*
@@ -90,7 +92,7 @@ t_redirection	*create_redir(char *command);
 t_command		*create_cmd(char *command);
 t_node			*create_node(char *command);
 t_node			*create_tree(char **command);
-t_node			*init_node(t_node *node);
+t_node			*init_node(t_node *node, int is_builtins);
 
 /*
  * utils_tree.c
@@ -158,6 +160,8 @@ int				catch_sig(void);
  */
 
 void			free_tree(t_node *head);
+t_in_list		*free_in_list(t_in_list *list);
+t_redirection	*free_redir(t_redirection *redir);
 
 /*
  * is_execve.c
