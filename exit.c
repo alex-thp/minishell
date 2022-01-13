@@ -6,13 +6,41 @@
 /*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 17:00:12 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/21 18:30:38 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/13 23:34:14 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_node(t_node *node)
+t_in_list	*free_in_list(t_in_list *list)
+{
+	if (list)
+	{
+		if (list->next)
+			free_in_list(list->next);
+		if (list->filename)
+			free(list->filename);
+		free(list);
+	}
+	list = NULL;
+	return (list);
+}
+
+t_redirection	*free_redir(t_redirection *redir)
+{
+	if (redir)
+	{
+		if (redir->file_out)
+			free(redir->file_out);
+		if (redir->in_list)
+			free_in_list(redir->in_list);
+		free(redir);
+	}
+	redir = NULL;
+	return (redir);
+}
+
+t_node	*free_node(t_node *node)
 {
 	if (node)
 	{
@@ -22,10 +50,11 @@ void	free_node(t_node *node)
 				ft_freetab(node->cmd->args);
 			free(node->cmd);
 		}
-		if (node->redir)
-			free(node->redir);
+		free_redir(node->redir);
 		free(node);
 	}
+	node = NULL;
+	return (node);
 }
 
 void	free_tree(t_node *head)
@@ -36,4 +65,5 @@ void	free_tree(t_node *head)
 		free_tree(head->left);
 	}
 	free_node(head);
+	head = NULL;
 }

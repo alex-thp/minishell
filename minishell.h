@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 10:18:55 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/11 20:17:48 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/13 22:21:47 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_datas
 	char			**env;
 	int				len_env;
 	struct s_node	*head;
+	int				here_doc_limit;
 }				t_datas;
 
 /*
@@ -63,10 +64,20 @@ typedef struct s_command
 	char	**args;
 }				t_command;
 
+typedef struct s_in_list
+{
+	int					fd;
+	char				*filename;
+	struct s_in_list	*next;
+}				t_in_list;
+
 typedef struct s_redirection
 {
-	int		fd_in;
-	int		fd_out;
+	t_in_list	*in_list;
+	char		*file_out;
+	int			append;
+	int			fd_in;
+	int			fd_out;
 }				t_redirection;
 
 /*
@@ -87,7 +98,7 @@ t_redirection	*create_redir(char *command);
 t_command		*create_cmd(char *command);
 t_node			*create_node(char *command);
 t_node			*create_tree(char **command);
-t_node			*init_node(t_node *node);
+t_node			*init_node(t_node *node, int is_builtins);
 
 /*
  * utils_tree.c
@@ -155,6 +166,8 @@ int				catch_sig(void);
  */
 
 void			free_tree(t_node *head);
+t_in_list		*free_in_list(t_in_list *list);
+t_redirection	*free_redir(t_redirection *redir);
 
 /*
  * is_execve.c
@@ -181,11 +194,19 @@ char			**ft_custom_split(char *str, t_datas *datas);
 char			**parse_command(char *str, t_datas *datas);
 int				ft_look(char *str, int i, char type);
 int				ft_look2(char *str, int i, char type);
+int				ft_closed_quote(char *str);
 
 /*
  * dollars.c
  */
 
 char			*dollar_interpretation(char *str, t_datas *datas);
+
+/*
+ * redir.c
+ */
+
+t_redirection	*init_redir(char *command, t_datas *datas);
+t_node			*get_redir_tree(t_node *head, t_datas *datas);
 
 #endif

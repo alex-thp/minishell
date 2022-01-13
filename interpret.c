@@ -6,7 +6,7 @@
 /*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:28:17 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/11 20:16:58 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/14 00:00:31 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	child(int *pip, t_node *head, t_datas *datas)
 	value = 0;
 	// _variable = ft_wait(value);
 	dup2(pip[0], STDIN_FILENO);
-	head = init_node(head);
+	head = init_node(head, 0);
 	close(pip[1]);
 	if (head->cmd->name && head->redir->fd_in != -1)
 	{
@@ -95,7 +95,7 @@ void	first(t_node *head, t_datas *datas)
 
 	cmd = NULL;
 	// waitpid(-1, NULL, 0);
-	head = init_node(head);
+	head = init_node(head, 0);
 	value = 0;
 	if (head->cmd->name && head->redir->fd_in != -1)
 	{
@@ -148,9 +148,11 @@ int	interpret_command(t_datas *datas)
 {
 	char	**parsed_command;
 	int		pid;
+	t_node	*tmp;
 	struct	sigaction reset;
 
 	pid = 0;
+	datas->here_doc_limit = 0;
 	reset.sa_handler = ft_sigreset;
 	sigaction(SIGINT, &reset, NULL);
 	parsed_command = lexer(datas->command, datas);
@@ -159,22 +161,36 @@ int	interpret_command(t_datas *datas)
 	if (parsed_command[1])
 	{
 		datas->head = create_tree(parsed_command);
-		execute_tree(datas->head, datas);
+		tmp = get_redir_tree(datas->head, datas);
+		if (tmp != NULL)
+		{
+			datas->head = tmp;
+			execute_tree(datas->head, datas);
+			waitpid(-1, NULL, 0);
+		}
 	}
 	else
 	{
 		datas->head = create_node(parsed_command[0]);
-		datas->head->redir = create_redir(datas->head->line);
-		datas->head->cmd = create_cmd(datas->head->line);
-		if (is_execve(datas->head->cmd->name) == -1)
+		tmp = datas->head;
+		tmp->redir = init_redir(parsed_command[0], datas);
+		if (tmp->redir != NULL)
 		{
-			pid = fork();
-			if (pid == 0)
-				first(datas->head, datas);
-			_variable = ft_wait(pid);
+			datas->head = tmp;
+			datas->head->cmd = create_cmd(datas->head->line);
+			if (is_execve(datas->head->cmd->name) == -1)
+			{
+				pid = fork();
+				if (pid == 0)
+					first(datas->head, datas);
+				_variable = ft_wait(pid);
+			}
+			else
+			{
+				datas->head = init_node(datas->head, 1);
+				_variable = exec_builtin(datas->head, datas);
+			}
 		}
-		else
-			_variable = exec_builtin(datas->head, datas);
 	}
 	ft_freetab(parsed_command);
 	return (1);
