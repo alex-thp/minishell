@@ -97,13 +97,98 @@ t_redirection	*create_redir(char *command)
 	return (redir);
 }
 
+int			get_nb_words(char *command)
+{
+	int		i;
+	int		count;
+
+	i = 0;
+	count = 1;
+	while (command[i])
+	{
+		if (command[i] == '\'' || command[i] == '"')
+		{
+			if (ft_look(command, i, command[i]) != -1)
+				i = ft_look(command, i, command[i]);
+		}
+		if (command[i] == ' ' && command[i + 1] != ' ')
+			count++;
+		i++;
+	}
+	return (count);
+}
+
+int			get_word_length(char *command, int i)
+{
+	int		size;
+
+	size = 0;
+	while(command[i + size] && command[i + size] != ' ')
+	{
+		if (command[i + size] == '\'' || command[i + size] == '"')
+		{
+			if (ft_look2(command, i + size, command[i + size]) != -1)
+				size += ft_look2(command, i + size, command[i + size]);
+		}
+		size++;
+	}
+	return (size);
+}
+
+char		*get_the_word(char *command, int *index)
+{
+	char	*result;
+	int		size;
+	int		i;
+
+	i = 0;
+	while (command[*index] == ' ')
+		*index += 1;
+	size = get_word_length(command, *index);
+	if (!(command[*index]))
+		return (NULL);
+	result = malloc(sizeof(char) * (size + 1));
+	size += *index;
+	while (*index < size)
+	{
+		result[i] = command[*index];
+		*index += 1;
+		i++;
+	}
+	result[i] = 0;
+	return (result);
+}
+
+char		**ft_split_spaces(char *command)
+{
+	char	**result;
+	int		i;
+	int		j;
+	int		index;
+
+	while (*command == ' ')
+		command++;
+	index = 0;
+	i = get_nb_words(command);
+	result = malloc(sizeof(char*) * (i + 1));
+	result[i] = NULL;
+	j = 0;
+	while (j < i)
+	{
+		result[j] = get_the_word(command, &index);
+		index++;
+		j++;
+	}
+	return (result);
+}
+
 t_command	*create_cmd(char *command)
 {
 	t_command	*cmd;
 	char		**args;
 
 	cmd = (t_command *)malloc(sizeof(t_command));
-	args = ft_split(command, ' ');
+	args = ft_split_spaces(command);
 	if (args)
 	{
 		cmd->name = args[0];

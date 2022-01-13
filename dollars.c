@@ -2,7 +2,6 @@
 
 int		is_finished(char *str, int i)
 {
-	i++;
 	while (str[i] && str[i] != '\'')
 		i++;
 	if (str[i] == 0)
@@ -44,6 +43,37 @@ char	*add_variable_to_str(char *result, int i, t_datas *datas)
 	free(result);
 	return (str);
 }
+
+char	*add_return_code(char *str, int i)
+{
+	int		j;
+	int		k;
+	char	*result;
+	char	*tmp;
+
+	j = -1;
+	tmp = ft_itoa(_variable);
+	result = malloc(sizeof(char) * ft_strlen(str) + ft_strlen(tmp) + 1);
+	while (++j < i)
+		result[j] = str[j];
+	k = -1;
+	while(tmp[++k])
+	{
+		result[j] = tmp[k];
+		j++;
+	}
+	i += 1; //on passe $?
+	while (str[++i])
+	{
+		result[j] = str[i];
+		j++;
+	}
+	result[j] = 0;
+	free(str);
+	free(tmp);
+	return (result);
+}
+
 char	*dollar_interpretation(char *str, t_datas *datas)
 {
 	int		i;
@@ -56,7 +86,12 @@ char	*dollar_interpretation(char *str, t_datas *datas)
 		while (result[i] && result[i] != '\'')
 		{
 			if (result[i] == '$')
-				result = add_variable_to_str(result, i, datas);
+			{
+				if (result[i + 1] == '?')
+					result = add_return_code(result, i);
+				else
+					result = add_variable_to_str(result, i, datas);
+			}
 			i++;
 		}
 		if (result[i] == '\'')

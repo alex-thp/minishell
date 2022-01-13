@@ -76,7 +76,7 @@ int	check_option_n(char *str)
 	return (0);
 }
 
-void	ft_echo(char **strs, t_node *head)
+int	ft_echo(char **strs, t_node *head)
 {
 	int	i;
 	int	option;
@@ -102,9 +102,10 @@ void	ft_echo(char **strs, t_node *head)
 		if (option == 0)
 			ft_putstr_fd("\n", out);
 	}
+	return (0);
 }
 
-void	ft_pwd(t_node *head)
+int	ft_pwd(t_node *head)
 {
 	char	*buff;
 	int		out;
@@ -112,7 +113,7 @@ void	ft_pwd(t_node *head)
 	out = redir_builtins(head);
 	buff = getcwd(NULL, 0);
 	if (head->redir->fd_out == -2)
-	printf("%s\n", buff);
+		printf("%s\n", buff);
 	else
 	{
 		ft_putstr_fd(buff, out);
@@ -120,4 +121,5 @@ void	ft_pwd(t_node *head)
 	}
 	if (buff)
 		free(buff);
+	return (0);
 }

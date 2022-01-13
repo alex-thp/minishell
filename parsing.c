@@ -137,8 +137,6 @@ char	**ft_custom_split(char *str, t_datas *datas)
 	int		j;
 	int		index;
 
-	while (*str == ' ')
-		str++;
 	i = ft_init_split(str);
 	j = 0;
 	index = 0;
@@ -152,7 +150,6 @@ char	**ft_custom_split(char *str, t_datas *datas)
 		j++;
 	}
 	result[j] = NULL;
-	ft_puttab(result);
 	return (result);
 }
 

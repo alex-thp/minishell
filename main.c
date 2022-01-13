@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+int	_variable = 0;
+
 int	start(char **envp)
 {
 	int		quit;

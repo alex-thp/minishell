@@ -12,6 +12,33 @@
 
 #include "minishell.h"
 
+int	ft_wait(int pid)
+{
+	int	status;
+	int result;
+
+	status = 0;
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+	{
+		// if (WIFSIGNALED(status))
+		// {
+		// 	printf("ICI = %d\n", WTERMSIG(status));
+		// 	status = WEXITSTATUS(status) + WTERMSIG(status);
+		// 	return (status);
+		// }
+		result = WEXITSTATUS(status);
+	}
+	if (WIFSIGNALED(status))
+	{
+		result = WTERMSIG(status);
+		if (result != 131)
+			result += 131;
+	}
+	//printf("%d\n", result);
+	return (result);
+}
+
 void	parent(int *pip, t_node *head, t_datas *datas)
 {
 	int	pid;
@@ -25,17 +52,17 @@ void	parent(int *pip, t_node *head, t_datas *datas)
 		execute_tree(head->left, datas);
 		exit(0);
 	}
-	waitpid(pid, NULL, 0);
+	_variable = ft_wait(pid);
 }
 
 void	child(int *pip, t_node *head, t_datas *datas)
 {
 	char	*cmd;
-	int result;
+	int		value;
 
 	cmd = NULL;
-	result = 0;
-	waitpid(-1, NULL, 0);
+	value = 0;
+	// _variable = ft_wait(value);
 	dup2(pip[0], STDIN_FILENO);
 	head = init_node(head);
 	close(pip[1]);
@@ -43,47 +70,53 @@ void	child(int *pip, t_node *head, t_datas *datas)
 	{
 		cmd = check_exe(head->cmd->name, datas->env);
 		if (is_execve(head->cmd->name) == -1)
-			execve(cmd, head->cmd->args, datas->env);
+			value = execve(cmd, head->cmd->args, datas->env);
 		else
-			result = exec_builtin(head, datas);
-		if (!result)
+			value = exec_builtin(head, datas);
+		if (value == -1)
 		{
 			ft_putstr_fd(head->cmd->name, 2);
 			ft_putstr_fd(": command not found\n", 2);
+			free(cmd);
+			exit(127);
 		}
+		_variable = value;
 	}
 	else
 		ft_putstr_fd("parse error\n", 2);
 	free(cmd);
-	exit(0);
+	exit(_variable);
 }
 
 void	first(t_node *head, t_datas *datas)
 {
 	char	*cmd;
-	int		result;
+	int		value;
 
 	cmd = NULL;
-	result = 0;
-	waitpid(-1, NULL, 0);
+	// waitpid(-1, NULL, 0);
 	head = init_node(head);
+	value = 0;
 	if (head->cmd->name && head->redir->fd_in != -1)
 	{
 		cmd = check_exe(head->cmd->name, datas->env);
 		if (is_execve(head->cmd->name) == -1)
-			execve(cmd, head->cmd->args, datas->env);
+			value = execve(cmd, head->cmd->args, datas->env);
 		else
-			result = exec_builtin(head, datas);
-		if (!result)
+			value = exec_builtin(head, datas);
+		if (value == -1)
 		{
 			ft_putstr_fd(head->cmd->name, 2);
 			ft_putstr_fd(": command not found\n", 2);
+			free(cmd);
+			exit(127);
 		}
+		_variable = value;
 	}
 	else
 		ft_putstr_fd("parse error\n", 2);
 	free(cmd);
-	exit(0);
+	exit(_variable);
 }
 
 void	execute_tree(t_node *head, t_datas *datas)
@@ -105,7 +138,7 @@ void	execute_tree(t_node *head, t_datas *datas)
 		pid = fork();
 		if (pid == 0)
 			first(head, datas);
-		waitpid(pid, NULL, 0);
+		_variable =	ft_wait(pid);
 	}
 	close(pip[0]);
 	close(pip[1]);
@@ -127,7 +160,6 @@ int	interpret_command(t_datas *datas)
 	{
 		datas->head = create_tree(parsed_command);
 		execute_tree(datas->head, datas);
-		waitpid(-1, NULL, 0);
 	}
 	else
 	{
@@ -139,10 +171,10 @@ int	interpret_command(t_datas *datas)
 			pid = fork();
 			if (pid == 0)
 				first(datas->head, datas);
-			waitpid(pid, NULL, 0);
+			_variable = ft_wait(pid);
 		}
 		else
-			exec_builtin(datas->head, datas);
+			_variable = exec_builtin(datas->head, datas);
 	}
 	ft_freetab(parsed_command);
 	return (1);
