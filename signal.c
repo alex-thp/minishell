@@ -32,6 +32,7 @@ void	ft_sigint(int signal)
 void	ft_sigquit(int signal)
 {
 	(void)signal;
+	write(1, "\b\b  \b\b", 6);
 	//catch_sig();
 }
 

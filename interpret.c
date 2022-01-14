@@ -18,22 +18,17 @@ int	ft_wait(int pid)
 	int result;
 
 	status = 0;
+	result = 0;
 	waitpid(pid, &status, 0);
+	//printf("pid ft_wait = %d\n", getpid());
 	if (WIFEXITED(status))
-	{
-		// if (WIFSIGNALED(status))
-		// {
-		// 	printf("ICI = %d\n", WTERMSIG(status));
-		// 	status = WEXITSTATUS(status) + WTERMSIG(status);
-		// 	return (status);
-		// }
 		result = WEXITSTATUS(status);
-	}
 	if (WIFSIGNALED(status))
 	{
+		if (WCOREDUMP(status))
+			write(2, "(core dumped)\n", 14);
 		result = WTERMSIG(status);
-		if (result != 131)
-			result += 131;
+		result += 128;
 	}
 	//printf("%d\n", result);
 	return (result);
@@ -101,7 +96,10 @@ void	first(t_node *head, t_datas *datas)
 	{
 		cmd = check_exe(head->cmd->name, datas->env);
 		if (is_execve(head->cmd->name) == -1)
+		{
+			//printf("pid first = %d\n", getpid());
 			value = execve(cmd, head->cmd->args, datas->env);
+		}
 		else
 			value = exec_builtin(head, datas);
 		if (value == -1)
@@ -166,7 +164,7 @@ int	interpret_command(t_datas *datas)
 		{
 			datas->head = tmp;
 			execute_tree(datas->head, datas);
-			waitpid(-1, NULL, 0);
+			ft_wait(0);
 		}
 	}
 	else
@@ -180,9 +178,13 @@ int	interpret_command(t_datas *datas)
 			datas->head->cmd = create_cmd(datas->head->line);
 			if (is_execve(datas->head->cmd->name) == -1)
 			{
+				//printf("pid pere = %d\n", getpid());
 				pid = fork();
 				if (pid == 0)
+				{
+					//printf("pid enfant = %d\n", getpid());
 					first(datas->head, datas);
+				}
 				_variable = ft_wait(pid);
 			}
 			else

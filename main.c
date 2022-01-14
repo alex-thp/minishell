@@ -28,6 +28,7 @@ int	start(char **envp)
 	{
 		catch_sig();
 		datas->command = readline("Minishell $> ");
+		//printf("pid main = %d\n", getpid());
 		quit = (!datas->command);
 		if (!quit && datas->command && *datas->command)
 		{
