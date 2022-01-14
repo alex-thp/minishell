@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interpret.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:28:17 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/14 00:00:31 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/14 17:34:12 by ade-temm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_wait(int pid)
 		result = WTERMSIG(status);
 		result += 128;
 	}
-	//printf("%d\n", result);
+	//printf("%d\n", result);fje
 	return (result);
 }
 
