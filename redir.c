@@ -6,7 +6,7 @@
 /*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 15:16:50 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/13 23:54:04 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/14 23:04:57 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ char	*here_doc(char *stop, t_datas *datas)
 	len_stop = ft_strlen(stop);
 	if (!len_stop)
 	{	
+		_variable = 2;
 		ft_putstr_fd("minishell: syntax error\n",2);
 		return (NULL);
 	}
@@ -52,6 +53,16 @@ char	*here_doc(char *stop, t_datas *datas)
 	while (1)
 	{
 		doc = readline("> ");
+		if (!doc)
+		{
+			ft_putstr_fd("bash: warning: here-document ", 2);
+			ft_putstr_fd("delimited by end-of-file (wanted `", 2);
+			ft_putstr_fd(stop, 2);
+			ft_putstr_fd("\')\n", 2);
+			free(name);
+			return (NULL);
+		
+		}
 		if (ft_memcmp(doc, stop, len_stop + 1))
 		{
 			ft_putstr_fd(doc, fd);
@@ -111,6 +122,7 @@ t_in_list	*init_in_list(char *command, t_in_list *list, t_datas *datas)
 		filename = get_value2(command, 0);
 		if (!filename)
 		{
+			_variable = 2;
 			ft_putstr_fd("minishell: syntax error\n",2);
 			return (free_in_list(list));
 		}
@@ -142,7 +154,10 @@ t_redirection	*create_output(char *command, t_redirection *redir)
 		fd = open(redir->file_out, O_CREAT | O_RDWR | O_TRUNC, 00664);
 	}
 	if (fd < 0)
+	{
+		_variable = 2;
 		ft_putstr_fd("minishell: syntax error\n",2);
+	}
 	close(fd);
 	return (redir);
 }

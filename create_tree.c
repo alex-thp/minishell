@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:26:48 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/13 23:51:26 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/14 19:23:15 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ char		**ft_split_spaces(char *command)
 	while (j < i)
 	{
 		result[j] = get_the_word(command, &index);
+		if (result[j])
+			result[j] = erase_quotes(result[j]);
 		index++;
 		j++;
 	}

@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 10:18:55 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/13 22:21:47 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/14 19:10:50 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,7 @@ char			**parse_command(char *str, t_datas *datas);
 int				ft_look(char *str, int i, char type);
 int				ft_look2(char *str, int i, char type);
 int				ft_closed_quote(char *str);
+char			*erase_quotes(char *str);
 
 /*
  * dollars.c

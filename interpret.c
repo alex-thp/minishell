@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:28:17 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/14 17:34:12 by ade-temm         ###   ########.fr       */
+/*   Updated: 2022/01/14 18:42:08 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,12 +147,10 @@ int	interpret_command(t_datas *datas)
 	char	**parsed_command;
 	int		pid;
 	t_node	*tmp;
-	struct	sigaction reset;
 
 	pid = 0;
 	datas->here_doc_limit = 0;
-	reset.sa_handler = ft_sigreset;
-	sigaction(SIGINT, &reset, NULL);
+	signal(SIGINT, &ft_sigreset);
 	parsed_command = lexer(datas->command, datas);
 	if (parsed_command == NULL)
 		return (0);
