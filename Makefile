@@ -15,7 +15,8 @@ DIR_BUILD = build/
 INC = -I libft
 
 SRCS = main.c manage_env.c builtins.c builtins2.c create_tree.c utils_tree.c \
-	   lexer.c files.c interpret.c is_execve.c signal.c exit.c utils.c \
+	   lexer.c files.c interpret.c is_execve.c signal.c signal_heredoc.c \
+	   exit.c utils.c here_doc.c redir_list.c\
 	   parsing.c dollars.c redir.c more_utils.c more_utils2.c more_utils3.c
 
 OBJS = $(addprefix $(DIR_BUILD), $(SRCS:.c=.o))

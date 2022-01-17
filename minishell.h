@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 10:18:55 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/17 17:23:38 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/17 18:11:03 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,9 @@ int				ft_wait(int pid);
  */
 
 void			ft_sigreset(int signal);
+void			ft_sigquit(int signal);
 void			ft_sighere(int signal);
+void			ft_sigquithere(int signal);
 void			ft_sigchild(int signal);
 void			ft_sigherechild(int signal);
 int				catch_sig(void);
@@ -242,5 +244,17 @@ int				get_size_name(char *env);
 /*
  * more_utils4.c
  */
+
+/*
+ * here_doc.c
+ */
+
+char			*here_doc(char *stop, t_datas *datas);
+
+/*
+ * redir_list.c
+ */
+
+t_in_list		*init_in_list(char *command, t_in_list *list, t_datas *datas);
 
 #endif

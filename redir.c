@@ -6,173 +6,42 @@
 /*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 15:16:50 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/17 17:31:52 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/17 17:56:20 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_here_doc_name(t_datas *datas)
+int	open_redir(int fd, char *command, t_redirection *redir, int append)
 {
-	char	*filename;
-	char	*num;
-
-	if (datas->here_doc_limit == 15)
-	{
-		ft_putstr_fd("minishell: maximum here-document count exceeded\n", 2);
-		return (NULL);
-	}
-	filename = (char *)ft_calloc(sizeof(char *), 27);
-	filename = ft_strcat(filename, "/tmp/here_doc_minishell_");
-	num = ft_itoa(datas->here_doc_limit);
-	filename = ft_strcat(filename, num);
-	free(num);
-	datas->here_doc_limit++;
-	return (filename);
-}
-
-char	*here_doc(char *stop, t_datas *datas)
-{
-	char	*doc;
-	char	*name;
-	int		len_stop;
-	int		fd;
-	int		pid;
-	int		result;
-
-	doc = NULL;
-	result = 0;
-	len_stop = ft_strlen(stop);
-	if (!len_stop)
-	{	
-		g_variable = 2;
-		ft_putstr_fd("minishell: syntax error\n",2);
-		return (NULL);
-	}
-	name = get_here_doc_name(datas);
-	if (name == NULL)
-		return (NULL);
-//	signal(SIGCHLD, &ft_sigherechild);
-	g_variable = 0;
-	pid = fork();
-	if (!pid)
-	{
-		fd = open(name, O_CREAT | O_RDWR | O_TRUNC, 00664);
-		signal(SIGINT, &ft_sighere);
-		free(name);
-		while (1)
-		{
-			doc = readline("> ");
-			if (!doc)
-			{
-				ft_putstr_fd("bash: warning: here-document ", 2);
-				ft_putstr_fd("delimited by end-of-file (wanted `", 2);
-				ft_putstr_fd(stop, 2);
-				ft_putstr_fd("\')\n", 2);
-				close(fd);
-				exit(0);
-
-			}
-			if (ft_memcmp(doc, stop, len_stop + 1))
-			{
-				ft_putstr_fd(doc, fd);
-				ft_putstr_fd("\n", fd);
-				free(doc);
-			}
-			else
-			{
-				free(doc);
-				close(fd);
-				exit(0);
-			}
-		}
-	}
-	result = ft_wait(pid);
-	if (result != 0)
-	{
-		free(name);
-		g_variable = result;
-		return (NULL);
-	}
-	return (name);
-}
-
-t_in_list	*add_in_list(t_in_list *list, char *filename)
-{
-	t_in_list	*tmp;
-	t_in_list	*ptr;
-	
-	tmp = malloc(sizeof(*tmp));
-	tmp->fd = 0;
-	tmp->filename = filename;
-	tmp->next = NULL;
-	if (list == NULL)
-		return (tmp);
-	ptr = list;
-	while (ptr->next)
-	{
-		ptr = ptr->next;
-	}
-	ptr->next = tmp;
-	return (list);
-}
-
-t_in_list	*init_in_list(char *command, t_in_list *list, t_datas *datas)
-{
-	char	*filename;
-	char	*tmp;
-
-	if (command[1] == '<')
-	{
-		*command = ' ';
-		command++;
-		tmp = get_value2(command, 0);
-		filename = here_doc(tmp, datas);
-		free(tmp);
-		if (filename == NULL)
-			return (free_in_list(list));
-		list = add_in_list(list, filename);
-	}
+	if (redir->file_out)
+		free(redir->file_out);
+	redir->file_out = get_value2(command, 0);
+	redir->append = append;
+	if (append == 1)
+		fd = open(redir->file_out, O_CREAT | O_RDWR | O_APPEND, 00664);
 	else
-	{
-		filename = get_value2(command, 0);
-		if (!filename)
-		{
-			g_variable = 2;
-			ft_putstr_fd("minishell: syntax error\n",2);
-			return (free_in_list(list));
-		}
-		list = add_in_list(list, filename);
-	}
-	return (list);
+		fd = open(redir->file_out, O_CREAT | O_RDWR | O_TRUNC, 00664);
+	return (fd);
 }
 
 t_redirection	*create_output(char *command, t_redirection *redir)
 {
 	int		fd;
 
+	fd = 0;
 	if (command[1] == '>')
 	{
 		*command = ' ';
 		command++;
-		if (redir->file_out)
-			free(redir->file_out);
-		redir->file_out = get_value2(command, 0);
-		redir->append = 1;
-		fd = open(redir->file_out, O_CREAT | O_RDWR | O_APPEND, 00664);
+		fd = open_redir(fd, command, redir, 1);
 	}
 	else
-	{
-		if (redir->file_out)
-			free(redir->file_out);
-		redir->file_out = get_value2(command, 0);
-		redir->append = 0;
-		fd = open(redir->file_out, O_CREAT | O_RDWR | O_TRUNC, 00664);
-	}
+		fd = open_redir(fd, command, redir, 0);
 	if (fd < 0)
 	{
 		g_variable = 2;
-		ft_putstr_fd("minishell: syntax error\n",2);
+		ft_putstr_fd("minishell: syntax error\n", 2);
 	}
 	close(fd);
 	return (redir);
@@ -237,5 +106,5 @@ t_node	*get_redir_tree(t_node *head, t_datas *datas)
 		head->redir = init_redir(head->line, datas);
 	if (!head->redir)
 		return (NULL);
-	return (head);	
+	return (head);
 }
