@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 10:18:55 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/17 18:11:03 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/17 18:52:37 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ t_node			*init_node(t_node *node, int is_builtins);
  * utils_tree.c
  */
 
-char			*get_value2(char *str, int i);
+char			*get_value2(char *str);
 int				is_special(char c, char *str);
 
 /*

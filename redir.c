@@ -6,7 +6,7 @@
 /*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 15:16:50 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/17 17:56:20 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/17 18:40:51 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	open_redir(int fd, char *command, t_redirection *redir, int append)
 {
 	if (redir->file_out)
 		free(redir->file_out);
-	redir->file_out = get_value2(command, 0);
+	redir->file_out = get_value2(command);
 	redir->append = append;
 	if (append == 1)
 		fd = open(redir->file_out, O_CREAT | O_RDWR | O_APPEND, 00664);

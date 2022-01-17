@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:26:48 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/17 18:52:59 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/17 18:57:41 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int	is_special(char c, char *str)
 	}
 	return (0);
 }
-int		get_lenvalue(char *str)
+
+int	get_lenvalue(char *str)
 {
 	int	i;
 
@@ -40,7 +41,7 @@ int		get_lenvalue(char *str)
 	return (i);
 }
 
-int		save_quote(char *result, char *str, int i)
+int	save_quote(char *result, char *str, int i)
 {
 	int	quote;
 

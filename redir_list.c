@@ -6,7 +6,7 @@
 /*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 17:45:21 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/17 18:04:13 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/17 18:41:23 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_in_list	*init_in_list(char *command, t_in_list *list, t_datas *datas)
 	{
 		*command = ' ';
 		command++;
-		tmp = get_value2(command, 0);
+		tmp = get_value2(command);
 		filename = here_doc(tmp, datas);
 		free(tmp);
 		if (ft_list_error(filename, list, 0))
@@ -63,7 +63,7 @@ t_in_list	*init_in_list(char *command, t_in_list *list, t_datas *datas)
 	}
 	else
 	{
-		filename = get_value2(command, 0);
+		filename = get_value2(command);
 		if (ft_list_error(filename, list, 1))
 			return (NULL);
 		list = add_in_list(list, filename);
