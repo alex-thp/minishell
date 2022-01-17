@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 10:18:55 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/14 19:10:50 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/17 16:34:06 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@
 # include "libft/libft.h"
 
 /*
-**	Ici notre variable globale qui nous permet de stocker la valeur du retour de la derniere commande
+**	Ici notre variable globale qui nous permet 
+**  de stocker la valeur du retour de la derniere commande
 */
 
-extern int _variable;
+extern int	g_variable;
 
 /*
  * struct ENV
@@ -192,8 +193,6 @@ int				ft_check_dir(char **args);
 
 char			**ft_custom_split(char *str, t_datas *datas);
 char			**parse_command(char *str, t_datas *datas);
-int				ft_look(char *str, int i, char type);
-int				ft_look2(char *str, int i, char type);
 int				ft_closed_quote(char *str);
 char			*erase_quotes(char *str);
 
@@ -209,5 +208,35 @@ char			*dollar_interpretation(char *str, t_datas *datas);
 
 t_redirection	*init_redir(char *command, t_datas *datas);
 t_node			*get_redir_tree(t_node *head, t_datas *datas);
+
+/*
+ * more_utils.c
+ */
+
+int				ft_wait(int pid);
+int				ft_look(char *str, int i, char type);
+int				ft_look2(char *str, int i, char type);
+
+/*
+ * more_utils2.c
+ */
+
+int				get_fd_in(t_in_list *list);
+int				get_fd_out(char *filename, int append);
+int				get_nb_words(char *command);
+int				get_word_length(char *command, int i);
+char			*get_the_word(char *command, int *index);
+
+/*
+ * more_utils3.c
+ */
+
+int				ft_closed_quote(char *str);
+char			*erase_quotes(char *str);
+int				get_size_name(char *env);
+
+/*
+ * more_utils4.c
+ */
 
 #endif

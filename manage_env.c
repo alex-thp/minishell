@@ -3,28 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   manage_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 17:39:30 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/10 22:29:53 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/17 16:29:00 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	get_size_name(char *env)
-{
-	int	i;
-
-	i = 0;
-	while (env[i])
-	{
-		if (env[i] == '=')
-			return (i);
-		i++;
-	}
-	return (0);
-}
 
 char	*get_name(char *env)
 {

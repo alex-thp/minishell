@@ -1,26 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/17 16:09:36 by alex              #+#    #+#             */
+/*   Updated: 2022/01/17 16:27:06 by alex             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
-
-int		ft_look2(char *str, int i, char type)
-{
-	int		j;
-
-	j = 1; //se positionner après type
-	while (str[i + j] && str[i + j] != type)
-		j++;
-	if (str[i + j] != 0)
-		return (j);
-	return (-1);
-}
-
-int		ft_look(char *str, int i, char type)
-{
-	i++; //se positionner après type
-	while (str[i] && str[i] != type)
-		i++;
-	if (str[i] != 0)
-		return (i);
-	return (-1);
-}
 
 char	*get_word(char *str, int *j)
 {
@@ -44,7 +34,7 @@ char	*get_word(char *str, int *j)
 	result = malloc(sizeof(char) * (i + 1));
 	result[i] = 0;
 	i += *j;
-	while(*j < i)
+	while (*j < i)
 	{
 		result[k] = str[*j];
 		*j += 1;
@@ -53,7 +43,7 @@ char	*get_word(char *str, int *j)
 	return (result);
 }
 
-int		ft_init_split(char *str)
+int	ft_init_split(char *str)
 {
 	int		i;
 	int		count;
@@ -74,64 +64,6 @@ int		ft_init_split(char *str)
 	return (count);
 }
 
-int	ft_closed_quote(char *str)
-{
-	int		i;
-	char	quote;
-
-	i = 1;
-	if (!str || !*str)
-		return (0);
-	if (*str != '"' && *str != '\'')
-		return(0);
-	quote = *str;
-	while (str[i])
-	{
-		if (str[i] == quote)
-			return (i);
-		i++;
-	}
-	return (0);
-}
-
-char	*erase_quotes(char *str)
-{
-	int		i;
-	int		j;
-	int		closed_quote;
-	char	*result;
-
-	result = malloc(sizeof(char) * ft_strlen(str) + 1);
-	i = 0;
-	j = 0;
-	closed_quote = 0;
-	while (str[i])
-	{
-		closed_quote = ft_closed_quote(str + i);
-		if (closed_quote)
-		{
-			i++;
-			while (closed_quote > 1)
-			{
-				result[j] = str[i];
-				i++;
-				j++;
-				closed_quote--;
-			}
-			i++;
-		}
-		else
-		{
-			result[j] = str[i];
-			j++;
-			i++;
-		}
-	}
-	result[j] = 0;
-	free(str);
-	return (result);
-}
-
 char	**ft_custom_split(char *str, t_datas *datas)
 {
 	char	**result;
@@ -142,12 +74,11 @@ char	**ft_custom_split(char *str, t_datas *datas)
 	i = ft_init_split(str);
 	j = 0;
 	index = 0;
-	result = ft_calloc(i + 1, sizeof(char*));
-	while(j < i)
+	result = ft_calloc(i + 1, sizeof(char *));
+	while (j < i)
 	{
 		result[j] = get_word(str, &index);
 		result[j] = dollar_interpretation(result[j], datas);
-//		result[j] = erase_quotes(result[j]);
 		index++;
 		j++;
 	}
