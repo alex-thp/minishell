@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 16:05:31 by alex              #+#    #+#             */
-/*   Updated: 2022/01/17 16:38:40 by alex             ###   ########.fr       */
+/*   Updated: 2022/01/17 20:04:59 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,7 @@ char	*add_variable_to_str(char *result, int i, t_datas *datas)
 	while (result[j] && result[j] != ' ' && result[j] != '"')
 		j++;
 	while (result[j])
-	{
-		str[i] = result[j];
-		i++;
-		j++;
-	}
+		str[i++] = result[j++];
 	str[i] = 0;
 	free(result);
 	return (str);
