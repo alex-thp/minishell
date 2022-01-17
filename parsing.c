@@ -6,11 +6,28 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 16:09:36 by alex              #+#    #+#             */
-/*   Updated: 2022/01/17 16:27:06 by alex             ###   ########.fr       */
+/*   Updated: 2022/01/17 20:22:38 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	len_word(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] != '|')
+	{
+		if (str[i] == '\'' || str[i] == '"')
+		{
+			if (ft_look2(str, i, str[i]) != -1)
+				i += ft_look2(str, i, str[i]);
+		}
+		i++;
+	}
+	return (i);
+}
 
 char	*get_word(char *str, int *j)
 {
@@ -22,16 +39,8 @@ char	*get_word(char *str, int *j)
 	k = 0;
 	while (str[*j] && str[*j] == ' ')
 		*j += 1;
-	while (str[*j + i] && str[*j + i] != '|')
-	{
-		if (str[*j + i] == '\'' || str[*j + i] == '"')
-		{
-			if (ft_look2(str, *j + i, str[*j + i]) != -1)
-				i += ft_look2(str, *j + i, str[*j + i]);
-		}
-		i++;
-	}
-	result = malloc(sizeof(char) * (i + 1));
+	i = len_word(str + *j);
+	result = ft_calloc(i + 1, sizeof(char));
 	result[i] = 0;
 	i += *j;
 	while (*j < i)
