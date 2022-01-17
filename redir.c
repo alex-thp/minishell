@@ -6,7 +6,7 @@
 /*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 15:16:50 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/17 17:12:31 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/17 17:31:52 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*here_doc(char *stop, t_datas *datas)
 	len_stop = ft_strlen(stop);
 	if (!len_stop)
 	{	
-		_variable = 2;
+		g_variable = 2;
 		ft_putstr_fd("minishell: syntax error\n",2);
 		return (NULL);
 	}
@@ -53,7 +53,7 @@ char	*here_doc(char *stop, t_datas *datas)
 	if (name == NULL)
 		return (NULL);
 //	signal(SIGCHLD, &ft_sigherechild);
-	_variable = 0;
+	g_variable = 0;
 	pid = fork();
 	if (!pid)
 	{
@@ -91,7 +91,7 @@ char	*here_doc(char *stop, t_datas *datas)
 	if (result != 0)
 	{
 		free(name);
-		_variable = result;
+		g_variable = result;
 		return (NULL);
 	}
 	return (name);
@@ -138,7 +138,7 @@ t_in_list	*init_in_list(char *command, t_in_list *list, t_datas *datas)
 		filename = get_value2(command, 0);
 		if (!filename)
 		{
-			_variable = 2;
+			g_variable = 2;
 			ft_putstr_fd("minishell: syntax error\n",2);
 			return (free_in_list(list));
 		}
@@ -171,7 +171,7 @@ t_redirection	*create_output(char *command, t_redirection *redir)
 	}
 	if (fd < 0)
 	{
-		_variable = 2;
+		g_variable = 2;
 		ft_putstr_fd("minishell: syntax error\n",2);
 	}
 	close(fd);

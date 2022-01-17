@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:53:46 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/17 17:18:58 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/17 17:27:15 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ void	ft_sigint(int signal)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
-	//catch_sig();
+	catch_sig();
 }
 
 void	ft_sigquit(int signal)
 {
 	(void)signal;
 	write(1, "\b\b  \b\b", 6);
-	//catch_sig();
+	catch_sig();
 }
 
 void	ft_sigchild(int signal)
@@ -45,13 +45,13 @@ void	ft_sigchild(int signal)
 	wait(&status);
 	//printf("pid ft_wait = %d\n", getpid())
 	if (WIFEXITED(status))
-		_variable = WEXITSTATUS(status);
+		g_variable = WEXITSTATUS(status);
 	if (WIFSIGNALED(status))
 	{
 		if (WCOREDUMP(status))
 			write(2, "(core dumped)\n", 14);
-		_variable = WTERMSIG(status);
-		_variable += 128;
+		g_variable = WTERMSIG(status);
+		g_variable += 128;
 	}
 }
 

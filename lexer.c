@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:26:48 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/16 18:57:04 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/17 16:30:22 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	check_pipe_error(char *command)
 			i++;
 		while (command[i] && command[i] != '|')
 		{
-			if (command[i] == '\'' || command[i] =='"')
+			if (command[i] == '\'' || command[i] == '"')
 			{
 				if (ft_look(command, i, command[i]) != -1)
 					i = ft_look(command, i, command[i]);

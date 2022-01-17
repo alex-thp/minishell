@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:26:48 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/13 17:12:24 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/17 16:18:07 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	_variable = 0;
+int	g_variable = 0;
 
 int	start(char **envp)
 {
@@ -28,7 +28,6 @@ int	start(char **envp)
 	{
 		catch_sig();
 		datas->command = readline("Minishell $> ");
-		//printf("pid main = %d\n", getpid());
 		quit = (!datas->command);
 		if (!quit && datas->command && *datas->command)
 		{
@@ -54,4 +53,3 @@ int	main(int ac, char **av, char **envp)
 	}
 	return (start(envp));
 }
-/*	rl_clear_history(); */

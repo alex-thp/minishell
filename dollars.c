@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dollars.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/17 16:05:31 by alex              #+#    #+#             */
+/*   Updated: 2022/01/17 16:38:40 by alex             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-int		is_finished(char *str, int i)
+int	is_finished(char *str, int i)
 {
 	while (str[i] && str[i] != '\'')
 		i++;
@@ -8,30 +20,25 @@ int		is_finished(char *str, int i)
 		return (-1);
 	return (i);
 }
+
 char	*add_variable_to_str(char *result, int i, t_datas *datas)
 {
-	char 	*str;
+	char	*str;
 	char	*tmp;
 	int		j;
-	
+
 	tmp = interpret_dollar(&result[i + 1], datas);
 	if (!tmp)
-		return(result);
+		return (result);
 	str = malloc(sizeof(char) * (ft_strlen(result) + ft_strlen(tmp)) + 1);
-	j = 0;
-	while (j < i)
-	{
+	j = -1;
+	while (++j < i)
 		str[j] = result[j];
-		j++;
-	}
-	i = 0;
-	while(tmp[i])
-	{
+	i = -1;
+	while (tmp[++i])
 		str[j + i] = tmp[i];
-		i++;
-	}
 	i += j;
-	while(result[j] && result[j] != ' ' && result[j] != '"')
+	while (result[j] && result[j] != ' ' && result[j] != '"')
 		j++;
 	while (result[j])
 	{
@@ -52,17 +59,17 @@ char	*add_return_code(char *str, int i)
 	char	*tmp;
 
 	j = -1;
-	tmp = ft_itoa(_variable);
+	tmp = ft_itoa(g_variable);
 	result = malloc(sizeof(char) * ft_strlen(str) + ft_strlen(tmp) + 1);
 	while (++j < i)
 		result[j] = str[j];
 	k = -1;
-	while(tmp[++k])
+	while (tmp[++k])
 	{
 		result[j] = tmp[k];
 		j++;
 	}
-	i += 1; //on passe $?
+	i += 1;
 	while (str[++i])
 	{
 		result[j] = str[i];
