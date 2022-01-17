@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:26:48 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/14 19:20:10 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/17 18:52:59 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,39 +27,52 @@ int	is_special(char c, char *str)
 	}
 	return (0);
 }
-
-char	*get_value2(char *str, int i)
+int		get_lenvalue(char *str)
 {
-	int		j;
-	int		quote;
+	int	i;
+
+	i = 0;
+	while (str[i] && is_special(str[i], " <>") == 0)
+	{
+		i += ft_closed_quote(str + i);
+		i++;
+	}
+	return (i);
+}
+
+int		save_quote(char *result, char *str, int i)
+{
+	int	quote;
+
+	quote = 0;
+	quote = ft_closed_quote(str + i);
+	while (quote)
+	{
+		result[i] = str[i];
+		str[i] = ' ';
+		quote--;
+		i++;
+	}
+	return (i);
+}
+
+char	*get_value2(char *str)
+{
+	int		i;
 	char	*result;
 
-	str[i] = ' ';
-	while (str[i] == ' ')
+	i = 0;
+	*str = ' ';
+	while (*str == ' ')
+		str++;
+	result = ft_calloc(get_lenvalue(str) + 1, sizeof(char));
+	while (str[i] && is_special(str[i], " <>") == 0)
+	{
+		i = save_quote(result, str, i);
+		result[i] = str[i];
+		str[i] = ' ';
 		i++;
-	j = 0;
-	while (str[i + j] && is_special(str[i + j], " <>") == 0)
-	{
-		j += ft_closed_quote(str + i + j);
-		j++;
 	}
-	result = malloc(sizeof(char) * (j + 1));
-	j = 0;
-	while (str[i + j] && is_special(str[i + j], " <>") == 0)
-	{
-		quote = ft_closed_quote(str + i + j);
-		while (quote)
-		{
-			result[j] = str[i + j];
-			str[i + j] = ' ';
-			quote--;
-			j++;
-		}
-		result[j] = str[i + j];
-		str[i + j] = ' ';
-		j++;
-	}
-	result[j] = 0;
 	if (!ft_strlen(result))
 	{
 		free(result);
