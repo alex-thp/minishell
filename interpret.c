@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:28:17 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/14 18:42:08 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/17 17:09:37 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	ft_wait(int pid)
 	status = 0;
 	result = 0;
 	waitpid(pid, &status, 0);
-	//printf("pid ft_wait = %d\n", getpid());
 	if (WIFEXITED(status))
 		result = WEXITSTATUS(status);
 	if (WIFSIGNALED(status))

@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:53:46 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/14 22:43:47 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/17 17:18:58 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_sigchild(int signal)
 
 	status = 0;
 	wait(&status);
-	//printf("pid ft_wait = %d\n", getpid());
+	//printf("pid ft_wait = %d\n", getpid())
 	if (WIFEXITED(status))
 		_variable = WEXITSTATUS(status);
 	if (WIFSIGNALED(status))
@@ -55,15 +55,15 @@ void	ft_sigchild(int signal)
 	}
 }
 
+void	ft_sighere(int signal)
+{
+	(void)signal;
+	ft_putstr_fd("\n", 2);
+	exit(130);
+}
+
 int	catch_sig(void)
 {
-	// struct sigaction	sint;
-	// struct sigaction	squit;
-
-	// sint.sa_handler = ft_sigint;
-	// squit.sa_handler = ft_sigquit;
-	// sigaction(SIGINT, &sint, NULL);
-	// sigaction(SIGQUIT, &squit, NULL);
 	signal(SIGINT, &ft_sigint);
 	signal(SIGQUIT, &ft_sigquit);
 	signal(SIGCHLD, &ft_sigchild);

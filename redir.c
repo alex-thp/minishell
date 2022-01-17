@@ -6,7 +6,7 @@
 /*   By: adylewsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 15:16:50 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/14 23:04:57 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/17 17:12:31 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,11 @@ char	*here_doc(char *stop, t_datas *datas)
 	char	*name;
 	int		len_stop;
 	int		fd;
+	int		pid;
+	int		result;
 
 	doc = NULL;
+	result = 0;
 	len_stop = ft_strlen(stop);
 	if (!len_stop)
 	{	
@@ -49,36 +52,49 @@ char	*here_doc(char *stop, t_datas *datas)
 	name = get_here_doc_name(datas);
 	if (name == NULL)
 		return (NULL);
-	fd = open(name, O_CREAT | O_RDWR | O_TRUNC, 00664);
-	while (1)
+//	signal(SIGCHLD, &ft_sigherechild);
+	_variable = 0;
+	pid = fork();
+	if (!pid)
 	{
-		doc = readline("> ");
-		if (!doc)
+		fd = open(name, O_CREAT | O_RDWR | O_TRUNC, 00664);
+		signal(SIGINT, &ft_sighere);
+		free(name);
+		while (1)
 		{
-			ft_putstr_fd("bash: warning: here-document ", 2);
-			ft_putstr_fd("delimited by end-of-file (wanted `", 2);
-			ft_putstr_fd(stop, 2);
-			ft_putstr_fd("\')\n", 2);
-			free(name);
-			return (NULL);
-		
-		}
-		if (ft_memcmp(doc, stop, len_stop + 1))
-		{
-			ft_putstr_fd(doc, fd);
-			ft_putstr_fd("\n", fd);
-			free(doc);
-		}
-		else
-		{
-			free(doc);
-			close(fd);
-			return (name);
+			doc = readline("> ");
+			if (!doc)
+			{
+				ft_putstr_fd("bash: warning: here-document ", 2);
+				ft_putstr_fd("delimited by end-of-file (wanted `", 2);
+				ft_putstr_fd(stop, 2);
+				ft_putstr_fd("\')\n", 2);
+				close(fd);
+				exit(0);
+
+			}
+			if (ft_memcmp(doc, stop, len_stop + 1))
+			{
+				ft_putstr_fd(doc, fd);
+				ft_putstr_fd("\n", fd);
+				free(doc);
+			}
+			else
+			{
+				free(doc);
+				close(fd);
+				exit(0);
+			}
 		}
 	}
-	if (name)
+	result = ft_wait(pid);
+	if (result != 0)
+	{
 		free(name);
-	return (NULL);
+		_variable = result;
+		return (NULL);
+	}
+	return (name);
 }
 
 t_in_list	*add_in_list(t_in_list *list, char *filename)

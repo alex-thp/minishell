@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 10:18:55 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/14 19:10:50 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/17 16:52:05 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,12 +153,16 @@ int				redir_builtins(t_node *head);
  */
 
 int				interpret_command(t_datas *datas);
+int				ft_wait(int pid);
 
 /*
  * signal.c
  */
 
 void			ft_sigreset(int signal);
+void			ft_sighere(int signal);
+void			ft_sigchild(int signal);
+void			ft_sigherechild(int signal);
 int				catch_sig(void);
 
 /*
