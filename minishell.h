@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 10:18:55 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/17 18:52:37 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/17 19:29:13 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,5 +256,12 @@ char			*here_doc(char *stop, t_datas *datas);
  */
 
 t_in_list		*init_in_list(char *command, t_in_list *list, t_datas *datas);
+
+/*
+ * exec_tree.c
+ */
+
+void			execute_tree(t_node *head, t_datas *datas);
+void			first(t_node *head, t_datas *datas);
 
 #endif

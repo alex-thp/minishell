@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:26:48 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/17 16:30:22 by alex             ###   ########.fr       */
+/*   Updated: 2022/01/17 19:59:38 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ int	check_pipe_error(char *command)
 	int	j;
 
 	i = 0;
-	if (!command || !*command)
-		return (1);
 	while (command[i])
 	{
 		j = 0;
@@ -55,7 +53,7 @@ char	**lexer(char *command, t_datas *datas)
 {
 	char	**result;
 
-	if (check_pipe_error(command) == 1)
+	if (!command || !*command || check_pipe_error(command) == 1)
 	{
 		printf("error with pipe\n");
 		return (NULL);
