@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 16:05:31 by alex              #+#    #+#             */
-/*   Updated: 2022/01/17 20:51:02 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/17 20:54:08 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,9 @@ char	*add_return_code(char *str, int i)
 	while (++j < i)
 		result[j] = str[j];
 	k = -1;
+	j -= 1;
 	while (tmp[++k])
-	{
-		result[j] = tmp[k];
-		j++;
-	}
+		result[++j] = tmp[k];
 	i += 1;
 	while (str[++i])
 	{
