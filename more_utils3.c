@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 16:25:51 by alex              #+#    #+#             */
-/*   Updated: 2022/01/17 20:17:26 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/17 20:33:02 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,33 +32,39 @@ int	ft_closed_quote(char *str)
 	return (0);
 }
 
+int	save_in_quotes(char *result, char *str, int	*i, int *j)
+{
+	int	closed_quote;
+
+	closed_quote = ft_closed_quote(str + *i);
+	if (closed_quote)
+	{
+		*i += 1;
+		while (closed_quote > 1)
+		{
+			result[*j] = str[*i];
+			*i += 1;
+			*j += 1;
+			closed_quote--;
+		}
+		*i += 1;
+		return (1);
+	}
+	return (0);
+}
+
 char	*erase_quotes(char *str)
 {
 	int		i;
 	int		j;
-	int		closed_quote;
 	char	*result;
 
 	result = malloc(sizeof(char) * ft_strlen(str) + 1);
 	i = 0;
 	j = 0;
-	closed_quote = 0;
 	while (str[i])
 	{
-		closed_quote = ft_closed_quote(str + i);
-		if (closed_quote)
-		{
-			i++;
-			while (closed_quote > 1)
-			{
-				result[j] = str[i];
-				i++;
-				j++;
-				closed_quote--;
-			}
-			i++;
-		}
-		else
+		if (!save_in_quotes(result, str, &i, &j))
 		{
 			result[j] = str[i];
 			j++;
