@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 16:05:31 by alex              #+#    #+#             */
-/*   Updated: 2022/01/17 20:04:59 by alex             ###   ########.fr       */
+/*   Updated: 2022/01/17 20:51:02 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,18 @@ char	*add_return_code(char *str, int i)
 	return (result);
 }
 
+char	*change_dollar(t_datas *datas, char *result, int i)
+{
+	if (result[i] == '$')
+	{
+		if (result[i + 1] == '?')
+			result = add_return_code(result, i);
+		else
+			result = add_variable_to_str(result, i, datas);
+	}
+	return (result);
+}
+
 char	*dollar_interpretation(char *str, t_datas *datas)
 {
 	int		i;
@@ -88,13 +100,7 @@ char	*dollar_interpretation(char *str, t_datas *datas)
 	{
 		while (result[i] && result[i] != '\'')
 		{
-			if (result[i] == '$')
-			{
-				if (result[i + 1] == '?')
-					result = add_return_code(result, i);
-				else
-					result = add_variable_to_str(result, i, datas);
-			}
+			result = change_dollar(datas, result, i);
 			i++;
 		}
 		if (result[i] == '\'')
