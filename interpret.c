@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:28:17 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/17 17:24:21 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/17 19:15:42 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	parent(int *pip, t_node *head, t_datas *datas)
 		execute_tree(head->left, datas);
 		exit(0);
 	}
+	close(pip[1]);
 	g_variable = ft_wait(pid);
 }
 
