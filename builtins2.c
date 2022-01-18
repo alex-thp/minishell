@@ -6,7 +6,7 @@
 /*   By: adylewsk <adylewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 21:07:41 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/18 15:27:55 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/18 18:59:01 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,17 +72,26 @@ int	ft_env(char **env, t_node *head)
 
 int	ft_exit(t_datas *datas, t_node *head)
 {
+	int	value;
+
+	value = 0;
 	ft_putstr("exit\n");
 	if (head->cmd->args[1])
 	{
-		ft_putstr_fd("minishell: exit: ", 2);
-		ft_putstr_fd(datas->head->cmd->args[1], 2);
-		ft_putstr_fd(": no argument required\n", 2);
+		if (ft_strisdigit(head->cmd->args[1]))
+			value = ft_atoi(head->cmd->args[1]);
+		else
+		{
+			ft_putstr_fd("minishell: exit: ", 2);
+			ft_putstr_fd(head->cmd->args[1], 2);
+			ft_putstr_fd(": numeric argument required\n", 2);
+			value = 2;
+		}
 	}
 	free_tree(datas->head);
 	free(datas->command);
 	ft_freetab(datas->env);
 	free(datas);
-	exit(0);
+	exit(value);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: adylewsk <adylewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 21:14:54 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/18 18:09:53 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/18 20:02:51 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ char	*add_return_code(char *str, int i)
 	while (tmp[++k])
 		result[++j] = tmp[k];
 	i += 1;
+	j += 1;
 	while (str[++i])
 	{
 		result[j] = str[i];
