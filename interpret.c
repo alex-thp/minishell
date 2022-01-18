@@ -6,7 +6,7 @@
 /*   By: adylewsk <adylewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 21:10:27 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/17 21:17:48 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/18 21:42:07 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	interpret_command(t_datas *datas)
 		{
 			datas->head = tmp;
 			execute_tree(datas->head, datas);
-			ft_wait(0);
+		//	g_variable = ft_wait(0);
 		}
 	}
 	else

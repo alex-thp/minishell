@@ -6,7 +6,7 @@
 /*   By: adylewsk <adylewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 16:46:10 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/12/01 19:12:54 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/18 21:02:32 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <limits.h>
 # include "macro.h"
 
 /* Len */
@@ -35,6 +36,7 @@ int		ft_max(int a, int b);
 int		ft_min(int a, int b);
 int		ft_strisdigit(char *str);
 int		ft_tabisdigit(char **tab);
+int		ft_strsupint(char *str);
 
 /* Char */
 int		ft_tolower(int c);

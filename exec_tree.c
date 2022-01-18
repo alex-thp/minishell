@@ -6,7 +6,7 @@
 /*   By: adylewsk <adylewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 21:11:45 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/17 21:11:46 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/18 22:35:06 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ void	parent(int *pip, t_node *head, t_datas *datas)
 	{
 		dup2(pip[1], STDOUT_FILENO);
 		execute_tree(head->left, datas);
-		exit(0);
+		exit(g_variable);
 	}
 	close(pip[1]);
-	g_variable = ft_wait(pid);
+	waitpid(pid, NULL, 0);
 }
 
 void	child(int *pip, t_node *head, t_datas *datas)
@@ -79,6 +79,7 @@ void	execute_tree(t_node *head, t_datas *datas)
 	int		pid;
 
 	pipe(pip);
+	signal(SIGCHLD, NULL);
 	pid = 0;
 	if (!head->line)
 	{

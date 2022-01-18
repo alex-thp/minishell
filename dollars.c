@@ -6,7 +6,7 @@
 /*   By: adylewsk <adylewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 21:14:54 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/18 20:02:51 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/18 20:49:40 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ char	*add_variable_to_str(char *result, int i, t_datas *datas)
 	while (tmp[++i])
 		str[j + i] = tmp[i];
 	i += j;
-	while (result[j] && result[j] != ' ' && result[j] != '"')
+	while (result[j] && result[j] != ' '
+		&& result[j] != '"' && result[j] != '\'')
 		j++;
 	while (result[j])
 		str[i++] = result[j++];
@@ -90,26 +91,28 @@ char	*change_dollar(t_datas *datas, char *result, int i)
 char	*dollar_interpretation(char *str, t_datas *datas)
 {
 	int		i;
+	int		quote_len;
 	char	*result;
 
 	i = 0;
+	quote_len = 0;
 	result = str;
 	while (result[i])
 	{
-		while (result[i] && result[i] != '\'')
-		{
-			result = change_dollar(datas, result, i);
-			i++;
-		}
 		if (result[i] == '\'')
+			i += ft_closed_quote(result + i);
+		else if (result[i] == '"')
 		{
-			i++;
-			if (is_finished(result, i) != -1)
-				i = is_finished(result, i);
-			else
-				return (result);
-			i++;
+			quote_len = ft_closed_quote(result + i);
+			quote_len += i;
+			while (i < quote_len)
+			{
+				result = change_dollar(datas, result, i);
+				i++;
+			}
 		}
+		result = change_dollar(datas, result, i);
+		i++;
 	}
 	return (result);
 }

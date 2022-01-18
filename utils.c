@@ -6,7 +6,7 @@
 /*   By: adylewsk <adylewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 21:14:33 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/18 15:25:44 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/18 20:35:20 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char	*interpret_dollar(char *str, t_datas *datas)
 
 	i = 0;
 	j = 0;
-	while (str[j] && str[j] != ' ' && str[j] != '"')
+	while (str[j] && str[j] != ' ' && str[j] != '"' && str[j] != '\'')
 		j++;
 	if (j == 0)
 		return (NULL);

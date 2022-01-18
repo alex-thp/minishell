@@ -6,7 +6,7 @@
 /*   By: adylewsk <adylewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 21:07:41 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/18 18:59:01 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/18 21:09:10 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,14 @@ int	ft_env(char **env, t_node *head)
 
 int	ft_exit(t_datas *datas, t_node *head)
 {
-	int	value;
+	unsigned int	value;
 
 	value = 0;
-	ft_putstr("exit\n");
+	if (datas->head->left == NULL)
+		ft_putstr("exit\n");
 	if (head->cmd->args[1])
 	{
-		if (ft_strisdigit(head->cmd->args[1]))
+		if (!ft_strsupint(head->cmd->args[1]))
 			value = ft_atoi(head->cmd->args[1]);
 		else
 		{
