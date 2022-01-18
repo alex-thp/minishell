@@ -6,7 +6,7 @@
 /*   By: adylewsk <adylewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 21:16:58 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/17 21:17:00 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/18 14:51:30 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void			execute_tree(t_node *head, t_datas *datas);
  */
 
 int				ft_echo(char **strs, t_node *head);
-int				ft_pwd(t_node *head);
+int				ft_pwd(t_node *head, char **env);
 int				ft_export(char ***env, int *len_env, char *var);
 int				ft_unset(char **env, char *var);
 

@@ -6,7 +6,7 @@
 /*   By: adylewsk <adylewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 21:10:45 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/17 21:10:49 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/18 15:02:09 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@ char	*get_value(char *env)
 	i++;
 	while (env[i + j])
 		j++;
-	value = malloc(sizeof(char) * j);
-	value[j - 1] = 0;
+	value = ft_calloc(j, sizeof(char));
 	j = 0;
 	while (env[i + j])
 	{

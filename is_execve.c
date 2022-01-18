@@ -6,7 +6,7 @@
 /*   By: adylewsk <adylewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 21:15:38 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/17 21:15:41 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/18 14:53:09 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	exec_this_one(int i, t_node *head, t_datas *datas)
 	if (i == 0)
 		return (ft_cd(head->cmd->args, datas));
 	else if (i == 1)
-		return (ft_pwd(head));
+		return (ft_pwd(head, datas->env));
 	else if (i == 2)
 		return (ft_echo(head->cmd->args, head));
 	else if (i == 3)

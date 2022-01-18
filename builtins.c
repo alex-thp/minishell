@@ -6,7 +6,7 @@
 /*   By: adylewsk <adylewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 21:09:20 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/17 21:17:57 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/18 15:04:21 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,21 +107,29 @@ int	ft_echo(char **strs, t_node *head)
 	return (0);
 }
 
-int	ft_pwd(t_node *head)
+int	ft_pwd(t_node *head, char **env)
 {
 	char	*buff;
 	int		out;
+	int		envindex;
 
 	out = redir_builtins(head);
+	buff = NULL;
 	buff = getcwd(NULL, 0);
-	if (head->redir->fd_out == -2)
-		printf("%s\n", buff);
-	else
+	if (!buff)
 	{
-		ft_putstr_fd(buff, out);
-		ft_putstr_fd("\n", out);
-	}
+		envindex = get_envindex(env, "PWD");
+		if (envindex >= 0)
+			buff = get_value(env[envindex]);
+	}	
 	if (buff)
+	{
+		if (head->redir->fd_out == -2)
+			ft_putstr_fd(buff, 1);
+		else
+			ft_putstr_fd(buff, out);
+		ft_putstr_fd("\n", out);
 		free(buff);
+	}
 	return (0);
 }
