@@ -6,7 +6,7 @@
 /*   By: adylewsk <adylewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 21:07:41 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/17 21:07:44 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/18 15:27:55 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	ft_cd(char **args, t_datas *datas)
 		buff = getcwd(NULL, 0);
 		tmp = ft_strjoin("OLDPWD=", buff);
 		modify_env("OLDPWD=", tmp, datas);
+		free(tmp);
 		free(buff);
 		if (args[1])
 			result = chdir(args[1]);
@@ -41,6 +42,7 @@ int	ft_cd(char **args, t_datas *datas)
 		buff = getcwd(NULL, 0);
 		tmp = ft_strjoin("PWD=", buff);
 		modify_env("PWD=", tmp, datas);
+		free(tmp);
 		free(buff);
 	}
 	return (result);
@@ -78,8 +80,8 @@ int	ft_exit(t_datas *datas, t_node *head)
 		ft_putstr_fd(": no argument required\n", 2);
 	}
 	free_tree(datas->head);
-	ft_freetab(datas->env);
 	free(datas->command);
+	ft_freetab(datas->env);
 	free(datas);
 	exit(0);
 	return (0);

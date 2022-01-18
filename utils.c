@@ -6,7 +6,7 @@
 /*   By: adylewsk <adylewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 21:14:33 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/17 21:14:44 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/18 15:25:44 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void	modify_env(char *to_replace, char *to_insert, t_datas *datas)
 	int		i;
 
 	i = 0;
+	if (!to_insert)
+		return ;
 	while ((datas->env[i]
 			&& ft_strncmp(to_replace, datas->env[i],
 				ft_strlen(to_replace)) != 0))
@@ -73,7 +75,7 @@ void	modify_env(char *to_replace, char *to_insert, t_datas *datas)
 	if (datas->env[i])
 	{
 		free(datas->env[i]);
-		datas->env[i] = to_insert;
+		datas->env[i] = ft_strdup(to_insert);
 	}
 }
 
