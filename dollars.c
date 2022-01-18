@@ -6,7 +6,7 @@
 /*   By: adylewsk <adylewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 21:14:54 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/17 21:14:56 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/18 18:09:53 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*add_return_code(char *str, int i)
 
 	j = -1;
 	tmp = ft_itoa(g_variable);
-	result = malloc(sizeof(char) * ft_strlen(str) + ft_strlen(tmp) + 1);
+	result = ft_calloc(ft_strlen(str) + ft_strlen(tmp) + 1, sizeof(char));
 	while (++j < i)
 		result[j] = str[j];
 	k = -1;
@@ -69,7 +69,6 @@ char	*add_return_code(char *str, int i)
 		result[j] = str[i];
 		j++;
 	}
-	result[j] = 0;
 	free(str);
 	free(tmp);
 	return (result);
