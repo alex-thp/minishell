@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adylewsk <adylewsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 21:11:26 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/17 21:11:28 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/18 18:45:48 by ade-temm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ char	**ft_custom_split(char *str, t_datas *datas)
 	while (j < i)
 	{
 		result[j] = get_word(str, &index);
+		ft_putstr_fd(result[j], 2);
 		result[j] = dollar_interpretation(result[j], datas);
 		index++;
 		j++;

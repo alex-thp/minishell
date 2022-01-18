@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adylewsk <adylewsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 21:16:46 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/17 21:16:47 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/18 18:51:20 by ade-temm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	**lexer(char *command, t_datas *datas)
 
 	if (!command || !*command || check_pipe_error(command) == 1)
 	{
-		printf("error with pipe\n");
+		printf("minishell : syntax error or empty line\n");
 		return (NULL);
 	}
 	result = parse_command(command, datas);
