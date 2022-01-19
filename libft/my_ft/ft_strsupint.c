@@ -6,7 +6,7 @@
 /*   By: adylewsk <adylewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 20:51:52 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/18 21:06:14 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/19 14:44:30 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static	int	ft_check_nbr(char **str)
 
 int	ft_strsupint(char *str)
 {
-	int	sign;
+	int		sign;
 	long	nbr;
 
 	sign = 0;
@@ -46,5 +46,4 @@ int	ft_strsupint(char *str)
 		str++;
 	}
 	return (0);
-	
 }
