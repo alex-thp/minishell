@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_tree.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adylewsk <adylewsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 21:11:45 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/18 22:35:06 by adylewsk         ###   ########.fr       */
+/*   Updated: 2022/01/19 12:50:07 by ade-temm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void	execute_tree(t_node *head, t_datas *datas)
 			first(head, datas);
 		g_variable = ft_wait(pid);
 	}
+	waitpid(-1, NULL, 0);
 	close(pip[0]);
 	close(pip[1]);
 }
