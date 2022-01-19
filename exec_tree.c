@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 21:11:45 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/19 12:50:07 by ade-temm         ###   ########.fr       */
+/*   Updated: 2022/01/19 14:49:10 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	child(int *pip, t_node *head, t_datas *datas)
 	if (head->cmd->name && head->redir->fd_in != -1)
 		exec_node(head, datas);
 	else
-		ft_putstr_fd("parse error\n", 2);
+		ft_putstr_fd("permission denied\n", 2);
 	exit(g_variable);
 }
 
@@ -69,7 +69,7 @@ void	first(t_node *head, t_datas *datas)
 	if (head->cmd->name && head->redir->fd_in != -1)
 		exec_node(head, datas);
 	else
-		ft_putstr_fd("parse error\n", 2);
+		ft_putstr_fd("permission denied\n", 2);
 	exit(g_variable);
 }
 

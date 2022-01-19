@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 21:16:46 by adylewsk          #+#    #+#             */
-/*   Updated: 2022/01/18 18:51:20 by ade-temm         ###   ########.fr       */
+/*   Updated: 2022/01/19 14:57:29 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ char	**lexer(char *command, t_datas *datas)
 {
 	char	**result;
 
-	if (!command || !*command || check_pipe_error(command) == 1)
+	if (!command || !*command || check_pipe_error(command) == 1
+		|| command[ft_strlen(command) - 1] == '|')
 	{
 		printf("minishell : syntax error or empty line\n");
 		return (NULL);
